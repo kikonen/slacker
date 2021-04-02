@@ -12,8 +12,8 @@ services:
       - DATABASE_CONNECTIONSTRING=postgres://db:5432/messages
     working_dir: /app
     volumes:
-    - ./messages-service:/app
-    - ./messages-service/node_modules:/app/node_modules
+    - ./messages-service:/app2
+    - ./messages-service/node_modules:/app2/node_modules
     depends_on:
       - db
     command: "/bin/bash -c 'yarn start'"

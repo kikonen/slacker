@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc --project ./",
     "dev": "",
-    "start": "sleep 100000"
+    "start": "node src/server.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
