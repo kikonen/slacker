@@ -6,7 +6,6 @@ services:
     container_name: messages
     ports:
       - 8081:8081
-      - 3000:3000
     environment:
       - SERVER_PORT=8081
       - DATABASE_CONNECTIONSTRING=postgres://db:5432/messages

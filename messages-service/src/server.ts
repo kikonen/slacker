@@ -1,12 +1,12 @@
 import express from 'express';
 
 const app = express();
-const port = 3000;
+const port = process.env.SERVER_PORT;
 
 app.get('/', (req, res) => {
   res.send('Hello World! Via typescript');
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Listening at http://localhost:${port}`);
 });
