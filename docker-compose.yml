@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  messages:
+    build: ./messages-service
+    container_name: messages
+    ports:
+      - 8081:8081
+      - 3000:3000
+    environment:
+      - SERVER_PORT=8081
+      - DATABASE_CONNECTIONSTRING=postgres://db:5432/messages
+    working_dir: /app
+    volumes:
+    - ./messages-service:/app
+    - ./messages-service/node_modules:/app/node_modules
+    depends_on:
+      - db
+    command: "/bin/bash -c 'yarn start'"
+
+  # docker run -it --rm -p 5432:5423 --name potgres -v ./data/postges:/data/db postgres
+  db:
+    image: postgres:13.2
+    restart: always
+    environment:
+      PGDATA: /data/db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    container_name: db
+    volumes:
+    - postgres_data:/data
+    ports:
+      - 5432:5432
+
+  zookeeper:
+    image: "docker.io/bitnami/zookeeper:3"
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka:
+    image: "docker.io/bitnami/kafka:latest"
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres_data:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local

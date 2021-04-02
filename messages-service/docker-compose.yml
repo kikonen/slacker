@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  messages:
+    build: .
+    ports:
+      - 8081:8081
+    environment:
+      - SERVER_PORT=8081
+      - DATABASE_CONNECTIONSTRING=slacker_postgres://db:5432/messages
+    working_dir: /app
+    volumes:
+    - ./:/app
+    depends_on:
+      - db
+    command: "npm start"

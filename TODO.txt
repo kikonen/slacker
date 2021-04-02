@@ -1,0 +1,15 @@
+## save
+
+version: "2"
+services:
+  node:
+    image: "node:14"
+    user: "node"
+    working_dir: /app
+    environment:
+    - NODE_ENV=production
+    volumes:
+    - ./:/app
+    expose:
+    - "8081"
+    command: "npm start"
