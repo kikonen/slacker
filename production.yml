@@ -1,0 +1,8 @@
+services:
+  api:
+    environment:
+      PRODUCTION: 'true'
+
+  ui:
+    environment:
+      PRODUCTION: 'true'

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "tsc --project ./",
-    "dev": "",
+    "dev": "node src/server.js",
     "start": "node src/server.js"
   },
   "devDependencies": {

@@ -1,23 +1,42 @@
 version: '3.8'
 
 services:
-  messages:
-    build: ./messages-service
-    container_name: messages
+  api:
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile
+    container_name: api
     ports:
       - 8081:8081
     environment:
       - SERVER_PORT=8081
-      - DATABASE_CONNECTIONSTRING=postgres://db:5432/messages
+      - DATABASE_CONNECTIONSTRING=postgres://db:5432/api
     working_dir: /app
     volumes:
-    - ./messages-service:/app2
-    - ./messages-service/node_modules:/app2/node_modules
+    - ./api-service:/app
+    - api_node_modules:/app/node_modules
     depends_on:
       - db
-    command: "/bin/bash -c 'yarn start'"
+      - kafka
+    command: sh -c "sleep infinity"
 
-  # docker run -it --rm -p 5432:5423 --name potgres -v ./data/postges:/data/db postgres
+  ui:
+    build:
+      context: ./ui-service
+      dockerfile: Dockerfile
+    container_name: ui
+    ports:
+      - 3000:3000
+    environment:
+      - SERVER_PORT=8080
+    working_dir: /app
+    volumes:
+    - ./ui-service:/app
+    - ui_node_modules:/app/node_modules
+    depends_on:
+      - api
+    command: sh -c "yarn install && yarn run start"
+
   db:
     image: postgres:13.2
     restart: always
@@ -40,6 +59,7 @@ services:
       - "zookeeper_data:/bitnami"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+
   kafka:
     image: "docker.io/bitnami/kafka:latest"
     ports:
@@ -56,7 +76,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8085:8080
 
 volumes:
   postgres_data:
@@ -64,3 +84,5 @@ volumes:
     driver: local
   kafka_data:
     driver: local
+  api_node_modules:
+  ui_node_modules:

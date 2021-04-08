@@ -11,6 +11,10 @@ docker network create slacker_postgres
 psql -h localhost -U postgres
 docker exec -it db psql -h localhost -U postgres
 
+# NOTE KI updated modules
+docker-compose run ui sh
+yarn outdated
+yarn upgrade nodemon
 ```
 
 ## References
@@ -21,3 +25,10 @@ docker exec -it db psql -h localhost -U postgres
 - https://www.docker.com/blog/how-to-setup-your-local-node-js-development-environment-using-docker/
 - https://hub.docker.com/_/postgres
 - https://www.pullrequest.com/blog/intro-to-using-typescript-in-a-nodejs-express-project/
+- https://medium.com/@etiennerouzeaud/play-databases-with-adminer-and-docker-53dc7789f35f
+- https://stackoverflow.com/questions/46440909/how-to-configure-different-dockerfile-for-development-and-production/46441127
+- https://gist.github.com/przbadu/4a62a5fc5f117cda1ed5dc5409bd4ac1
+- https://create-react-app.dev/docs/adding-typescript/
+- https://github.com/facebook/create-react-app/issues/9792
+- https://stackoverflow.com/questions/64654145/can-i-use-a-custom-node-modules-path-with-create-react-app
+- https://stackoverflow.com/questions/43274925/development-server-of-create-react-app-does-not-auto-refresh
