@@ -4,6 +4,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
+User=rails
 Type=oneshot
 RemainAfterExit=true
 WorkingDirectory=/home/docker/compose/slacker

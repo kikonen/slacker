@@ -32,3 +32,6 @@ yarn upgrade nodemon
 - https://github.com/facebook/create-react-app/issues/9792
 - https://stackoverflow.com/questions/64654145/can-i-use-a-custom-node-modules-path-with-create-react-app
 - https://stackoverflow.com/questions/43274925/development-server-of-create-react-app-does-not-auto-refresh
+- https://phoenixnap.com/kb/nginx-reverse-proxy
+- https://community.home-assistant.io/t/how-do-you-manage-firewall-rules-on-docker-hosts/105982
+- https://uilicious.com/blog/5-fatal-docker-gotchas-for-new-users/
