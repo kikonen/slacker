@@ -26,3 +26,16 @@ services:
     volumes:
       - ./nginx-proxy/config:/etc/nginx
       - ./nginx-proxy/certs:/etc/ssl/private
+
+
+server {
+    listen 8080;
+    server_name production_slacker;
+
+    location /ui {
+        rewrite /ui(.*) /origin-d$1;
+        proxy_pass http://localhost:3000;
+        proxy_redirect / /ui;
+        sub_filter 'href="/' 'href="/ui';
+    }
+}
