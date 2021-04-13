@@ -55,6 +55,8 @@ docker-compose run schema bin/rails generate migration Users name:string email:s
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy
+- https://github.com/nginx-proxy/nginx-proxy
+- https://stackoverflow.com/questions/53580128/isolate-containers-on-the-jwilder-nginx-proxy-network
 
 ### Schema
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590

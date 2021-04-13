@@ -13,3 +13,16 @@ services:
     expose:
     - "8081"
     command: "npm start"
+
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy:0.8.0
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - default
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx-proxy/config:/etc/nginx
+      - ./nginx-proxy/certs:/etc/ssl/private

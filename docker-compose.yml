@@ -15,6 +15,8 @@ services:
     volumes:
     - ./api-service:/app
     - api_node_modules:/app/node_modules
+    networks:
+      - default
     depends_on:
       - db
       - kafka
@@ -29,10 +31,14 @@ services:
       - "3000"
     environment:
       - SERVER_PORT=3000
+      - VIRTUAL_HOST=ui.local
+      - VIRTUAL_PORT=3000
     working_dir: /app
     volumes:
     - ./ui-service:/app
     - ui_node_modules:/app/node_modules
+    networks:
+      - default
     depends_on:
       - api
     command: sh -c "yarn run start"
@@ -61,6 +67,8 @@ services:
     container_name: db
     volumes:
     - postgres_data:/data
+    networks:
+      - default
     ports:
       - "5432:5432"
 
@@ -70,34 +78,51 @@ services:
       - "2181"
     volumes:
       - "zookeeper_data:/bitnami"
+    networks:
+      - default
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
 
   kafka:
     image: "docker.io/bitnami/kafka:latest"
-    ports:
-      - "9092"
-    volumes:
-      - "kafka_data:/bitnami"
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - "kafka_data:/bitnami"
+    networks:
+      - default
+    ports:
+      - "9092"
     depends_on:
       - zookeeper
 
   adminer:
     image: adminer
     restart: always
+    networks:
+      - default
     ports:
-      - "8080:8080"
+      - "8085:8080"
 
   nginx-proxy:
     image: jwilder/nginx-proxy:0.8.0
-    ports:
-      - "80:80"
+    environment:
+      - DEFAULT_HOST=ui.local
     volumes:
-      - ./nginx-proxy/config:/etc/nginx
-      - ./nginx-proxy/certs:/etc/ssl/private
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - default
+    ports:
+      - "8080:80"
+
+  whoami:
+    image: jwilder/whoami
+    expose:
+      - "8000"
+    environment:
+      - VIRTUAL_HOST=whoami.local
+      - VIRTUAL_PORT=8000
 
 volumes:
   postgres_data:
