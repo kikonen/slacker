@@ -40,6 +40,10 @@ services:
   schema:
     build: ./schema
     container_name: schema
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: slacker
     working_dir: /app
     volumes:
     - ./schema:/app
@@ -53,12 +57,12 @@ services:
       PGDATA: /data/db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: postgres
+      POSTGRES_DB: slacker
     container_name: db
     volumes:
     - postgres_data:/data
     ports:
-      - "5432"
+      - "5432:5432"
 
   zookeeper:
     image: "docker.io/bitnami/zookeeper:3"
@@ -85,7 +89,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - "8080"
+      - "8080:8080"
 
   nginx-proxy:
     image: jwilder/nginx-proxy:0.8.0

@@ -17,6 +17,11 @@ yarn outdated
 yarn upgrade nodemon
 ```
 
+## DB migrate
+```
+docker-compose run schema rake db:migrate
+```
+
 ## References
 ### NodeJS
 - https://www.docker.com/blog/how-to-setup-your-local-node-js-development-environment-using-docker/
@@ -44,3 +49,6 @@ yarn upgrade nodemon
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy
+
+### Schema
+- https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590
