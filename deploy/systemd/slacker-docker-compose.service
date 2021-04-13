@@ -7,7 +7,7 @@ After=docker.service
 User=rails
 Type=oneshot
 RemainAfterExit=true
-WorkingDirectory=/home/docker/compose/slacker
+WorkingDirectory=/home/docker/slacker
 ExecStart=/usr/bin/docker-compose up -d --remove-orphans
 ExecStop=/usr/bin/docker-compose down
 

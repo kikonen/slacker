@@ -12,7 +12,7 @@ psql -h localhost -U postgres
 docker exec -it db psql -h localhost -U postgres
 
 # NOTE KI updated modules
-docker-compose run ui sh
+docker-compose exec ui sh
 yarn outdated
 yarn upgrade nodemon
 ```

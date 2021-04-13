@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: api
     ports:
-      - 3100
+      - "3100"
     environment:
       - SERVER_PORT=3100
       - DATABASE_CONNECTIONSTRING=postgres://db:5432/api
@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile
     container_name: ui
     ports:
-      - 3000
+      - "3000"
     environment:
       - SERVER_PORT=3000
     working_dir: /app
@@ -36,6 +36,15 @@ services:
     depends_on:
       - api
     command: sh -c "yarn run start"
+
+  schema:
+    build: ./schema
+    container_name: schema
+    working_dir: /app
+    volumes:
+    - ./schema:/app
+    depends_on:
+      - db
 
   db:
     image: postgres:13.2
@@ -49,12 +58,12 @@ services:
     volumes:
     - postgres_data:/data
     ports:
-      - 5432
+      - "5432"
 
   zookeeper:
     image: "docker.io/bitnami/zookeeper:3"
     ports:
-      - 2181
+      - "2181"
     volumes:
       - "zookeeper_data:/bitnami"
     environment:
@@ -63,7 +72,7 @@ services:
   kafka:
     image: "docker.io/bitnami/kafka:latest"
     ports:
-      - 9092
+      - "9092"
     volumes:
       - "kafka_data:/bitnami"
     environment:
@@ -76,7 +85,15 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080
+      - "8080"
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy:0.8.0
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-proxy/config:/etc/nginx
+      - ./nginx-proxy/certs:/etc/ssl/private
 
 volumes:
   postgres_data:
