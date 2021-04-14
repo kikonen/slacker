@@ -70,7 +70,7 @@ services:
     networks:
       - default
     ports:
-      - "5432:5432"
+      - "5432"
 
   zookeeper:
     image: "docker.io/bitnami/zookeeper:3"
@@ -103,19 +103,7 @@ services:
     networks:
       - default
     ports:
-      - "8085:8080"
-
-  nginx-proxy:
-    image: jwilder/nginx-proxy:0.8.0
-    container_name: nginx_proxy
-    environment:
-      - DEFAULT_HOST=ui.local
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    networks:
-      - default
-    ports:
-      - "8082:80"
+      - "8080"
 
   nginx:
     image: nginx:1.19.9
