@@ -25,7 +25,7 @@ docker-compose run schema rake db:migrate
 
 ### Create migration
 ```bash
-docker-compose run schema bin/rails generate migration Users name:string email:string
+docker-compose run schema bin/rails generate migration CreateUsers name:string email:string
 ```
 
 ## References
@@ -35,6 +35,7 @@ docker-compose run schema bin/rails generate migration Users name:string email:s
 - https://github.com/nodejs/docker-node/blob/main/README.md#how-to-use-this-image
 - https://www.pullrequest.com/blog/intro-to-using-typescript-in-a-nodejs-express-project/
 - https://shemleong.medium.com/using-docker-and-yarn-for-development-2546e567ad2
+- https://www.toptal.com/express-js/nodejs-typescript-rest-api-pt-1
 
 ### React
 - https://create-react-app.dev/docs/adding-typescript/
@@ -42,6 +43,8 @@ docker-compose run schema bin/rails generate migration Users name:string email:s
 - https://gist.github.com/przbadu/4a62a5fc5f117cda1ed5dc5409bd4ac1
 - https://stackoverflow.com/questions/64654145/can-i-use-a-custom-node-modules-path-with-create-react-app
 - https://stackoverflow.com/questions/43274925/development-server-of-create-react-app-does-not-auto-refresh
+- https://stackoverflow.com/questions/49429906/how-should-i-configure-create-react-app-to-serve-app-from-subdirectory
+- https://skryvets.com/blog/2018/09/20/an-elegant-solution-of-deploying-react-app-into-a-subdirectory/
 
 ### Docker
 - https://hub.docker.com/_/postgres
@@ -59,6 +62,10 @@ docker-compose run schema bin/rails generate migration Users name:string email:s
 - https://stackoverflow.com/questions/53580128/isolate-containers-on-the-jwilder-nginx-proxy-network
 - https://dzone.com/articles/how-to-nginx-reverse-proxy-with-docker-compose
 - https://stackoverflow.com/questions/51009692/docker-nginx-proxy-nginx-connect-failed-111-connection-refused-while-connec
+- https://hub.docker.com/_/nginx
+
+### Kafka
+- https://github.com/bitnami/bitnami-docker-kafka
 
 ### Schema
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590

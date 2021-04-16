@@ -39,3 +39,29 @@ server {
         sub_filter 'href="/' 'href="/ui';
     }
 }
+
+services:
+  api:
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - "3100"
+    environment:
+      - SERVER_PORT=3100
+      - DATABASE_CONNECTIONSTRING=postgres://db:5432/api
+    working_dir: /app
+    volumes:
+    - ./api-service:/app
+    - api_node_modules:/app/node_modules
+    networks:
+      - default
+    depends_on:
+      - db
+      - kafka
+    command: sh -c "sleep infinity"
+
+
+LOg
+nginx        | 172.24.0.1 - - [16/Apr/2021:20:49:11 +0000] "GET /api/bar HTTP/1.1" 404 142 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36 OPR/75.0.3969.171" ""-

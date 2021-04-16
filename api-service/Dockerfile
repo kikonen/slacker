@@ -6,4 +6,4 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn build
+RUN yarn run build
