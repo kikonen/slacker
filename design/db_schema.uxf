@@ -55,6 +55,8 @@ updated_at
 --
 id
 type
+target_event_id
+deleted
 content
 channel_id
 owner_id
@@ -87,15 +89,17 @@ created_at
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>550</x>
+      <x>530</x>
       <y>140</y>
-      <w>110</w>
-      <h>70</h>
+      <w>140</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>ChannelMember
 --
 channel_id
 user_id
+last_read_event_id
+last_read_event_ts
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -104,22 +108,22 @@ user_id
     <coordinates>
       <x>450</x>
       <y>160</y>
-      <w>120</w>
+      <w>100</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;110.0;10.0;10.0;100.0;10.0</additional_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>650</x>
+      <x>660</x>
       <y>160</y>
-      <w>110</w>
+      <w>100</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>90.0;110.0;90.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>80.0;110.0;80.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -188,5 +192,16 @@ updated_at
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>230</y>
+      <w>160</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;320.0;140.0;10.0</additional_attributes>
   </element>
 </diagram>

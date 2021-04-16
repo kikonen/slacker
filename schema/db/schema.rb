@@ -18,10 +18,13 @@ ActiveRecord::Schema.define(version: 2021_04_16_173739) do
   create_table "channel_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
+    t.datetime "last_read_event_ts"
     t.uuid "channel_id", null: false
     t.uuid "user_id", null: false
+    t.uuid "last_read_event_id"
     t.index ["channel_id", "user_id"], name: "idx_members", unique: true
     t.index ["channel_id"], name: "idx_member_channel"
+    t.index ["last_read_event_id"], name: "idx_member_event"
     t.index ["user_id"], name: "idx_member_user"
   end
 
@@ -36,11 +39,14 @@ ActiveRecord::Schema.define(version: 2021_04_16_173739) do
   create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "type", null: false
     t.string "content", null: false
+    t.boolean "deleted", default: false, null: false
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
     t.uuid "channel_id", null: false
     t.uuid "user_id", null: false
+    t.uuid "target_event_id"
     t.index ["channel_id"], name: "idx_event_channel"
+    t.index ["target_event_id"], name: "idx_event_target"
     t.index ["user_id"], name: "idx_event_user"
   end
 
@@ -76,8 +82,10 @@ ActiveRecord::Schema.define(version: 2021_04_16_173739) do
   end
 
   add_foreign_key "channel_members", "channels"
+  add_foreign_key "channel_members", "events", column: "last_read_event_id"
   add_foreign_key "channel_members", "users"
   add_foreign_key "events", "channels"
+  add_foreign_key "events", "events", column: "target_event_id"
   add_foreign_key "events", "users"
   add_foreign_key "tokens", "users"
   add_foreign_key "users", "roles"

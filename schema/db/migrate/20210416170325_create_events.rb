@@ -4,6 +4,8 @@ class CreateEvents < ActiveRecord::Migration[6.1]
       t.string :type, null: false
       t.string :content, null: false
 
+      t.boolean :deleted, null: false, default: false
+
       t.timestamp :created_at, null: false, default: -> { 'now()' }
       t.timestamp :updated_at, null: false, default: -> { 'now()' }
     end
@@ -25,5 +27,13 @@ class CreateEvents < ActiveRecord::Migration[6.1]
       foreign_key: true,
       type: :uuid,
       index: { name: 'idx_event_user' })
+
+    add_reference(
+      :events,
+      :target_event,
+      null: true,
+      foreign_key: { to_table: :events },
+      type: :uuid,
+      index: { name: 'idx_event_target' })
   end
 end
