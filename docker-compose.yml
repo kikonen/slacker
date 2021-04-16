@@ -55,6 +55,7 @@ services:
     - ./schema:/app
     depends_on:
       - db
+    command: sh -c "sleep infinity"
 
   db:
     image: postgres:13.2
