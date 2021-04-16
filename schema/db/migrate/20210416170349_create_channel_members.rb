@@ -1,7 +1,11 @@
 class CreateChannelMembers < ActiveRecord::Migration[6.1]
   def change
     create_table :channel_members, id: :uuid do |t|
+      t.timestamp :created_at, null: false, default: -> { 'now()' }
+      t.timestamp :updated_at, null: false, default: -> { 'now()' }
     end
+
+    add_updated_at_trigger(:channel_members)
 
     add_reference(
       :channel_members,

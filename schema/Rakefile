@@ -3,4 +3,6 @@
 
 require_relative "config/application"
 
+require_relative 'lib/updated_at_trigger'
+
 Rails.application.load_tasks

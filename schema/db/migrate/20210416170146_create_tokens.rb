@@ -3,10 +3,13 @@ class CreateTokens < ActiveRecord::Migration[6.1]
     create_table :tokens, id: :uuid do |t|
       t.string :token, null: false
 
-      t.timestamps
+      t.timestamp :created_at, null: false, default: -> { 'now()' }
+      t.timestamp :updated_at, null: false, default: -> { 'now()' }
 
       t.index [:token], unique: true
     end
+
+    add_updated_at_trigger(:tokens)
 
     add_reference(
       :tokens,

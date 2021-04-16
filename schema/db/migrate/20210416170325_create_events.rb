@@ -4,8 +4,11 @@ class CreateEvents < ActiveRecord::Migration[6.1]
       t.string :type, null: false
       t.string :content, null: false
 
-      t.timestamps
+      t.timestamp :created_at, null: false, default: -> { 'now()' }
+      t.timestamp :updated_at, null: false, default: -> { 'now()' }
     end
+
+    add_updated_at_trigger(:events)
 
     add_reference(
       :events,

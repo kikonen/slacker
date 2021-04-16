@@ -9,10 +9,13 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :password
       t.string :salt
 
-      t.timestamps
+      t.timestamp :created_at, null: false, default: -> { 'now()' }
+      t.timestamp :updated_at, null: false, default: -> { 'now()' }
 
       t.index [:email], unique: true
     end
+
+    add_updated_at_trigger(:users)
 
     add_reference(
       :users,
