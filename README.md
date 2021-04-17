@@ -36,11 +36,13 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.pullrequest.com/blog/intro-to-using-typescript-in-a-nodejs-express-project/
 - https://shemleong.medium.com/using-docker-and-yarn-for-development-2546e567ad2
 - https://stackoverflow.com/questions/48855130/why-chrome-cant-inspect-nodejs-code-in-docker-container
+- https://blog.risingstack.com/how-to-debug-a-node-js-app-in-a-docker-container/
 
 ### Express
 - https://www.toptal.com/express-js/nodejs-typescript-rest-api-pt-1
 - https://developer.okta.com/blog/2018/11/15/node-express-typescript
 - https://codeforgeek.com/render-html-file-expressjs/
+- https://ejs.co
 
 ### React
 - https://create-react-app.dev/docs/adding-typescript/
@@ -72,6 +74,11 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
+
+### DB
+- https://hub.docker.com/_/postgres
+- https://node-postgres.com
+- https://www.smashingmagazine.com/2020/04/express-api-backend-project-postgresql/
 
 ### DB schema
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590

@@ -27,7 +27,6 @@ app.get('/callback', (req, res) => {
   const authuser = req.query.authuser;
   const prompt = req.query.prompt;
 
-  debugger;
   res.send(
 `Authenticated...
 <br>code = ${code}

@@ -28,8 +28,8 @@ services:
       - "3100"
       - "9201:9201"
     environment:
-      - SERVER_PORT=3100
-      - DATABASE_CONNECTION_STRING=postgres://db:5432
+      SERVER_PORT: "3100"
+      DATABASE_CONNECTION_STRING: postgresql://postgres@db:5432/slacker
     working_dir: /app
     volumes:
     - ./api-service:/app
@@ -50,11 +50,12 @@ services:
       - "3200"
       - "9202:9202"
     environment:
-      - SERVER_PORT=3200
-      - DATABASE_CONNECTION_STRING=postgres://db:5432
-      - AUTH_API=https://accounts.google.com/o/oauth2/v2/auth
-      - AUTH_CLIENT_ID=1091827026589-4c1icp593q61rr6a0ug316kue1fvmogv.apps.googleusercontent.com
-      - AUTH_REDIRECT_URI=http://localhost:8080/auth/callback
+      SERVER_PORT: "3200"
+      POSTGRES_PASSWORD: password
+      DATABASE_CONNECTION_STRING: postgresql://postgres@db:5432/slacker
+      AUTH_API: https://accounts.google.com/o/oauth2/v2/auth
+      AUTH_CLIENT_ID: "1091827026589-4c1icp593q61rr6a0ug316kue1fvmogv.apps.googleusercontent.com"
+      AUTH_REDIRECT_URI: http://localhost:8080/auth/callback
     working_dir: /app
     volumes:
     - ./auth-service:/app
@@ -74,9 +75,7 @@ services:
       - "3000"
       - "9203:9203"
     environment:
-      - SERVER_PORT=3000
-      - VIRTUAL_HOST=ui.local
-      - VIRTUAL_PORT=3000
+      SERVER_PORT: "3000"
     working_dir: /app
     volumes:
     - ./ui-service:/app
@@ -127,14 +126,14 @@ services:
     networks:
       - default
     environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
+      ALLOW_ANONYMOUS_LOGIN: "yes"
 
   kafka:
     image: "docker.io/bitnami/kafka:latest"
     container_name: kafka
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      ALLOW_PLAINTEXT_LISTENER: "yes"
     volumes:
       - "kafka_data:/bitnami"
     networks:
@@ -157,9 +156,6 @@ services:
     image: jwilder/whoami
     expose:
       - "8000"
-    environment:
-      - VIRTUAL_HOST=whoami.local
-      - VIRTUAL_PORT=8000
 volumes:
   postgres_data:
   zookeeper_data:
