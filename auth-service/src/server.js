@@ -5,17 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var app = express_1.default();
-var port = parseInt(process.env.SERVER_PORT || '3100', 10);
+var port = parseInt(process.env.SERVER_PORT || '3200', 10);
 app.get('/', function (req, res) {
-    res.send('Hello World! Via typescript');
+    res.send('OAuth or such...');
 });
-app.get('/bar', function (req, res) {
-    res.send('Bar! Via typescript');
-});
-app.use(function (req, res, next) {
-    res.status(404);
-    res.render("Nope");
-});
-app.listen(port, 'api', function () {
+app.listen(port, 'auth', function () {
     console.log("Listening at http://localhost:" + port);
 });

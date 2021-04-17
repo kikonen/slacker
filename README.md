@@ -72,3 +72,6 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590
 - https://guides.rubyonrails.org/active_record_migrations.html
 - https://pawelurbanek.com/uuid-order-rails
+
+### OAuth
+- https://github.com/googleapis/google-api-nodejs-client

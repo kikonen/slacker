@@ -1,6 +1,24 @@
 version: '3.3'
 
 services:
+  nginx:
+    image: nginx:1.19.9
+    container_name: nginx
+    volumes:
+     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+     - ./nginx/reverse_proxy.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - default
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+      - auth
+      - ui
+      - adminer
+      - whoami
+    command: [nginx-debug, '-g', 'daemon off;']
+
   api:
     build:
       context: ./api-service
@@ -10,7 +28,7 @@ services:
       - "3100"
     environment:
       - SERVER_PORT=3100
-      - DATABASE_CONNECTIONSTRING=postgres://db:5432/api
+      - DATABASE_CONNECTION_STRING=postgres://db:5432
     working_dir: /app
     volumes:
     - ./api-service:/app
@@ -20,7 +38,27 @@ services:
     depends_on:
       - db
       - kafka
-    command: sh -c "yarn run start"
+    command: sh -c "yarn run build && yarn run start"
+
+  auth:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth
+    ports:
+      - "3200"
+    environment:
+      - SERVER_PORT=3200
+      - DATABASE_CONNECTION_STRING=postgres://db:5432
+    working_dir: /app
+    volumes:
+    - ./auth-service:/app
+    - auth_node_modules:/app/node_modules
+    networks:
+      - default
+    depends_on:
+      - db
+    command: sh -c "yarn run build && yarn run start"
 
   ui:
     build:
@@ -109,18 +147,6 @@ services:
     ports:
       - "8080"
 
-  nginx:
-    image: nginx:1.19.9
-    container_name: nginx
-    volumes:
-     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-     - ./nginx/reverse_proxy.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - default
-    ports:
-      - "8080:8080"
-    command: [nginx-debug, '-g', 'daemon off;']
-
   whoami:
     image: jwilder/whoami
     expose:
@@ -128,7 +154,6 @@ services:
     environment:
       - VIRTUAL_HOST=whoami.local
       - VIRTUAL_PORT=8000
-
 volumes:
   postgres_data:
   zookeeper_data:
@@ -136,4 +161,5 @@ volumes:
   kafka_data:
     driver: local
   api_node_modules:
+  auth_node_modules:
   ui_node_modules:
