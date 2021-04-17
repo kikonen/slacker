@@ -11,6 +11,11 @@ app.get('/bar', (req, res) => {
   res.send('Bar! Via typescript');
 });
 
+app.use((req, res, next) => {
+  res.status(404);
+  res.render("Nope");
+});
+
 app.listen(port, 'api', () => {
   console.log(`Listening at http://localhost:${port}`);
 });

@@ -63,6 +63,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://dzone.com/articles/how-to-nginx-reverse-proxy-with-docker-compose
 - https://stackoverflow.com/questions/51009692/docker-nginx-proxy-nginx-connect-failed-111-connection-refused-while-connec
 - https://hub.docker.com/_/nginx
+- https://www.liaohuqiu.net/posts/nginx-proxy-pass/
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
