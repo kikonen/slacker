@@ -29,7 +29,10 @@ services:
       - "9201:9201"
     environment:
       SERVER_PORT: "3100"
-      DATABASE_CONNECTION_STRING: postgresql://postgres@db:5432/slacker
+      PGHOST: db
+      PGUSER : postgres
+      PGPASSWORD: password
+      PGDATABASE: slacker
     working_dir: /app
     volumes:
     - ./api-service:/app
@@ -51,8 +54,10 @@ services:
       - "9202:9202"
     environment:
       SERVER_PORT: "3200"
-      POSTGRES_PASSWORD: password
-      DATABASE_CONNECTION_STRING: postgresql://postgres@db:5432/slacker
+      PGHOST: db
+      PGUSER : postgres
+      PGPASSWORD: password
+      PGDATABASE: slacker
       AUTH_API: https://accounts.google.com/o/oauth2/v2/auth
       AUTH_CLIENT_ID: "1091827026589-4c1icp593q61rr6a0ug316kue1fvmogv.apps.googleusercontent.com"
       AUTH_REDIRECT_URI: http://localhost:8080/auth/callback

@@ -20,6 +20,14 @@
       <p class="m-4">
         <a href="<%= auth_url %>" class="btn btn-primary">Login</a>
       </p>
+
+      <label for="select_role">Role</label>
+      <select id="select_role">
+        <option>None</option>
+        <% roles.forEach(role => { %>
+        <option value="<%= role.id %>"><%= role.name %><br></option>
+        <% }); %>
+      </select>
     </div>
   </body>
 </html>
