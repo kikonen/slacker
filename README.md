@@ -35,7 +35,11 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://github.com/nodejs/docker-node/blob/main/README.md#how-to-use-this-image
 - https://www.pullrequest.com/blog/intro-to-using-typescript-in-a-nodejs-express-project/
 - https://shemleong.medium.com/using-docker-and-yarn-for-development-2546e567ad2
+
+### Express
 - https://www.toptal.com/express-js/nodejs-typescript-rest-api-pt-1
+- https://developer.okta.com/blog/2018/11/15/node-express-typescript
+- https://codeforgeek.com/render-html-file-expressjs/
 
 ### React
 - https://create-react-app.dev/docs/adding-typescript/
@@ -68,7 +72,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
 
-### Schema
+### DB schema
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590
 - https://guides.rubyonrails.org/active_record_migrations.html
 - https://pawelurbanek.com/uuid-order-rails
@@ -81,3 +85,6 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth
 - https://nosleepjavascript.com/openid-oauth-authentication-for-nodejs/
 - https://developers.google.com/identity/protocols/oauth2/openid-connect
+
+### CSS
+- https://getbootstrap.com/docs/4.0/getting-started/introduction/

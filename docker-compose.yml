@@ -38,7 +38,7 @@ services:
     depends_on:
       - db
       - kafka
-    command: sh -c "yarn run build && yarn run start"
+    command: sh -c "yarn run dev"
 
   auth:
     build:
@@ -50,6 +50,9 @@ services:
     environment:
       - SERVER_PORT=3200
       - DATABASE_CONNECTION_STRING=postgres://db:5432
+      - AUTH_API=https://accounts.google.com/o/oauth2/v2/auth
+      - AUTH_CLIENT_ID=1091827026589-4c1icp593q61rr6a0ug316kue1fvmogv.apps.googleusercontent.com
+      - AUTH_REDIRECT_URI=http://localhost:8080/auth/callback
     working_dir: /app
     volumes:
     - ./auth-service:/app
@@ -58,7 +61,7 @@ services:
       - default
     depends_on:
       - db
-    command: sh -c "yarn run build && yarn run start"
+    command: sh -c "yarn run dev"
 
   ui:
     build:
