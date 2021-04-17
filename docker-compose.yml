@@ -33,6 +33,7 @@ services:
       PGUSER : postgres
       PGPASSWORD: password
       PGDATABASE: slacker
+      KAFKA_HOST: kafka:9092
     working_dir: /app
     volumes:
     - ./api-service:/app

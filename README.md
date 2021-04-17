@@ -37,6 +37,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://shemleong.medium.com/using-docker-and-yarn-for-development-2546e567ad2
 - https://stackoverflow.com/questions/48855130/why-chrome-cant-inspect-nodejs-code-in-docker-container
 - https://blog.risingstack.com/how-to-debug-a-node-js-app-in-a-docker-container/
+- https://stackoverflow.com/questions/56966322/unknown-compiler-options-include-exclude/56966602
 
 ### Express
 - https://www.toptal.com/express-js/nodejs-typescript-rest-api-pt-1
@@ -74,6 +75,11 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
+- https://kafka.apache.org/quickstart
+- https://hmh.engineering/experimenting-with-apache-kafka-and-nodejs-5c0604211196
+- https://www.npmjs.com/package/kafka-nodehttps://www.npmjs.com/package/kafka-node
+- https://www.confluent.io/blog/bottled-water-real-time-integration-of-postgresql-and-kafka/
+- https://florimond.dev/blog/articles/2018/09/breaking-news-everything-is-an-event/
 
 ### DB
 - https://hub.docker.com/_/postgres
@@ -96,3 +102,6 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 
 ### CSS
 - https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
+### JS frameworks
+- https://webcomponents.dev/blog/all-the-ways-to-make-a-web-component

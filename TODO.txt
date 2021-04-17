@@ -1,3 +1,15 @@
+# TODO
+- postgres setup
+- oauth register user
+- websocket
+- sketch react
+- experiment kafka
+
+# DONE
+- DB schema
+- DB
+
+================================================================================
 ## save
 
 version: "2"
