@@ -35,6 +35,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://github.com/nodejs/docker-node/blob/main/README.md#how-to-use-this-image
 - https://www.pullrequest.com/blog/intro-to-using-typescript-in-a-nodejs-express-project/
 - https://shemleong.medium.com/using-docker-and-yarn-for-development-2546e567ad2
+- https://stackoverflow.com/questions/48855130/why-chrome-cant-inspect-nodejs-code-in-docker-container
 
 ### Express
 - https://www.toptal.com/express-js/nodejs-typescript-rest-api-pt-1
