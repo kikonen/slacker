@@ -81,6 +81,10 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.confluent.io/blog/bottled-water-real-time-integration-of-postgresql-and-kafka/
 - https://florimond.dev/blog/articles/2018/09/breaking-news-everything-is-an-event/
 
+### Events
+- https://www.telerik.com/blogs/websockets-vs-server-sent-events
+- https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource
+
 ### DB
 - https://hub.docker.com/_/postgres
 - https://node-postgres.com
