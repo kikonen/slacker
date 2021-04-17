@@ -74,4 +74,10 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://pawelurbanek.com/uuid-order-rails
 
 ### OAuth
+- https://jwt.io/introduction
+- https://console.cloud.google.com/apis/dashboard?pli=1&project=starlit-factor-137723&folder=&organizationId=
 - https://github.com/googleapis/google-api-nodejs-client
+- https://openid.net/connect/
+- https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth
+- https://nosleepjavascript.com/openid-oauth-authentication-for-nodejs/
+- https://developers.google.com/identity/protocols/oauth2/openid-connect

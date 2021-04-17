@@ -63,5 +63,19 @@ services:
     command: sh -c "sleep infinity"
 
 
-LOg
+NGINX LOG
+--------------------------
 nginx        | 172.24.0.1 - - [16/Apr/2021:20:49:11 +0000] "GET /api/bar HTTP/1.1" 404 142 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36 OPR/75.0.3969.171" ""-
+
+
+AUTH
+----------------------
+REQUEST
+=======
+
+https://accounts.google.com/o/oauth2/v2/auth?client_id=1091827026589-4c1icp593q61rr6a0ug316kue1fvmogv.apps.googleusercontent.com&scope=openid+email&response_type=code&redirect_uri=http%3A//localhost%3A8080/auth/callback
+
+
+RESPONSE
+========
+http://localhost:8080/auth/callback?code=4%2F0AY0e-g72rAisZb_4ojvbx_X6v-JFIZlr8t4E9qjxeoInpjvDjSFRwujSpS--LboDZPYbAQ&scope=email+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=consent#
