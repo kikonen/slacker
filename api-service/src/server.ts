@@ -1,7 +1,6 @@
 import express from 'express';
 
 import { Pool, PoolClient, Client } from 'pg';
-import expressWs from 'express-ws';
 
 import dotenv from 'dotenv'
 import path from 'path';
@@ -12,6 +11,7 @@ import { Kafka } from './kafka';
 dotenv.config();
 
 const TEST_CHANNEL = 'channel_1';
+const TEST_TOPIC = 'quickstart-events'
 
 const app = express();
 const port = parseInt(process.env.SERVER_PORT || '3100', 10);
@@ -48,17 +48,18 @@ app.get('/roles', (req, res) => {
 app.get('/send', (req, res) => {
   const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
   const message:string = req.query.message as string;
-  kafka.publishMessage(TEST_CHANNEL, message);
+  kafka.publish(TEST_TOPIC, message);
+  res.send({"success": true});
 });
 
 app.get('/send', (req, res) => {
 });
 
-app.ws('/receive', function(ws, req) {
-  ws.on('message', function(msg) {
-    ws.send(msg);
-  });
-});
+// app.ws('/receive', function(ws, req) {
+//   ws.on('message', function(msg) {
+//     ws.send(msg);
+//   });
+// });
 
 app.use((req, res, next) => {
   res.status(404);

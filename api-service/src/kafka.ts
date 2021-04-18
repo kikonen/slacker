@@ -3,13 +3,17 @@ import { Producer, ProduceRequest } from 'kafka-node';
 import { Consumer, Message, Offset, OffsetFetchRequest, ConsumerOptions } from 'kafka-node';
 
 export class Kafka {
-  constructor(kafkaHost) {
+  kafkaHost: string;
+
+  constructor(kafkaHost: string) {
     this.kafkaHost = kafkaHost;
   }
 
   publish(topic: string, message: string): void {
-    const client = new KafkaClient({ kafkaHost: kafkaHost });
+    const client = new KafkaClient({ kafkaHost: this.kafkaHost });
     const producer = new Producer(client);
+
+    console.log("kafka: " + this.kafkaHost);
 
     producer.on(
       'ready',
@@ -26,7 +30,6 @@ export class Kafka {
               [{ topic, messages: [message] }],
               (err: Error, result: ProduceRequest): void => {
                 console.log(err || result);
-                process.exit();
               }
             );
           }
@@ -37,13 +40,13 @@ export class Kafka {
     producer.on(
       'error',
       (err: Error): void => {
-        console.log('error', err);
+        console.log('KAFKA_ERROR', err);
       }
     );
   }
 
-  subscribe(topic: string, onMessage: (message) => void): void {
-    const client = new KafkaClient({ kafkaHost: kafkaHost });
+  subscribe(topic: string, onMessage:  (message: Message) => any): void {
+    const client = new KafkaClient({ kafkaHost: this.kafkaHost });
     const topics: OffsetFetchRequest[] = [{ topic: topic, partition: 0 }];
     const options: ConsumerOptions = { autoCommit: false, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 1024 };
 
@@ -62,10 +65,7 @@ export class Kafka {
           throw err;
         }
 
-        consumer.on('message', onMessage);function(message: Message): void {
-          onMessage
-          // do something useful with message
-        });
+        consumer.on('message', onMessage);
 
         /*
          * If consumer get `offsetOutOfRange` event, fetch data from the smallest(oldest) offset

@@ -80,10 +80,12 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.npmjs.com/package/kafka-nodehttps://www.npmjs.com/package/kafka-node
 - https://www.confluent.io/blog/bottled-water-real-time-integration-of-postgresql-and-kafka/
 - https://florimond.dev/blog/articles/2018/09/breaking-news-everything-is-an-event/
+- https://www.oreilly.com/library/view/kafka-the-definitive/9781491936153/ch04.html
 
 ### Events
 - https://www.telerik.com/blogs/websockets-vs-server-sent-events
 - https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource
+- https://www.html5rocks.com/en/tutorials/eventsource/basics/
 
 ### DB
 - https://hub.docker.com/_/postgres
