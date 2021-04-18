@@ -53,6 +53,8 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://stackoverflow.com/questions/43274925/development-server-of-create-react-app-does-not-auto-refresh
 - https://stackoverflow.com/questions/49429906/how-should-i-configure-create-react-app-to-serve-app-from-subdirectory
 - https://skryvets.com/blog/2018/09/20/an-elegant-solution-of-deploying-react-app-into-a-subdirectory/
+- https://create-react-app.dev/docs/advanced-configuration/
+- https://stackoverflow.com/questions/40516288/webpack-dev-server-with-nginx-proxy-pass
 
 ### Docker
 - https://hub.docker.com/_/postgres
@@ -111,3 +113,6 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 
 ### JS frameworks
 - https://webcomponents.dev/blog/all-the-ways-to-make-a-web-component
+
+### Editor
+- https://emacs.stackexchange.com/questions/33536/how-to-edit-jsx-react-files-in-emacs

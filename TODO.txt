@@ -91,3 +91,18 @@ https://accounts.google.com/o/oauth2/v2/auth?client_id=1091827026589-4c1icp593q6
 RESPONSE
 ========
 http://localhost:8080/auth/callback?code=4%2F0AY0e-g72rAisZb_4ojvbx_X6v-JFIZlr8t4E9qjxeoInpjvDjSFRwujSpS--LboDZPYbAQ&scope=email+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=consent#
+
+
+KAFKA
+=====
+event
+-----------------
+api          | {
+api          |   topic: 'quickstart-events',
+api          |   value: 'xxx4',
+api          |   offset: 35,
+api          |   partition: 0,
+api          |   highWaterOffset: 36,
+api          |   key: null
+api          | }
+-----------------

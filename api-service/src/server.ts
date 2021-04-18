@@ -56,12 +56,32 @@ app.get('/send', (req, res) => {
 });
 
 app.get('/events', (req, res) => {
+  console.log("events");
+  sendSSEHeader(req, res);
+
+  console.log("kafkaing...");
   const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-  kafka.subscribe(TEST_TOPIC, (message) => {
-    console.log(message);
+  kafka.subscribe(TEST_TOPIC, (event) => {
+    console.log(event);
+    sendSSE(res, event);
   });
-  res.send({"success": true});
 });
+
+function sendSSEHeader(req: any, res: any) {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+  });
+  res.flushHeaders();
+
+//  res.write('retry: 10000\n\n');
+}
+
+function sendSSE(res: any, event: any) {
+//  res.write('id: ' + id + '\n');
+  res.write("data: " + event.value + '\n\n');
+}
 
 app.use((req, res, next) => {
   res.status(404);

@@ -82,6 +82,7 @@ services:
       - "9203:9203"
     environment:
       SERVER_PORT: "3000"
+      WDS_SOCKET_PATH: /ui/sockjs-node
     working_dir: /app
     volumes:
     - ./ui-service:/app
