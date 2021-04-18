@@ -55,11 +55,13 @@ app.get('/send', (req, res) => {
 app.get('/send', (req, res) => {
 });
 
-// app.ws('/receive', function(ws, req) {
-//   ws.on('message', function(msg) {
-//     ws.send(msg);
-//   });
-// });
+app.get('/events', (req, res) => {
+  const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
+  kafka.subscribe(TEST_TOPIC, (message) => {
+    console.log(message);
+  });
+  res.send({"success": true});
+});
 
 app.use((req, res, next) => {
   res.status(404);
