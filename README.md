@@ -28,6 +28,8 @@ kafka-topics.sh --describe --topic quickstart-events --bootstrap-server kafka:90
 
 kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server kafka:9092
 kafka-console-producer.sh --topic quickstart-events --bootstrap-server kafka:9092
+
+docker-compose exec ksqldb-cli ksql http://ksqldb-server:8088
 ```
 
 ## Database
@@ -105,6 +107,9 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://stackoverflow.com/questions/34657222/how-to-use-server-sent-events-in-express-js
 - https://www.confluent.io/blog/building-a-microservices-ecosystem-with-kafka-streams-and-ksql/
 - https://stackoverflow.com/questions/28176933/http-authorization-header-in-eventsource-server-sent-events
+- https://www.confluent.io/blog/bottled-water-real-time-integration-of-postgresql-and-kafka/
+- https://www.confluent.io/blog/kafka-streams-tables-part-1-event-streaming/
+- https://ksqldb.io
 
 ### DB
 - https://hub.docker.com/_/postgres

@@ -26,8 +26,10 @@ export class Kafka {
             }
 
             console.log(`Sending message to ${topic}: ${message}`);
+            let json = JSON.stringify({data: message});
+
             producer.send(
-              [{ topic, messages: [message] }],
+              [{ topic, messages: [json] }],
               (err: Error, result: ProduceRequest): void => {
                 console.log(err || result);
               }

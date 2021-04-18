@@ -11,8 +11,8 @@ import { Kafka } from './kafka';
 
 dotenv.config();
 
-const TEST_CHANNEL = 'channel_1';
-const TEST_TOPIC = 'quickstart-events'
+const TEST_TOPIC = 'channel_4';
+//const TEST_TOPIC = 'quickstart-events'
 
 const app = express();
 const port = parseInt(process.env.SERVER_PORT || '3100', 10);
