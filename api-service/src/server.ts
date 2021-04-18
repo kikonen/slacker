@@ -52,9 +52,6 @@ app.get('/send', (req, res) => {
   res.send({"success": true});
 });
 
-app.get('/send', (req, res) => {
-});
-
 app.get('/events', (req, res) => {
   console.log("events");
   sendSSEHeader(req, res);
@@ -68,19 +65,18 @@ app.get('/events', (req, res) => {
 });
 
 function sendSSEHeader(req: any, res: any) {
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
-  res.flushHeaders();
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.flushHeaders(); // flush the headers to establish SSE with client
 
-//  res.write('retry: 10000\n\n');
+  //  res.write('retry: 10000\n\n');
 }
 
 function sendSSE(res: any, event: any) {
 //  res.write('id: ' + id + '\n');
-  res.write("data: " + event.value + '\n\n');
+  // res.write() instead of res.send()
+  res.write(`data: ${JSON.stringify(event)}\n\n`);
 }
 
 app.use((req, res, next) => {

@@ -16,6 +16,13 @@ function startEvents() {
   source = new EventSource('/api/events');
   source.addEventListener('message', function(e) {
     console.log(e.data);
+
+    let inboxEl: HTMLInputElement = document.querySelector("#incoming");
+    let msgEl = document.createElement('div');
+    msgEl.className = 'alert alert-primary';
+    msgEl.innerText = e.data;
+
+    inboxEl.appendChild(msgEl);
   }, false);
 }
 

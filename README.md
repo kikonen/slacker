@@ -101,6 +101,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.telerik.com/blogs/websockets-vs-server-sent-events
 - https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource
 - https://www.html5rocks.com/en/tutorials/eventsource/basics/
+- https://stackoverflow.com/questions/34657222/how-to-use-server-sent-events-in-express-js
 
 ### DB
 - https://hub.docker.com/_/postgres
