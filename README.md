@@ -96,12 +96,15 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.confluent.io/blog/bottled-water-real-time-integration-of-postgresql-and-kafka/
 - https://florimond.dev/blog/articles/2018/09/breaking-news-everything-is-an-event/
 - https://www.oreilly.com/library/view/kafka-the-definitive/9781491936153/ch04.html
+- https://www.youtube.com/watch?v=-GBk0en6dck
 
 ### Events
 - https://www.telerik.com/blogs/websockets-vs-server-sent-events
 - https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource
 - https://www.html5rocks.com/en/tutorials/eventsource/basics/
 - https://stackoverflow.com/questions/34657222/how-to-use-server-sent-events-in-express-js
+- https://www.confluent.io/blog/building-a-microservices-ecosystem-with-kafka-streams-and-ksql/
+- https://stackoverflow.com/questions/28176933/http-authorization-header-in-eventsource-server-sent-events
 
 ### DB
 - https://hub.docker.com/_/postgres

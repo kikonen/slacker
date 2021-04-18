@@ -1,17 +1,23 @@
 import express from 'express';
-import dotenv from 'dotenv'
+
 import { Pool, PoolClient, Client } from 'pg';
+
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 import path from 'path';
 import querystring from 'querystring';
 
 dotenv.config();
 
 const app = express();
+
 const port = parseInt(process.env.SERVER_PORT || '3200', 10);
 
 const pool = new Pool({
   max: 5,
 });
+
+app.use(cookieParser());
 
 app.set('view engine', 'ejs');
 
@@ -48,6 +54,13 @@ app.get('/callback', (req, res) => {
   const authuser = req.query.authuser;
   const prompt = req.query.prompt;
 
+  let options = {
+    maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+    httpOnly: true, // The cookie only accessible by the web server
+//    signed: true // Indicates if the cookie should be signed
+  };
+  res.cookie("_slacker_session", code, options);
+
   res.send(
 `Authenticated...
 <br>code = ${code}
@@ -55,6 +68,7 @@ app.get('/callback', (req, res) => {
 <br>authuser = ${authuser}
 <br>prompt = ${prompt}
 `);
+
 });
 
 app.listen(port, 'auth', () => {

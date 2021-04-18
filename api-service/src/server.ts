@@ -2,6 +2,7 @@ import express from 'express';
 
 import { Pool, PoolClient, Client } from 'pg';
 
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv'
 import path from 'path';
 import querystring from 'querystring';
@@ -19,6 +20,8 @@ const port = parseInt(process.env.SERVER_PORT || '3100', 10);
 const pool = new Pool({
   max: 5,
 });
+
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.send('Hello World! Via typescript');
@@ -53,6 +56,9 @@ app.get('/send', (req, res) => {
 });
 
 app.get('/events', (req, res) => {
+  let sessionCookie = req.cookies._slacker_session;
+  console.log("session: " + sessionCookie);
+
   console.log("events");
   sendSSEHeader(req, res);
 
