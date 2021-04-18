@@ -17,6 +17,19 @@ yarn outdated
 yarn upgrade nodemon
 ```
 
+## Testing
+
+### Kafka
+```bash
+docker-compose exec kafka bash
+
+kafka-topics.sh --create --topic quickstart-events --bootstrap-server kafka:9092
+kafka-topics.sh --describe --topic quickstart-events --bootstrap-server kafka:9092
+
+kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server kafka:9092
+kafka-console-producer.sh --topic quickstart-events --bootstrap-server kafka:9092
+```
+
 ## Database
 ### Migrate
 ```bash
