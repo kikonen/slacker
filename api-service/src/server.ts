@@ -2,6 +2,7 @@ import express from 'express';
 
 import { Pool, PoolClient, Client } from 'pg';
 
+import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv'
@@ -56,6 +57,10 @@ app.get('/send', (req, res) => {
   console.log("jwt: " + token);
   console.log(decodedToken);
 
+  let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+  jwt.verify(token, privateKey);
+  console.log("JWT: VERIFIED KEY");
+
   const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
   const message:string = req.query.message as string;
   kafka.publish(TEST_TOPIC, message);
@@ -69,6 +74,10 @@ app.get('/events', (req, res) => {
 
   console.log("jwt: " + token);
   console.log(decodedToken);
+
+  let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+  jwt.verify(token, privateKey);
+  console.log("JWT: VERIFIED KEY");
 
   console.log("events");
   sendSSEHeader(req, res);

@@ -64,7 +64,6 @@ app.get('/callback', (req, res) => {
     salt: salt,
   };
 
-  debugger;
   let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
   console.log(privateKey);
   let token = jwt.sign(payload, privateKey)
