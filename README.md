@@ -28,11 +28,11 @@ COMPOSE_PROFILES=dev,schema docker-compose up
 ```bash
 docker-compose exec kafka bash
 
-kafka-topics.sh --create --topic quickstart-events --bootstrap-server kafka:9092
-kafka-topics.sh --describe --topic quickstart-events --bootstrap-server kafka:9092
+kafka-topics.sh --create --topic channel_1 --bootstrap-server kafka:9092
+kafka-topics.sh --describe --topic channel_1 --bootstrap-server kafka:9092
 
-kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server kafka:9092
-kafka-console-producer.sh --topic quickstart-events --bootstrap-server kafka:9092
+kafka-console-consumer.sh --topic channel_1 --group test1 --from-beginning --bootstrap-server kafka:9092
+kafka-console-producer.sh --topic channel_1 --bootstrap-server kafka:9092
 
 docker-compose exec ksqldb-cli ksql http://ksqldb-server:8088
 ```
@@ -113,6 +113,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.confluent.io/blog/kafka-streams-tables-part-1-event-streaming/
 - https://ksqldb.io
 - https://www.confluent.io/blog/building-a-microservices-ecosystem-with-kafka-streams-and-ksql/
+- https://stackoverflow.com/questions/14755030/apache-kafka-consumer-state
 
 ### Server events
 - https://www.telerik.com/blogs/websockets-vs-server-sent-events
