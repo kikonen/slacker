@@ -41,11 +41,17 @@ app.get('/login', (req, res) => {
       const roles = rs.rows;
 
       const code_verifier = generators.codeVerifier();
-      const code_challenge = generators.codeChallenge(code_verifier);
+      const state = generators.codeChallenge(code_verifier);
 
       const auth_url = GoogleAuth.client.authorizationUrl({
         scope: "openid email profile",
-        code_challenge,
+        state,
+      });
+
+      res.cookie("_slacker_auth_state", state, {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: process.env.PRODUCTION === 'true',
       });
 
       res.render(`${__dirname}/../view/index`, { roles: roles, auth_url: auth_url });
@@ -53,42 +59,51 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/callback', (req, res) => {
+  const client = GoogleAuth.client;
+
   const code = req.query.code;
   const scope = req.query.scope;
   const authuser = req.query.authuser;
   const prompt = req.query.prompt;
-  let salt = 'random';
+  const salt = 'random';
 
-  let payload = {
-    code: code,
-    scope: scope,
-    authuser: authuser,
-    salt: salt,
-  };
+  const state: string = req.cookies._slacker_auth_state;
+  console.log("auth_state: " + state);
 
-  let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
-  console.log(privateKey);
-  let token = jwt.sign(payload, privateKey)
-  let decodedToken = jwt.decode(token)
-  console.log("jwt: " + token);
-  console.log(decodedToken);
+  const params = client.callbackParams(req);
 
-  // NOTE KI Typescript does NOT allow 0 to create session cookie
-  res.cookie("_slacker_auth", token, {
-    httpOnly: true,
-    expires:  new Date((new Date()).getTime() + 1 * 60 * 60 * 1000),
-    sameSite: 'lax',
-    secure: process.env.PRODUCTION === 'true',
+  client.callback(
+    `${GoogleAuth.getDomain(req)}/auth/callback`,
+    params,
+    { state }
+  ).then((tokenSet: any) => {
+    return client.userinfo(tokenSet);
+  }).then((user: any) => {
+    console.log("USER");
+    console.log(user);
+
+    let payload = user;
+
+    let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+    console.log(privateKey);
+    let token = jwt.sign(payload, privateKey)
+    let decodedToken = jwt.decode(token)
+    console.log("jwt: " + token);
+    console.log(decodedToken);
+
+    // NOTE KI Typescript does NOT allow 0 to create session cookie
+    res.cookie("_slacker_auth", token, {
+      httpOnly: true,
+      expires:  new Date((new Date()).getTime() + 1 * 60 * 60 * 1000),
+      sameSite: 'lax',
+      secure: process.env.PRODUCTION === 'true',
+    });
+
+    res.send(`Authenticated...<br>${JSON.stringify(user)}`);
+  }).catch((err: any) => {
+    console.log(err);
+    res.status(500).send("FAILED");
   });
-
-  res.send(
-`Authenticated...
-<br>code = ${code}
-<br>scope = ${scope}
-<br>authuser = ${authuser}
-<br>prompt = ${prompt}
-`);
-
 });
 
 app.listen(port, 'auth', () => {

@@ -8,15 +8,15 @@ export class GoogleAuth {
   static issuer: any;
   static client: any;
   static initialize: (req: express.Request, res: express.Response, next: express.NextFunction) => void;
-}
 
-export function getDomain(req: express.Request): string {
-  let proto = req.headers['x-forwarded-proto'] ? req.headers['x-forwarded-proto'] : 'http';
-  let host = req.headers['x-forwarded-host'] ? req.headers['x-forwarded-host'] : process.env.HOST;
-  let port = req.headers['x-forwarded-port'] ? req.headers['x-forwarded-port'] : process.env.PORT;
+  static getDomain(req: express.Request): string {
+    let proto = req.headers['x-forwarded-proto'] ? req.headers['x-forwarded-proto'] : 'http';
+    let host = req.headers['x-forwarded-host'] ? req.headers['x-forwarded-host'] : process.env.HOST;
+    let port = req.headers['x-forwarded-port'] ? req.headers['x-forwarded-port'] : process.env.PORT;
 
-  let url = port ? `${proto}://${host}:${port}` : `${proto}://${host}`;
-  return url;
+    let url = port ? `${proto}://${host}:${port}` : `${proto}://${host}`;
+    return url;
+  }
 }
 
 async function initialize(
@@ -37,7 +37,7 @@ async function initialize(
   const client = new googleIssuer.Client({
     client_id: process.env.OAUTH_CLIENT_ID!,
     client_secret: process.env.OAUTH_CLIENT_SECRET!,
-    redirect_uris: [`${getDomain(req)}/auth/callback`],
+    redirect_uris: [`${GoogleAuth.getDomain(req)}/auth/callback`],
     response_types: ["code"],
   });
 
