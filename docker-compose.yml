@@ -57,9 +57,8 @@ services:
       PGUSER : postgres
       PGPASSWORD: password
       PGDATABASE: slacker
-      AUTH_API: https://accounts.google.com/o/oauth2/v2/auth
-      AUTH_CLIENT_ID: "1091827026589-4c1icp593q61rr6a0ug316kue1fvmogv.apps.googleusercontent.com"
-      AUTH_REDIRECT_URI: http://localhost:8080/auth/callback
+      OAUTH_API: https://accounts.google.com/o/oauth2/v2/auth
+      OAUTH_REDIRECT_URI: http://localhost:8080/auth/callback
     working_dir: /app
     volumes:
     - ./auth-service:/app

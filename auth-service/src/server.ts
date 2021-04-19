@@ -33,16 +33,16 @@ app.get('/login', (req, res) => {
       return rs;
     }).then(rs => {
       const query = {
-        client_id: process.env.AUTH_CLIENT_ID,
+        client_id: process.env.OAUTH_CLIENT_ID,
         scope: 'openid email',
         response_type: 'code',
-        redirect_uri: process.env.AUTH_REDIRECT_URI,
+        redirect_uri: process.env.OAUTH_REDIRECT_URI,
       };
       debugger
 
       const roles = rs.rows;
       const queryStr = querystring.stringify(query);
-      const auth_url = `${process.env.AUTH_API}?${queryStr}`;
+      const auth_url = `${process.env.OAUTH_API}?${queryStr}`;
 
       res.render(`${__dirname}/../view/index`, { roles: roles, auth_url: auth_url });
     });
