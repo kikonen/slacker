@@ -107,3 +107,16 @@ api          |   highWaterOffset: 36,
 api          |   key: null
 api          | }
 -----------------
+
+OAUTH
+=====
+{
+  sub: 'NNNNNNNNNNNNNNNN',
+  name: First Last',
+  given_name: First',
+  family_name: Last',
+  picture: 'https://lh3.googleusercontent.com/a-/NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+  email: xxxxxxxxx@gmail.com',
+  email_verified: true,
+  locale: 'fi'
+}
