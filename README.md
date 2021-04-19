@@ -98,6 +98,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://hub.docker.com/_/nginx
 - https://www.liaohuqiu.net/posts/nginx-proxy-pass/
 - https://stackoverflow.com/questions/32845674/setup-nginx-not-to-crash-if-host-in-upstream-is-not-found
+- https://serverfault.com/questions/801628/for-server-sent-events-sse-what-nginx-proxy-configuration-is-appropriate
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka

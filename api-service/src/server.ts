@@ -71,12 +71,15 @@ app.get('/events', (req, res) => {
 });
 
 function sendSSEHeader(req: any, res: any) {
+  res.status(200);
+  res.setHeader('Connection', 'keep-alive');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader("X-Accel-Buffering", "no");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.flushHeaders(); // flush the headers to establish SSE with client
 
-  //  res.write('retry: 10000\n\n');
+  res.write('retry: 10000\n\n');
 }
 
 function sendSSE(res: any, event: any) {
