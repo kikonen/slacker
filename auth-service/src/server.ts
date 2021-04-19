@@ -71,8 +71,12 @@ app.get('/callback', (req, res) => {
   console.log("jwt: " + token);
   console.log(decodedToken);
 
+  // NOTE KI Typescript does NOT allow 0 to create session cookie
   res.cookie("_slacker_auth", token, {
     httpOnly: true,
+    expires:  new Date((new Date()).getTime() + 1 * 60 * 60 * 1000),
+    sameSite: 'lax',
+    secure: process.env.PRODUCTION === 'true',
   });
 
   res.send(
