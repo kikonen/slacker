@@ -56,7 +56,9 @@ app.get('/send', (req, res) => {
 });
 
 app.get('/events', (req, res) => {
-  let sessionCookie = req.cookies._slacker_session;
+  let sessionCookie: string = req.cookies._slacker_session;
+  let groupId: string = 'user_1';
+
   console.log("session: " + sessionCookie);
 
   console.log("events");
@@ -64,7 +66,7 @@ app.get('/events', (req, res) => {
 
   console.log("kafkaing...");
   const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-  kafka.subscribe(TEST_TOPIC, (event) => {
+  kafka.subscribe(TEST_TOPIC, groupId, (event) => {
     console.log(event);
     sendSSE(res, event);
   });

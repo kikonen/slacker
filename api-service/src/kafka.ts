@@ -47,10 +47,10 @@ export class Kafka {
     );
   }
 
-  subscribe(topic: string, onMessage:  (message: Message) => any): void {
+  subscribe(topic: string, groupId: string, onMessage:  (message: Message) => any): void {
     const client = new KafkaClient({ kafkaHost: this.kafkaHost });
     const topics: OffsetFetchRequest[] = [{ topic: topic, partition: 0 }];
-    const options: ConsumerOptions = { autoCommit: false, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 1024 };
+    const options: ConsumerOptions = { groupId: groupId, autoCommit: true, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 1024 };
 
     const consumer = new Consumer(client, topics, options);
 

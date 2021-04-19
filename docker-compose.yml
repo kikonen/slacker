@@ -167,7 +167,7 @@ services:
   schema:
     build: ./schema
     container_name: schema
-    profiles: ["schema"]
+    profiles: ["dev", "schema"]
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -182,7 +182,7 @@ services:
   adminer:
     image: adminer
     container_name: adminer
-    profiles: ["dev", "schema"]
+    profiles: ["dev"]
     restart: always
     networks:
       - default
