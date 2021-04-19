@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { Pool, PoolClient, Client } from 'pg';
+const { generators } = require('openid-client');
 
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
@@ -8,6 +9,8 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
 import querystring from 'querystring';
+
+import { GoogleAuth } from './GoogleAuth';
 
 dotenv.config();
 
@@ -19,6 +22,7 @@ const pool = new Pool({
   max: 5,
 });
 
+app.use(GoogleAuth.initialize);
 app.use(cookieParser());
 
 app.set('view engine', 'ejs');
@@ -34,17 +38,15 @@ app.get('/login', (req, res) => {
       client.release();
       return rs;
     }).then(rs => {
-      const query = {
-        client_id: process.env.OAUTH_CLIENT_ID,
-        scope: 'openid email',
-        response_type: 'code',
-        redirect_uri: process.env.OAUTH_REDIRECT_URI,
-      };
-      debugger
-
       const roles = rs.rows;
-      const queryStr = querystring.stringify(query);
-      const auth_url = `${process.env.OAUTH_API}?${queryStr}`;
+
+      const code_verifier = generators.codeVerifier();
+      const code_challenge = generators.codeChallenge(code_verifier);
+
+      const auth_url = GoogleAuth.client.authorizationUrl({
+        scope: "openid email profile",
+        code_challenge,
+      });
 
       res.render(`${__dirname}/../view/index`, { roles: roles, auth_url: auth_url });
     });

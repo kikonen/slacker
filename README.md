@@ -70,6 +70,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://developer.okta.com/blog/2018/11/15/node-express-typescript
 - https://codeforgeek.com/render-html-file-expressjs/
 - https://ejs.co
+- https://wanago.io/2018/12/03/typescript-express-tutorial-routing-controllers-middleware/
 
 ### React
 - https://create-react-app.dev/docs/adding-typescript/
@@ -105,6 +106,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.liaohuqiu.net/posts/nginx-proxy-pass/
 - https://stackoverflow.com/questions/32845674/setup-nginx-not-to-crash-if-host-in-upstream-is-not-found
 - https://serverfault.com/questions/801628/for-server-sent-events-sse-what-nginx-proxy-configuration-is-appropriate
+- https://linuxize.com/post/nginx-reverse-proxy/
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka

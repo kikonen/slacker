@@ -40,7 +40,6 @@ services:
       - default
     depends_on:
       - db
-      - kafka
     command: sh -c "yarn run dev"
 
   auth:
