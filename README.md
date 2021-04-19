@@ -140,6 +140,13 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth
 - https://nosleepjavascript.com/openid-oauth-authentication-for-nodejs/
 - https://developers.google.com/identity/protocols/oauth2/openid-connect
+- https://github.com/panva/node-openid-client
+
+### Session auth
+- https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage
+- https://stackoverflow.com/questions/35291573/csrf-protection-with-json-web-tokens
+- https://caniuse.com/same-site-cookie-attribute
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite
 
 ### CSS
 - https://getbootstrap.com/docs/4.0/getting-started/introduction/
