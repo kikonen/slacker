@@ -15,8 +15,6 @@ services:
       - api
       - auth
       - ui
-      - adminer
-      - whoami
     command: [nginx-debug, '-g', 'daemon off;']
 
   api:
@@ -93,20 +91,6 @@ services:
       - api
     command: sh -c "yarn run start"
 
-  schema:
-    build: ./schema
-    container_name: schema
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: slacker
-    working_dir: /app
-    volumes:
-    - ./schema:/app
-    depends_on:
-      - db
-    command: sh -c "sleep infinity"
-
   db:
     image: postgres:13.2
     restart: always
@@ -173,25 +157,38 @@ services:
   ksqldb-cli:
     image: confluentinc/ksqldb-cli:0.15.0
     container_name: ksqldb-cli
+    profiles: ["dev"]
     depends_on:
       - kafka
       - ksqldb-server
     entrypoint: /bin/sh
     tty: true
 
+  schema:
+    build: ./schema
+    container_name: schema
+    profiles: ["schema"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: slacker
+    working_dir: /app
+    volumes:
+    - ./schema:/app
+    depends_on:
+      - db
+    command: sh -c "sleep infinity"
+
   adminer:
     image: adminer
     container_name: adminer
+    profiles: ["dev", "schema"]
     restart: always
     networks:
       - default
     ports:
       - "8080"
 
-  whoami:
-    image: jwilder/whoami
-    expose:
-      - "8000"
 volumes:
   postgres_data:
   zookeeper_data:

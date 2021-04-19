@@ -4,6 +4,7 @@
 - websocket
 - sketch react
 - experiment kafka
+- docker compose profiles
 
 # DONE
 - DB schema

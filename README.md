@@ -3,10 +3,9 @@
 ```bash
 docker build -t slacker-app .
 
-docker volume create slacker_postgres
-docker volume create slacker_postgres_config
-
-docker network create slacker_postgres
+#docker volume create slacker_postgres
+#docker volume create slacker_postgres_config
+#docker network create slacker_postgres
 
 psql -h localhost -U postgres
 docker exec -it db psql -h localhost -U postgres
@@ -15,6 +14,12 @@ docker exec -it db psql -h localhost -U postgres
 docker-compose exec ui sh
 yarn outdated
 yarn upgrade nodemon
+```
+
+## Dev
+
+```bash
+COMPOSE_PROFILES=dev,schema docker-compose up
 ```
 
 ## Testing
@@ -80,6 +85,9 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://stackoverflow.com/questions/64081992/docker-opened-up-ports-to-public-how-do-i-close-thme
 - https://medium.com/@sujaypillai/docker-daemon-configuration-file-f577000da655
 - https://community.home-assistant.io/t/how-do-you-manage-firewall-rules-on-docker-hosts/105982
+- https://stackoverflow.com/questions/50848797/docker-compose-exclude-service-by-default
+- https://stackoverflow.com/questions/26331651/how-can-i-backup-a-docker-container-with-its-data-volumes
+- https://stackoverflow.com/questions/50848797/docker-compose-exclude-service-by-default
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy
@@ -89,6 +97,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://stackoverflow.com/questions/51009692/docker-nginx-proxy-nginx-connect-failed-111-connection-refused-while-connec
 - https://hub.docker.com/_/nginx
 - https://www.liaohuqiu.net/posts/nginx-proxy-pass/
+- https://stackoverflow.com/questions/32845674/setup-nginx-not-to-crash-if-host-in-upstream-is-not-found
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
