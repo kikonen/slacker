@@ -2,6 +2,7 @@ import express from 'express';
 
 import { Pool, PoolClient, Client } from 'pg';
 
+import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv'
 import path from 'path';
@@ -49,6 +50,12 @@ app.get('/roles', (req, res) => {
 });
 
 app.get('/send', (req, res) => {
+  let token: string = req.cookies._slacker_auth;
+  let decodedToken = jwt.decode(token)
+
+  console.log("jwt: " + token);
+  console.log(decodedToken);
+
   const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
   const message:string = req.query.message as string;
   kafka.publish(TEST_TOPIC, message);
@@ -56,10 +63,12 @@ app.get('/send', (req, res) => {
 });
 
 app.get('/events', (req, res) => {
-  let sessionCookie: string = req.cookies._slacker_session;
+  let token: string = req.cookies._slacker_auth;
+  let decodedToken = jwt.decode(token)
   let groupId: string = 'user_1';
 
-  console.log("session: " + sessionCookie);
+  console.log("jwt: " + token);
+  console.log(decodedToken);
 
   console.log("events");
   sendSSEHeader(req, res);

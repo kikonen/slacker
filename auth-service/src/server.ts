@@ -2,6 +2,8 @@ import express from 'express';
 
 import { Pool, PoolClient, Client } from 'pg';
 
+import fs from 'fs';
+import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -53,13 +55,26 @@ app.get('/callback', (req, res) => {
   const scope = req.query.scope;
   const authuser = req.query.authuser;
   const prompt = req.query.prompt;
+  let salt = 'random';
 
-  let options = {
-    maxAge: 1000 * 60 * 15, // would expire after 15 minutes
-    httpOnly: true, // The cookie only accessible by the web server
-//    signed: true // Indicates if the cookie should be signed
+  let payload = {
+    code: code,
+    scope: scope,
+    authuser: authuser,
+    salt: salt,
   };
-  res.cookie("_slacker_session", code, options);
+
+  debugger;
+  let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+  console.log(privateKey);
+  let token = jwt.sign(payload, privateKey)
+  let decodedToken = jwt.decode(token)
+  console.log("jwt: " + token);
+  console.log(decodedToken);
+
+  res.cookie("_slacker_auth", token, {
+    httpOnly: true,
+  });
 
   res.send(
 `Authenticated...

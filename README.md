@@ -18,8 +18,14 @@ yarn upgrade nodemon
 
 ## Dev
 
+### Run
 ```bash
 COMPOSE_PROFILES=dev,schema docker-compose up
+```
+
+### Generate JWT secrets
+```bash
+scripts/create_jwt_secrets.sh
 ```
 
 ## Testing
@@ -147,6 +153,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://stackoverflow.com/questions/35291573/csrf-protection-with-json-web-tokens
 - https://caniuse.com/same-site-cookie-attribute
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite
+- https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9
 
 ### CSS
 - https://getbootstrap.com/docs/4.0/getting-started/introduction/
