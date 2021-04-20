@@ -1,6 +1,9 @@
 import express from 'express';
 
 import { Pool, PoolClient, Client } from 'pg';
+import { QueryTypes } from 'sequelize';
+
+import { DB } from './DB'
 
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
@@ -23,31 +26,27 @@ const pool = new Pool({
   max: 5,
 });
 
+const db = new DB();
+
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.send('Hello World! Via typescript');
 });
 
+app.get('/users', async (req, res) => {
+  db.connect();
+  res.json({ data: [{ id: "xxx" }] });
+});
+
 app.get('/bar', (req, res) => {
   res.send('Bar! Via typescript');
 });
 
-app.get('/roles', (req, res) => {
-  let client:PoolClient = null;
-
-  pool.connect()
-    .then(c => {
-      client = c;
-      return client.query('SELECT id, name from roles');
-    }).then( (rs) => {
-      client.release();
-      return rs;
-    }).then(rs => {
-      const roles = rs.rows;
-
-      res.send(rs.rows);
-    });
+app.get('/roles', async (req, res) => {
+  const roles = await db.sequelize.query("SELECT id, name FROM roles", { type: QueryTypes.SELECT });
+  console.log(roles);
+  res.json(roles);
 });
 
 app.get('/send', (req, res) => {

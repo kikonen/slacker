@@ -135,6 +135,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://hub.docker.com/_/postgres
 - https://node-postgres.com
 - https://www.smashingmagazine.com/2020/04/express-api-backend-project-postgresql/
+- https://stackoverflow.com/questions/11393438/what-is-activerecord-equivalence-in-the-node-js-world
 
 ### DB schema
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590
