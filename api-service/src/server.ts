@@ -110,7 +110,7 @@ function sendSSE(res: any, event: any) {
 
 app.use((req, res, next) => {
   res.status(404);
-  res.render("Nope");
+  res.json({"success": false});
 });
 
 app.listen(port, 'api', () => {

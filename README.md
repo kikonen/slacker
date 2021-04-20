@@ -107,6 +107,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://stackoverflow.com/questions/32845674/setup-nginx-not-to-crash-if-host-in-upstream-is-not-found
 - https://serverfault.com/questions/801628/for-server-sent-events-sse-what-nginx-proxy-configuration-is-appropriate
 - https://linuxize.com/post/nginx-reverse-proxy/
+- https://tarunlalwani.com/post/nginx-proxypass-server-paths/
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
@@ -147,6 +148,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://openid.net/connect/
 - https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth
 - https://nosleepjavascript.com/openid-oauth-authentication-for-nodejs/
+- https://github.com/franleplant/sso-with-openid/blob/master/src/auth/middleware.ts
 - https://developers.google.com/identity/protocols/oauth2/openid-connect
 - https://github.com/panva/node-openid-client
 
