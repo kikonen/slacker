@@ -4,6 +4,8 @@ import { Pool, PoolClient, Client } from 'pg';
 import { QueryTypes } from 'sequelize';
 
 import { DB } from './DB'
+import { User } from './models/User'
+import { Role } from './models/Role'
 
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
@@ -26,8 +28,6 @@ const pool = new Pool({
   max: 5,
 });
 
-const db = new DB();
-
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
@@ -35,8 +35,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/users', async (req, res) => {
-  db.connect();
-  res.json({ data: [{ id: "xxx" }] });
+  DB.connect();
+  const users = await User.findAll();
+  res.json({ data: users });
 });
 
 app.get('/bar', (req, res) => {
@@ -44,9 +45,9 @@ app.get('/bar', (req, res) => {
 });
 
 app.get('/roles', async (req, res) => {
-  const roles = await db.sequelize.query("SELECT id, name FROM roles", { type: QueryTypes.SELECT });
-  console.log(roles);
-  res.json(roles);
+  DB.connect();
+  const roles = await Role.findAll();
+  res.json({ data: roles });
 });
 
 app.get('/send', (req, res) => {

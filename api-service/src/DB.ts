@@ -4,17 +4,24 @@ import { Sequelize } from 'sequelize';
  * Wrapper to manage DB connection
  */
 export class DB {
-  sequelize: Sequelize;
+  static sequelize: Sequelize;
 
-  constructor() {
+  static init() {
+    if (this.sequelize) return;
+
     let host = process.env.PGHOST;
     let user = process.env.PGUSER;
     let pass = process.env.PGPASSWORD;
     let dbname = process.env.PGDATABASE;
-    this.sequelize = new Sequelize(`postgres://${user}:${pass}@${host}:5432/${dbname}`);
+
+    let conn_uri = `postgres://${user}:${pass}@${host}:5432/${dbname}`
+    console.log(conn_uri);
+    this.sequelize = new Sequelize(conn_uri);
   }
 
-  async connect() {
+  static async connect() {
     await this.sequelize.authenticate();
   }
 }
+
+DB.init();
