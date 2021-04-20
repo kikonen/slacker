@@ -1,6 +1,5 @@
 import express from 'express';
 
-import { Pool, PoolClient, Client } from 'pg';
 const { generators } = require('openid-client');
 
 import fs from 'fs';
@@ -9,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
 import querystring from 'querystring';
+import fetch from 'node-fetch';
 
 import { GoogleAuth } from './GoogleAuth';
 
@@ -18,44 +18,32 @@ const app = express();
 
 const port = parseInt(process.env.SERVER_PORT || '3200', 10);
 
-const pool = new Pool({
-  max: 5,
-});
-
 app.use(GoogleAuth.initialize);
 app.use(cookieParser());
 
 app.set('view engine', 'ejs');
 
-app.get('/login', (req, res) => {
-  let client:PoolClient = null;
+app.get('/login', async (req, res) => {
+  const response = await fetch('http://api:3100/roles');
+  const roles = await response.json();
 
-  pool.connect()
-    .then(c => {
-      client = c;
-      return client.query('SELECT id, name from roles');
-    }).then( (rs) => {
-      client.release();
-      return rs;
-    }).then(rs => {
-      const roles = rs.rows;
+  console.log(roles);
 
-      const code_verifier = generators.codeVerifier();
-      const state = generators.codeChallenge(code_verifier);
+  const code_verifier = generators.codeVerifier();
+  const state = generators.codeChallenge(code_verifier);
 
-      const auth_url = GoogleAuth.client.authorizationUrl({
-        scope: "openid email profile",
-        state,
-      });
+  const auth_url = GoogleAuth.client.authorizationUrl({
+    scope: "openid email profile",
+    state,
+  });
 
-      res.cookie("_slacker_auth_state", state, {
-        httpOnly: true,
-        sameSite: 'lax',
-        secure: process.env.PRODUCTION === 'true',
-      });
+  res.cookie("_slacker_auth_state", state, {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.PRODUCTION === 'true',
+  });
 
-      res.render(`${__dirname}/../view/index`, { roles: roles, auth_url: auth_url });
-    });
+  res.render(`${__dirname}/../view/index`, { roles: roles.data, auth_url: auth_url });
 });
 
 app.get('/callback', (req, res) => {
