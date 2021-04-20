@@ -4,7 +4,9 @@
 - sketch react
 - experiment kafka
 - remove "event" from DB schema; kafka is enough
-- sketch models using Sequelize
+- add fast-jwt
+- add remaining sequelize models
+- sketch system@system user auth => api logi
 
 # DONE
 - DB schema
@@ -12,3 +14,4 @@
 - docker compose profiles
 - websocket
 ** going with SSE instead
+- sketch models using Sequelize
