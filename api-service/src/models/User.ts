@@ -1,9 +1,14 @@
-import { DB } from '../DB'
 import { Sequelize, DataTypes, Model } from 'sequelize';
+import { DB } from '../DB'
+import { Role } from './Role'
 
 export class User extends Model {}
 
 User.init({
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+  },
   name: {
     type: DataTypes.STRING,
   },
@@ -26,6 +31,14 @@ User.init({
   salt: {
     type: DataTypes.STRING,
   },
+  role_id: {
+    type: DataTypes.UUID,
+    field: 'role_id',
+    references: {
+      model: Role,
+      key: 'id'
+    }
+  },
   created_at: {
     type: DataTypes.DATE,
     allowNull: false
@@ -40,4 +53,14 @@ User.init({
   modelName: 'User',
   createdAt: 'created_at',
   updatedAt: 'updated_at',
+  timestamps: false,
+});
+
+Role.hasMany(User, {
+  foreignKey: 'role_id',
+  as: 'users',
+});
+
+User.belongsTo(Role, {
+  foreignKey: 'role_id'
 });

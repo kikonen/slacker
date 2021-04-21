@@ -71,6 +71,9 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://codeforgeek.com/render-html-file-expressjs/
 - https://ejs.co
 - https://wanago.io/2018/12/03/typescript-express-tutorial-routing-controllers-middleware/
+- https://khalilstemmler.com/articles/enterprise-typescript-nodejs/clean-consistent-expressjs-controllers/
+- https://medium.com/@michael.svr/node-js-rest-api-with-rbac-jwt-repository-and-mvc-pattern-part-1-f5717c0b7103
+- https://www.digitalocean.com/community/tutorials/use-expressjs-to-get-url-and-post-parameters
 
 ### React
 - https://create-react-app.dev/docs/adding-typescript/
@@ -136,6 +139,8 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://node-postgres.com
 - https://www.smashingmagazine.com/2020/04/express-api-backend-project-postgresql/
 - https://stackoverflow.com/questions/11393438/what-is-activerecord-equivalence-in-the-node-js-world
+- https://sequelize.org/v3/docs/associations/
+- https://sequelize.org/master/manual/advanced-many-to-many.html
 
 ### DB schema
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590

@@ -1,9 +1,9 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import { DB } from '../DB'
 
-export class Role extends Model {}
+export class Channel extends Model {}
 
-Role.init({
+Channel.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -12,7 +12,11 @@ Role.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  admin: {
+  private: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false
+  },
+  automatic: {
     type: DataTypes.BOOLEAN,
     allowNull: false
   },
@@ -26,8 +30,8 @@ Role.init({
   },
 }, {
   sequelize: DB.sequelize,
-  tableName: 'roles',
-  modelName: 'Role',
+  tableName: 'channels',
+  modelName: 'Channel',
   createdAt: 'created_at',
   updatedAt: 'updated_at',
   timestamps: false,

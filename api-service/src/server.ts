@@ -6,6 +6,8 @@ import { QueryTypes } from 'sequelize';
 import { DB } from './DB'
 import { User } from './models/User'
 import { Role } from './models/Role'
+import { Channel } from './models/Channel'
+import { ChannelMember } from './models/ChannelMember'
 
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
@@ -17,6 +19,9 @@ import querystring from 'querystring';
 import { Kafka } from './kafka';
 
 dotenv.config();
+
+// HACK KI ensure assocation is not dropped; fails queries if so
+ChannelMember.toString();
 
 const TEST_TOPIC = 'channel_4';
 //const TEST_TOPIC = 'quickstart-events'
@@ -34,20 +39,26 @@ app.get('/', (req, res) => {
   res.send('Hello World! Via typescript');
 });
 
-app.get('/users', async (req, res) => {
+app.get('/channels', async (req, res) => {
   DB.connect();
-  const users = await User.findAll();
-  res.json({ data: users });
+  const channels = await Channel.findAll({ include: { model: User, as: 'users' } });
+  res.json({ data: channels });
 });
 
-app.get('/bar', (req, res) => {
-  res.send('Bar! Via typescript');
+app.get('/users', async (req, res) => {
+  DB.connect();
+  const users = await User.findAll({ include: Role });
+  res.json({ data: users });
 });
 
 app.get('/roles', async (req, res) => {
   DB.connect();
-  const roles = await Role.findAll();
+  const roles = await Role.findAll({ include: { model: User, as: 'users' } });
   res.json({ data: roles });
+});
+
+app.get('/bar', (req, res) => {
+  res.send('Bar! Via typescript');
 });
 
 app.get('/send', (req, res) => {
