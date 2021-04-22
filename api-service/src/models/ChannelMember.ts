@@ -45,5 +45,5 @@ ChannelMember.init({
   timestamps: false,
 });
 
-Channel.belongsToMany(User, { as: 'users', through: ChannelMember });
-User.belongsToMany(Channel, { as: 'channels', through: ChannelMember });
+Channel.belongsToMany(User, { as: 'users', through: ChannelMember, foreignKey: 'channel_id' });
+User.belongsToMany(Channel, { as: 'channels', through: ChannelMember, foreignKey: 'user_id' });

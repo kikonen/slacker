@@ -2,6 +2,11 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import { DB } from '../DB'
 import { Role } from './Role'
 
+export const USER_SECRETS = [
+  'password',
+  'salt',
+];
+
 export class User extends Model {}
 
 User.init({

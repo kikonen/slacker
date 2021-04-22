@@ -141,6 +141,8 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://stackoverflow.com/questions/11393438/what-is-activerecord-equivalence-in-the-node-js-world
 - https://sequelize.org/v3/docs/associations/
 - https://sequelize.org/master/manual/advanced-many-to-many.html
+- https://stackoverflow.com/questions/27929488/sequelize-includes-reference-table-row-in-result-when-using-include/47097675
+- https://stackoverflow.com/questions/31679838/sequelizejs-findall-exclude-field
 
 ### DB schema
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590

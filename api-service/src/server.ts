@@ -4,7 +4,7 @@ import { Pool, PoolClient, Client } from 'pg';
 import { QueryTypes } from 'sequelize';
 
 import { DB } from './DB'
-import { User } from './models/User'
+import { User, USER_SECRETS } from './models/User'
 import { Role } from './models/Role'
 import { Channel } from './models/Channel'
 import { ChannelMember } from './models/ChannelMember'
@@ -41,19 +41,43 @@ app.get('/', (req, res) => {
 
 app.get('/channels', async (req, res) => {
   DB.connect();
-  const channels = await Channel.findAll({ include: { model: User, as: 'users' } });
+
+  const channels = await Channel.findAll({
+    include: {
+      model: User,
+      as: 'users',
+      attributes: { exclude: USER_SECRETS },
+      through: { attributes: [] }
+    }
+  });
+
   res.json({ data: channels });
 });
 
 app.get('/users', async (req, res) => {
   DB.connect();
-  const users = await User.findAll({ include: Role });
+
+  const users = await User.findAll({
+    attributes: { exclude: USER_SECRETS },
+    include: [
+      Role,
+      { model: Channel, as: 'channels', through: {attributes: []} }]
+  });
+
   res.json({ data: users });
 });
 
 app.get('/roles', async (req, res) => {
   DB.connect();
-  const roles = await Role.findAll({ include: { model: User, as: 'users' } });
+
+  const roles = await Role.findAll({
+    include: {
+      model: User,
+      as: 'users',
+      attributes: { exclude: USER_SECRETS },
+    }
+  });
+
   res.json({ data: roles });
 });
 
