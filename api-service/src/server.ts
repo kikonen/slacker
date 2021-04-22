@@ -4,11 +4,8 @@ import { Pool, PoolClient, Client } from 'pg';
 import { QueryTypes } from 'sequelize';
 
 import { DB } from './DB';
-import { User, USER_SECRETS } from './models/User';
-import { Role } from './models/Role';
-import { Channel } from './models/Channel';
-import { ChannelMember } from './models/ChannelMember';
 
+import { ChannelsController } from './controllers/ChannelsController';
 import { UsersController } from './controllers/UsersController';
 import { RolesController } from './controllers/RolesController';
 
@@ -41,20 +38,11 @@ app.get('/', (req, res) => {
   res.send('Hello World! Via typescript');
 });
 
-app.get('/channels', async (req, res) => {
-  DB.connect();
-
-  const channels = await Channel.findAll({
-    include: {
-      model: User,
-      as: 'users',
-      attributes: { exclude: USER_SECRETS },
-      through: { attributes: [] }
-    }
-  });
-
-  res.json({ data: channels });
-});
+app.get('/channels', ChannelsController.index);
+app.get('/channels/:id', ChannelsController.show);
+app.post('/channels', ChannelsController.create);
+app.put('/channels/:id', ChannelsController.update);
+app.delete('/channels/:id', ChannelsController.destroy);
 
 app.get('/users', UsersController.index);
 app.get('/users/:id', UsersController.show);

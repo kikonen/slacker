@@ -22,11 +22,9 @@ Channel.init({
   },
   private: {
     type: DataTypes.BOOLEAN,
-    allowNull: false
   },
   automatic: {
     type: DataTypes.BOOLEAN,
-    allowNull: false
   },
   created_at: {
     type: DataTypes.DATE,
