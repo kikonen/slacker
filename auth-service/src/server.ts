@@ -12,6 +12,8 @@ import fetch from 'node-fetch';
 
 import { GoogleAuth } from './GoogleAuth';
 
+import { URLSearchParams } from 'url';
+
 dotenv.config();
 
 const app = express();
@@ -46,38 +48,51 @@ app.get('/login', async (req, res) => {
   res.render(`${__dirname}/../view/index`, { roles: roles.data, auth_url: auth_url });
 });
 
-app.get('/callback', (req, res) => {
-  const client = GoogleAuth.client;
+app.get('/callback', async (req, res) => {
+  try {
+    let userInfo;
+    {
+      const client = GoogleAuth.client;
 
-  const code = req.query.code;
-  const scope = req.query.scope;
-  const authuser = req.query.authuser;
-  const prompt = req.query.prompt;
-  const salt = 'random';
+      const state: string = req.cookies._slacker_auth_state;
+      console.log("auth_state: " + state);
 
-  const state: string = req.cookies._slacker_auth_state;
-  console.log("auth_state: " + state);
+      const params = client.callbackParams(req);
 
-  const params = client.callbackParams(req);
+      const tokenSet = await client.callback(
+        `${GoogleAuth.getDomain(req)}/auth/callback`,
+        params,
+        { state });
+      userInfo = await client.userinfo(tokenSet);
 
-  client.callback(
-    `${GoogleAuth.getDomain(req)}/auth/callback`,
-    params,
-    { state }
-  ).then((tokenSet: any) => {
-    return client.userinfo(tokenSet);
-  }).then((user: any) => {
-    console.log("USER");
-    console.log(user);
+      console.log("USER_INFO");
+      console.log(userInfo);
+    }
 
-    let payload = user;
+    let user;
+    {
+      const userParams = new URLSearchParams();
+      userParams.append('email', userInfo.email);
+      userParams.append('name', userInfo.name);
 
-    let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
-    console.log(privateKey);
-    let token = jwt.sign(payload, privateKey)
-    let decodedToken = jwt.decode(token)
-    console.log("jwt: " + token);
-    console.log(decodedToken);
+      let response = await fetch('http://api:3100/users', { method: 'POST', body: userParams });
+      user = await response.json();
+    }
+
+    let token;
+    {
+      let payload = {
+        id: user.id as string,
+        email: user.email as string,
+      };
+
+      let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+      console.log(privateKey);
+      let token = jwt.sign(payload, privateKey)
+      let decodedToken = jwt.decode(token)
+      console.log("jwt: " + token);
+      console.log(decodedToken);
+    }
 
     // NOTE KI Typescript does NOT allow 0 to create session cookie
     res.cookie("_slacker_auth", token, {
@@ -88,10 +103,10 @@ app.get('/callback', (req, res) => {
     });
 
     res.send(`Authenticated...<br>${JSON.stringify(user)}`);
-  }).catch((err: any) => {
-    console.log(err);
-    res.status(500).send("FAILED");
-  });
+  } catch(error) {
+    console.log(error);
+    res.status(500).json({ "success": false, error: error });
+  }
 });
 
 app.listen(port, 'auth', () => {
