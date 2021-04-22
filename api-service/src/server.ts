@@ -10,6 +10,7 @@ import { Channel } from './models/Channel';
 import { ChannelMember } from './models/ChannelMember';
 
 import { UsersController } from './controllers/UsersController';
+import { RolesController } from './controllers/RolesController';
 
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
@@ -61,19 +62,8 @@ app.post('/users', UsersController.create);
 app.put('/users/:id', UsersController.update);
 app.delete('/users/:id', UsersController.destroy);
 
-app.get('/roles', async (req, res) => {
-  DB.connect();
-
-  const roles = await Role.findAll({
-    include: {
-      model: User,
-      as: 'users',
-      attributes: { exclude: USER_SECRETS },
-    }
-  });
-
-  res.json({ data: roles });
-});
+app.get('/roles', RolesController.index);
+app.get('/roles/:id', RolesController.show);
 
 app.get('/bar', (req, res) => {
   res.send('Bar! Via typescript');

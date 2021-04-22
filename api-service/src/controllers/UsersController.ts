@@ -15,8 +15,6 @@ ChannelMember.toString();
 export class UsersController {
   static async index(req: express.Request, res: express.Response) {
     try {
-      DB.connect();
-
       const users = await User.findAll({
         attributes: { exclude: USER_SECRETS },
         include: [
