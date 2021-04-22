@@ -1,12 +1,19 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import { DB } from '../DB'
 
-export class Role extends Model {}
+export class Role extends Model {
+  id: string;
+  name: string;
+  admin: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
 
 Role.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
+    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING,
@@ -18,11 +25,9 @@ Role.init({
   },
   created_at: {
     type: DataTypes.DATE,
-    allowNull: false
   },
   updated_at: {
     type: DataTypes.DATE,
-    allowNull: false
   },
 }, {
   sequelize: DB.sequelize,

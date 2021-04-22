@@ -7,12 +7,25 @@ export const USER_SECRETS = [
   'salt',
 ];
 
-export class User extends Model {}
+export class User extends Model {
+  id: string;
+  name: string;
+  email: string;
+  nick: string;
+  status: string;
+  status_message: string;
+  password: string;
+  salt: string;
+  role_id: string;
+  created_at: Date;
+  updated_at: Date;
+}
 
 User.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
+    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING,
@@ -46,11 +59,9 @@ User.init({
   },
   created_at: {
     type: DataTypes.DATE,
-    allowNull: false
   },
   updated_at: {
     type: DataTypes.DATE,
-    allowNull: false
   },
 }, {
   sequelize: DB.sequelize,

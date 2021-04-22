@@ -3,12 +3,19 @@ import { DB } from '../DB'
 import { User } from './User'
 import { Channel } from './Channel'
 
-export class ChannelMember extends Model {}
+export class ChannelMember extends Model {
+  id: string;
+  channel_id: string;
+  user_id: string;
+  created_at: Date;
+  updated_at: Date;
+}
 
 ChannelMember.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
+    autoIncrement: true,
   },
   channel_id: {
     type: DataTypes.UUID,
@@ -30,11 +37,9 @@ ChannelMember.init({
   },
   created_at: {
     type: DataTypes.DATE,
-    allowNull: false
   },
   updated_at: {
     type: DataTypes.DATE,
-    allowNull: false
   },
 }, {
   sequelize: DB.sequelize,

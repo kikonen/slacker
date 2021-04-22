@@ -1,12 +1,20 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import { DB } from '../DB'
 
-export class Channel extends Model {}
+export class Channel extends Model {
+  id: string;
+  name: string;
+  private: boolean;
+  automatic: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
 
 Channel.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
+    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING,
@@ -22,11 +30,9 @@ Channel.init({
   },
   created_at: {
     type: DataTypes.DATE,
-    allowNull: false
   },
   updated_at: {
     type: DataTypes.DATE,
-    allowNull: false
   },
 }, {
   sequelize: DB.sequelize,

@@ -74,6 +74,8 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://khalilstemmler.com/articles/enterprise-typescript-nodejs/clean-consistent-expressjs-controllers/
 - https://medium.com/@michael.svr/node-js-rest-api-with-rbac-jwt-repository-and-mvc-pattern-part-1-f5717c0b7103
 - https://www.digitalocean.com/community/tutorials/use-expressjs-to-get-url-and-post-parameters
+- https://gabrieleromanato.name/nodejs-the-mvc-design-pattern-and-the-crud-model-in-expressjs
+- https://stackoverflow.com/questions/11625519/how-to-access-the-request-body-when-posting-using-node-js-and-express
 
 ### React
 - https://create-react-app.dev/docs/adding-typescript/
@@ -143,6 +145,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://sequelize.org/master/manual/advanced-many-to-many.html
 - https://stackoverflow.com/questions/27929488/sequelize-includes-reference-table-row-in-result-when-using-include/47097675
 - https://stackoverflow.com/questions/31679838/sequelizejs-findall-exclude-field
+- https://stackoverflow.com/questions/63634748/sequelize-v5-v6-upgrade-typescript-error-property-x-does-not-exist-on-tyep
 
 ### DB schema
 - https://betterprogramming.pub/setting-up-rails-with-postgres-using-docker-426c853e8590

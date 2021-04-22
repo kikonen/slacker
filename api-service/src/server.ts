@@ -3,15 +3,18 @@ import express from 'express';
 import { Pool, PoolClient, Client } from 'pg';
 import { QueryTypes } from 'sequelize';
 
-import { DB } from './DB'
-import { User, USER_SECRETS } from './models/User'
-import { Role } from './models/Role'
-import { Channel } from './models/Channel'
-import { ChannelMember } from './models/ChannelMember'
+import { DB } from './DB';
+import { User, USER_SECRETS } from './models/User';
+import { Role } from './models/Role';
+import { Channel } from './models/Channel';
+import { ChannelMember } from './models/ChannelMember';
+
+import { UsersController } from './controllers/UsersController';
 
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
 import path from 'path';
 import querystring from 'querystring';
@@ -19,9 +22,6 @@ import querystring from 'querystring';
 import { Kafka } from './kafka';
 
 dotenv.config();
-
-// HACK KI ensure assocation is not dropped; fails queries if so
-ChannelMember.toString();
 
 const TEST_TOPIC = 'channel_4';
 //const TEST_TOPIC = 'quickstart-events'
@@ -34,6 +34,7 @@ const pool = new Pool({
 });
 
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send('Hello World! Via typescript');
@@ -54,18 +55,11 @@ app.get('/channels', async (req, res) => {
   res.json({ data: channels });
 });
 
-app.get('/users', async (req, res) => {
-  DB.connect();
-
-  const users = await User.findAll({
-    attributes: { exclude: USER_SECRETS },
-    include: [
-      Role,
-      { model: Channel, as: 'channels', through: {attributes: []} }]
-  });
-
-  res.json({ data: users });
-});
+app.get('/users', UsersController.index);
+app.get('/users/:id', UsersController.show);
+app.post('/users', UsersController.create);
+app.put('/users/:id', UsersController.update);
+app.delete('/users/:id', UsersController.destroy);
 
 app.get('/roles', async (req, res) => {
   DB.connect();
