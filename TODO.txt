@@ -7,6 +7,10 @@
 - add fast-jwt
 - add remaining sequelize models
 - sketch system@system user auth => api logi
+- JWT validator class
+- validate JWT always
+- command logic to allow join/leave channel
+- ChannelState to track "read" pointers per user
 
 # DONE
 - DB schema

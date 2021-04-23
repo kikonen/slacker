@@ -7,13 +7,13 @@ function sendMessage() {
   let text: string = el.value;
   console.log("send: " + text);
 
-  fetch("/api/send?message=" + text);
+  fetch("/api/messages/send?message=" + text, { method: 'POST' });
 }
 
 let source;
 
 function startEvents() {
-  source = new EventSource('/api/events');
+  source = new EventSource('/api/messages/events');
   source.addEventListener('message', function(e) {
     console.log(e.data);
 
