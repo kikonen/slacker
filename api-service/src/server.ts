@@ -49,6 +49,7 @@ app.get('/users/:id', UsersController.show);
 app.post('/users', UsersController.create);
 app.put('/users/:id', UsersController.update);
 app.delete('/users/:id', UsersController.destroy);
+app.get('/users/action/find_email', UsersController.findByEmail);
 
 app.get('/roles', RolesController.index);
 app.get('/roles/:id', RolesController.show);

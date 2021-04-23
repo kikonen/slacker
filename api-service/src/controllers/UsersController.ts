@@ -101,4 +101,26 @@ export class UsersController {
       res.status(404).json({ success: false, error: error });
     }
   }
+
+  static async findByEmail(req: express.Request, res: express.Response) {
+    const { email } = req.query;
+
+    console.log(`email: ${email}`);
+    try {
+      const user = await User.findOne({
+        where: {
+          email: email,
+        },
+        attributes: { exclude: USER_SECRETS },
+        include: [
+          Role,
+          { model: Channel, as: 'channels', through: {attributes: []} }]
+      });
+
+      res.json({ data: user });
+    } catch(error) {
+      console.log(error);
+      res.status(404).json({ success: false, error: error });
+    }
+  }
 }
