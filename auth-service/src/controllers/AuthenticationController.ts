@@ -93,8 +93,10 @@ export class AuthenticationController {
 
         let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
         console.log(privateKey);
-        let token = jwt.sign(payload, privateKey)
+
+        token = jwt.sign(payload, privateKey)
         let decodedToken = jwt.decode(token)
+
         console.log("jwt: " + token);
         console.log(decodedToken);
       }
