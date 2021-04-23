@@ -48,6 +48,8 @@ function App() {
         <button type="button" className="btn btn-success" onClick={sendMessage}>Send</button>
       </form>
 
+      <a href="../auth/login" className="btn btn-normal">Login</a>
+
       <div id="incoming">
         ....
       </div>

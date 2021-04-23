@@ -34,7 +34,8 @@ export class AuthenticationController {
       secure: process.env.PRODUCTION === 'true',
     });
 
-    res.render(`${__dirname}/../../view/index`, { roles: roles.data, auth_url: auth_url });
+//    res.render(`${__dirname}/../../view/index`, { roles: roles.data, auth_url: auth_url });
+    res.redirect(302, auth_url);
   }
 
   static async callback(req: express.Request, res: express.Response) {
@@ -106,7 +107,8 @@ export class AuthenticationController {
         secure: process.env.PRODUCTION === 'true',
       });
 
-      res.send(`Authenticated...<br>${JSON.stringify(user)}`);
+//      res.send(`Authenticated...<br>${JSON.stringify(user)}`);
+      res.redirect(302, "../ui");
     } catch(error) {
       console.log(error);
       res.status(500).json({ "success": false, error: error });
