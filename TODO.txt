@@ -12,6 +12,7 @@
 - command logic to allow join/leave channel
 - ChannelState to track "read" pointers per user
 - "me" API for getting info/controlling current user
+- User registration email sending for new users
 
 # DONE
 - DB schema

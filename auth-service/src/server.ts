@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 
-const port = parseInt(process.env.SERVER_PORT || '3200', 10);
+const port = parseInt(process.env.SERVER_PORT, 10);
 
 app.use(GoogleAuth.initialize);
 app.use(cookieParser());
