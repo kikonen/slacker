@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_16_173739) do
+ActiveRecord::Schema.define(version: 2021_04_23_215751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,20 +18,25 @@ ActiveRecord::Schema.define(version: 2021_04_16_173739) do
   create_table "channel_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
-    t.datetime "last_read_event_ts"
     t.uuid "channel_id", null: false
     t.uuid "user_id", null: false
-    t.uuid "last_read_event_id"
     t.index ["channel_id", "user_id"], name: "idx_members", unique: true
     t.index ["channel_id"], name: "idx_member_channel"
-    t.index ["last_read_event_id"], name: "idx_member_event"
     t.index ["user_id"], name: "idx_member_user"
+  end
+
+  create_table "channel_states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "offset", null: false
+    t.datetime "created_at", default: -> { "now()" }, null: false
+    t.datetime "updated_at", default: -> { "now()" }, null: false
+    t.uuid "user_id", null: false
+    t.index ["user_id"], name: "idx_user_channel_state"
   end
 
   create_table "channels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
-    t.boolean "private", null: false
-    t.boolean "automatic", null: false
+    t.boolean "private", default: false, null: false
+    t.boolean "automatic", default: false, null: false
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
   end
@@ -52,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_173739) do
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
-    t.boolean "admin", null: false
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
   end
@@ -71,19 +76,16 @@ ActiveRecord::Schema.define(version: 2021_04_16_173739) do
     t.string "email", null: false
     t.string "nick"
     t.string "status"
-    t.string "status_message"
-    t.string "password"
-    t.string "salt"
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
     t.uuid "role_id"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "idx_user_email", unique: true
     t.index ["role_id"], name: "idx_user_role"
   end
 
   add_foreign_key "channel_members", "channels"
-  add_foreign_key "channel_members", "events", column: "last_read_event_id"
   add_foreign_key "channel_members", "users"
+  add_foreign_key "channel_states", "users"
   add_foreign_key "events", "channels"
   add_foreign_key "events", "events", column: "target_event_id"
   add_foreign_key "events", "users"

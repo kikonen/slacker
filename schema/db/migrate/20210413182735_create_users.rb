@@ -5,14 +5,14 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :email, null: false
       t.string :nick
       t.string :status
-      t.string :status_message
-      t.string :password
-      t.string :salt
+#      t.string :status_message
+#      t.string :password
+#      t.string :salt
 
       t.timestamp :created_at, null: false, default: -> { 'now()' }
       t.timestamp :updated_at, null: false, default: -> { 'now()' }
 
-      t.index [:email], unique: true
+      t.index [:email], unique: true, name: 'idx_user_email'
     end
 
     add_updated_at_trigger(:users)
