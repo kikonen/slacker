@@ -9,6 +9,7 @@ import { UsersController } from './controllers/UsersController';
 import { RolesController } from './controllers/RolesController';
 import { SessionUserController } from './controllers/SessionUserController';
 
+import { EventsController } from './controllers/EventsController';
 import { MessagesController } from './controllers/MessagesController';
 
 import jwt from 'jsonwebtoken';
@@ -48,8 +49,10 @@ app.get('/users/action/find_email', UsersController.findByEmail);
 app.get('/roles', RolesController.index);
 app.get('/roles/:id', RolesController.show);
 
+app.get('/events/latest', EventsController.latest);
+app.get('/events/history', EventsController.history);
+
 app.post('/messages/send', MessagesController.send);
-app.get('/messages/events', MessagesController.events);
 
 // app.use((req, res, next) => {
 //   res.status(404);

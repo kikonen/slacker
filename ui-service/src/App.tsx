@@ -2,18 +2,38 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+const channelId = 'b9335aed-5ecb-43b8-b026-014925752084';
+
 function sendMessage() {
   let el: HTMLInputElement = document.querySelector("#message");
   let text: string = el.value;
   console.log("send: " + text);
 
-  fetch("/api/messages/send?message=" + text, { method: 'POST' });
+  const params = new Map([
+    ['channel', channelId],
+    ['text', text],
+  ]);
+
+  let parts: string[] = [];
+  params.forEach((v, k) => { parts.push(`${k}=${encodeURIComponent(v)}`) });
+
+  const url = `/api/messages/send?${parts.join('&')}`;
+  fetch(url, { method: 'POST' });
 }
 
 let source;
 
 function startEvents() {
-  source = new EventSource('/api/messages/events');
+  const params = new Map([
+    ['channel', channelId],
+  ]);
+
+  let parts: string[] = [];
+  params.forEach((v, k) => { parts.push(`${k}=${encodeURIComponent(v)}`) });
+
+  const url = `/api/events/latest?${parts.join('&')}`;
+
+  source = new EventSource(url);
   source.addEventListener('message', function(e) {
     console.log(e.data);
 
