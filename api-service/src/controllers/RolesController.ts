@@ -10,6 +10,8 @@ import { Role } from '../models/Role';
  * CRUD for Role
  */
 export class RolesController {
+  static router = express.Router();
+
   static async index(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
@@ -49,3 +51,7 @@ export class RolesController {
     }
   }
 }
+
+const router = RolesController.router;
+router.get('/', RolesController.index);
+router.get('/:id', RolesController.show);

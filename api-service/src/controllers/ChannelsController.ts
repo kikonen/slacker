@@ -14,6 +14,8 @@ ChannelMember.toString();
  * CRUD for Channel
  */
 export class ChannelsController {
+  static router = express.Router();
+
   static async index(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
@@ -118,3 +120,10 @@ export class ChannelsController {
     }
   }
 }
+
+const router = ChannelsController.router;
+router.get('/', ChannelsController.index);
+router.get('/:id', ChannelsController.show);
+router.post('/', ChannelsController.create);
+router.put('/:id', ChannelsController.update);
+router.delete('/:id', ChannelsController.destroy);

@@ -15,6 +15,8 @@ ChannelMember.toString();
  * CRUD for User
  */
 export class UsersController {
+  static router = express.Router();
+
   static async index(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
@@ -143,3 +145,11 @@ export class UsersController {
     }
   }
 }
+
+const router = UsersController.router;
+router.get('/', UsersController.index);
+router.get('/:id', UsersController.show);
+router.post('/', UsersController.create);
+router.put('/:id', UsersController.update);
+router.delete('/:id', UsersController.destroy);
+router.get('/action/find_email', UsersController.findByEmail);

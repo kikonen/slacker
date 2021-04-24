@@ -27,11 +27,15 @@ function sendSSE(res: express.Response, event: any) {
 }
 
 export class EventsController {
+  static router = express.Router();
+
   static async latest(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
+
       const channelId = req.query.channel;
       const topic = `channel_${channelId}`;
+      const autoCommit = true;
 
       console.log(`latest events: ${topic}`);
       sendSSEHeader(req, res);
@@ -39,7 +43,7 @@ export class EventsController {
       console.log("kafkaing...");
       let groupId: string = payload.id;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-      kafka.subscribe(topic, groupId, (event) => {
+      kafka.subscribe(topic, groupId, autoCommit, (event) => {
         console.log(event);
         sendSSE(res, event);
       });
@@ -55,6 +59,7 @@ export class EventsController {
 
       const channelId = req.query.channel;
       const topic = `channel_${channelId}`;
+      const autoCommit = false;
 
       console.log(`history events: ${topic}`);
       sendSSEHeader(req, res);
@@ -62,8 +67,8 @@ export class EventsController {
       console.log("kafkaing...");
       let groupId: string = payload.id;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-      kafka.subscribe(topic, groupId, (event) => {
-        console.log(event);
+      kafka.subscribe(topic, groupId, autoCommit, (event) => {
+        console.log("EVENT", event);
         sendSSE(res, event);
       });
     } catch(error) {
@@ -72,3 +77,7 @@ export class EventsController {
     }
   }
 }
+
+const router = EventsController.router;
+router.get('/latest', EventsController.latest);
+router.get('/history', EventsController.history);

@@ -4,8 +4,8 @@ import './App.css';
 
 const channelId = 'b9335aed-5ecb-43b8-b026-014925752084';
 
-function sendMessage() {
-  let el: HTMLInputElement = document.querySelector("#message");
+function sendCommand() {
+  let el: HTMLInputElement = document.querySelector("#command");
   let text: string = el.value;
   console.log("send: " + text);
 
@@ -17,7 +17,7 @@ function sendMessage() {
   let parts: string[] = [];
   params.forEach((v, k) => { parts.push(`${k}=${encodeURIComponent(v)}`) });
 
-  const url = `/api/messages/send?${parts.join('&')}`;
+  const url = `/api/commands/send?${parts.join('&')}`;
   fetch(url, { method: 'POST' });
 }
 
@@ -34,7 +34,7 @@ function startEvents() {
   const url = `/api/events/latest?${parts.join('&')}`;
 
   source = new EventSource(url);
-  source.addEventListener('message', function(e) {
+  source.addEventListener('message', function(e: any) {
     console.log(e.data);
 
     let inboxEl: HTMLInputElement = document.querySelector("#incoming");
@@ -60,12 +60,12 @@ function App() {
 
       <form>
         <div className="form-group">
-          <label htmlFor="message">Message</label>
-          <textarea id="message" className="form-control">
+          <label htmlFor="command">Message</label>
+          <textarea id="command" className="form-control">
          </textarea>
         </div>
 
-        <button type="button" className="btn btn-success" onClick={sendMessage}>Send</button>
+        <button type="button" className="btn btn-success" onClick={sendCommand}>Send</button>
       </form>
 
       <a href="../auth/login" className="btn btn-normal">Login</a>

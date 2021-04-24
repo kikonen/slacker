@@ -9,8 +9,9 @@ import { JWTVerifier } from '../JWTVerifier';
 import { Kafka } from '../Kafka';
 import { DB } from '../DB';
 
+export class CommandsController {
+  static router = express.Router();
 
-export class MessagesController {
   static async send(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
@@ -37,3 +38,6 @@ export class MessagesController {
     }
   }
 }
+
+const router = CommandsController.router;
+router.post('/send', CommandsController.send);

@@ -10,7 +10,7 @@ import { RolesController } from './controllers/RolesController';
 import { SessionUserController } from './controllers/SessionUserController';
 
 import { EventsController } from './controllers/EventsController';
-import { MessagesController } from './controllers/MessagesController';
+import { CommandsController } from './controllers/CommandsController';
 
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
@@ -31,28 +31,13 @@ app.get('/', (req, res) => {
   res.send('Hello World! Via typescript');
 });
 
-app.get('/channels', ChannelsController.index);
-app.get('/channels/:id', ChannelsController.show);
-app.post('/channels', ChannelsController.create);
-app.put('/channels/:id', ChannelsController.update);
-app.delete('/channels/:id', ChannelsController.destroy);
+app.use('/Channels', ChannelsController.router);
+app.use('/Users', UsersController.router);
+app.use('/roles', RolesController.router);
+app.use('/events', EventsController.router);
+app.use('/commands', CommandsController.router);
 
 app.get('/session/me', SessionUserController.show);
-
-app.get('/users', UsersController.index);
-app.get('/users/:id', UsersController.show);
-app.post('/users', UsersController.create);
-app.put('/users/:id', UsersController.update);
-app.delete('/users/:id', UsersController.destroy);
-app.get('/users/action/find_email', UsersController.findByEmail);
-
-app.get('/roles', RolesController.index);
-app.get('/roles/:id', RolesController.show);
-
-app.get('/events/latest', EventsController.latest);
-app.get('/events/history', EventsController.history);
-
-app.post('/messages/send', MessagesController.send);
 
 // app.use((req, res, next) => {
 //   res.status(404);
