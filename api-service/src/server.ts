@@ -21,7 +21,7 @@ import querystring from 'querystring';
 dotenv.config();
 
 const app = express();
-const port = parseInt(process.env.SERVER_PORT', 10);
+const port = parseInt(process.env.SERVER_PORT, 10);
 
 const pool = new Pool({
   max: 5,
