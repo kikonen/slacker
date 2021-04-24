@@ -9,6 +9,8 @@
 - Handle all commnads also as events
 ** enqeue them into private channel of user
 ** in web UI side do actions based into "event type" (command, message, etc.)
+** i.e. allows another user to send "invite", which will then become as event for another user
+   and refresh their UI
 - middleware for validating JWT
 - separate express.Router for each controller
 - React: show user profile
