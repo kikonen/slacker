@@ -7,6 +7,7 @@ import { DB } from './DB';
 import { ChannelsController } from './controllers/ChannelsController';
 import { UsersController } from './controllers/UsersController';
 import { RolesController } from './controllers/RolesController';
+import { SessionUserController } from './controllers/SessionUserController';
 
 import { MessagesController } from './controllers/MessagesController';
 
@@ -34,6 +35,8 @@ app.get('/channels/:id', ChannelsController.show);
 app.post('/channels', ChannelsController.create);
 app.put('/channels/:id', ChannelsController.update);
 app.delete('/channels/:id', ChannelsController.destroy);
+
+app.get('/session/me', SessionUserController.show);
 
 app.get('/users', UsersController.index);
 app.get('/users/:id', UsersController.show);
