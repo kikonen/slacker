@@ -16,7 +16,11 @@ export class JWTVerifier {
     this.publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
 
     this.decode = createDecoder();
-    this.verify = createVerifier({ algorithms: ['RS512'], key: this.publicKey });
+    this.verify = createVerifier({
+      algorithms: ['RS512'],
+      key: this.publicKey,
+      cache: 1000,
+    });
   }
 
   static async verifyToken(req: express.Request) {
