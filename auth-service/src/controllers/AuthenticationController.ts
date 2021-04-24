@@ -12,15 +12,25 @@ import { URLSearchParams } from 'url';
 
 import { GoogleAuth } from '../GoogleAuth';
 
+let systemToken: string;
+
+function getSystemToken(): string {
+  if (!systemToken) {
+    const PRIVATE_KEY = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+    let payload = {
+      id: 'SYSTEM',
+      email: 'system@system',
+      system: true,
+    };
+    systemToken = jwt.sign(payload, PRIVATE_KEY, { algorithm: 'RS512' });
+    console.log(`SERVER_TOKEN: ${systemToken}`);
+  }
+  return systemToken;
+}
 
 export class AuthenticationController {
   static async login(req: express.Request, res: express.Response) {
     try {
-      const response = await fetch('http://api:3100/roles');
-      const roles = await response.json();
-
-      console.log(roles);
-
       const code_verifier = generators.codeVerifier();
       const state = generators.codeChallenge(code_verifier);
 
@@ -35,7 +45,6 @@ export class AuthenticationController {
         secure: process.env.PRODUCTION === 'true',
       });
 
-      //    res.render(`${__dirname}/../../view/index`, { roles: roles.data, auth_url: auth_url });
       res.redirect(302, auth_url);
     } catch(error) {
       console.log(error);
@@ -64,6 +73,10 @@ export class AuthenticationController {
         console.log(userInfo);
       }
 
+      const systemFetchHeaders = {
+        cookie: `_slacker_auth=${getSystemToken()}`
+      }
+
       let user;
       {
         console.log("FINDING USER...");
@@ -71,7 +84,10 @@ export class AuthenticationController {
         userParams.append('email', userInfo.email);
 
         var query = querystring.stringify({email: userInfo.email});
-        let response = await fetch(`http://api:3100/users/action/find_email?${query}`);
+
+        let response = await fetch(`http://api:3100/users/action/find_email?${query}`,
+                                   { headers: systemFetchHeaders } );
+
         let parsed = await response.json();
         user = parsed.data;
 
@@ -85,7 +101,9 @@ export class AuthenticationController {
         userParams.append('email', userInfo.email);
         userParams.append('name', userInfo.name);
 
-        let response = await fetch('http://api:3100/users', { method: 'POST', body: userParams });
+        let response = await fetch('http://api:3100/users',
+                                   { headers: systemFetchHeaders, method: 'POST', body: userParams });
+
         let parsed = await response.json();
         console.log(parsed);
         user = parsed.data;
