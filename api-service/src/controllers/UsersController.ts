@@ -8,6 +8,11 @@ import { Role } from '../models/Role';
 import { Channel } from '../models/Channel';
 import { ChannelMember } from '../models/ChannelMember';
 
+import { UserFindAll } from '../commands/UserFindAll';
+import { UserFind } from '../commands/UserFind';
+import { UserCreate } from '../commands/UserCreate';
+import { UserUpdate } from '../commands/UserUpdate';
+
 // HACK KI ensure assocation is not dropped; fails queries if so
 ChannelMember.toString();
 
@@ -20,13 +25,7 @@ export class UsersController {
   static async index(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      const users = await User.findAll({
-        attributes: { exclude: USER_SECRETS },
-        include: [
-          Role,
-          { model: Channel, as: 'channels', through: {attributes: []} }]
-      });
+      const users = await UserFindAll.call(req.query);
 
       res.json({ data: users });
     } catch(error) {
@@ -39,15 +38,7 @@ export class UsersController {
     const { id } = req.params;
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      const user = await User.findByPk(
-        id,
-        {
-          attributes: { exclude: USER_SECRETS },
-          include: [
-            Role,
-            { model: Channel, as: 'channels', through: {attributes: []} }]
-        });
+      const user = await UserFind.call(id);
 
       res.json({ data: user });
     } catch(error) {
@@ -59,22 +50,7 @@ export class UsersController {
   static async create(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      console.log(req.body);
-
-      let user = User.build(req.body);
-      user = await user.save();
-
-      console.log(user);
-
-      user = await User.findByPk(
-        user.id,
-        {
-          attributes: { exclude: USER_SECRETS },
-          include: [
-            Role,
-            { model: Channel, as: 'channels', through: {attributes: []} }]
-        });
+      const user = await UserCreate.call(req.body);
 
       res.status(201).json({ success: true, data: user });
     } catch(error) {
@@ -87,16 +63,7 @@ export class UsersController {
     const { id } = req.params;
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      console.log(req.body);
-
-      let user = await User.findByPk(id);
-
-      const { name, email } = req.body;
-      user.name = name;
-      user.email = email;
-
-      user = await user.save();
+      const user = await UserUpdate.call(id, req.body);
 
       res.status(200).json({ success: true, data: user });
     } catch(error) {

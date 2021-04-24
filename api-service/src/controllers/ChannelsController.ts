@@ -7,6 +7,11 @@ import { User, USER_SECRETS } from '../models/User'
 import { Channel } from '../models/Channel';
 import { ChannelMember } from '../models/ChannelMember';
 
+import { ChannelFindAll } from '../commands/ChannelFindAll';
+import { ChannelFind } from '../commands/ChannelFind';
+import { ChannelCreate } from '../commands/ChannelCreate';
+import { ChannelUpdate } from '../commands/ChannelUpdate';
+
 // HACK KI ensure assocation is not dropped; fails queries if so
 ChannelMember.toString();
 
@@ -19,15 +24,7 @@ export class ChannelsController {
   static async index(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      const channels = await Channel.findAll({
-        include: {
-          model: User,
-          as: 'users',
-          attributes: { exclude: USER_SECRETS },
-          through: { attributes: [] }
-        }
-      });
+      const channels = ChannelFindAll.call(req.query);
 
       res.json({ data: channels });
     } catch(error) {
@@ -39,17 +36,7 @@ export class ChannelsController {
     const { id } = req.params;
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      const channel = await Channel.findByPk(
-        id,
-        {
-          include: {
-            model: User,
-            as: 'users',
-            attributes: { exclude: USER_SECRETS },
-            through: { attributes: [] }
-          }
-        });
+      const channel = await ChannelFind.call(id);
 
       res.json({ data: channel });
     } catch(error) {
@@ -60,24 +47,7 @@ export class ChannelsController {
   static async create(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      console.log(req.body);
-
-      let channel = Channel.build(req.body);
-      channel = await channel.save();
-
-      console.log(channel);
-
-      channel = await Channel.findByPk(
-        channel.id,
-        {
-          include: {
-            model: User,
-            as: 'users',
-            attributes: { exclude: USER_SECRETS },
-            through: { attributes: [] }
-          }
-        });
+      const channel = await ChannelCreate.call(req.body);
 
       res.status(201).json({ success: true, data: channel });
     } catch(error) {
@@ -89,15 +59,7 @@ export class ChannelsController {
     const { id } = req.params;
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      console.log(req.body);
-
-      let channel = await Channel.findByPk(id);
-
-      const { name } = req.body;
-      channel.name = name;
-
-      channel = await channel.save();
+      const channel = await ChannelUpdate.call(id, req.body);
 
       res.status(200).json({ success: true, data: channel });
     } catch(error) {

@@ -74,7 +74,7 @@ export class AuthenticationController {
       }
 
       const systemFetchHeaders = {
-        cookie: `_slacker_auth=${getSystemToken()}`
+        Authorization: `Bearer ${getSystemToken()}`
       }
 
       let user;

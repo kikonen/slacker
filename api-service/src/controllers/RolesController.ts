@@ -6,6 +6,9 @@ import { DB } from '../DB';
 import { User, USER_SECRETS } from '../models/User'
 import { Role } from '../models/Role';
 
+import { RoleFindAll } from '../commands/RoleFindAll';
+import { RoleFind } from '../commands/RoleFind';
+
 /**
  * CRUD for Role
  */
@@ -15,14 +18,7 @@ export class RolesController {
   static async index(req: express.Request, res: express.Response) {
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      const roles = await Role.findAll({
-        include: {
-          model: User,
-          as: 'users',
-          attributes: { exclude: USER_SECRETS },
-        }
-      });
+      const roles = await RoleFindAll.call(req.query);
 
       res.json({ data: roles });
     } catch(error) {
@@ -34,16 +30,7 @@ export class RolesController {
     const { id } = req.params;
     try {
       const payload = await JWTVerifier.verifyToken(req);
-
-      const role = await Role.findByPk(
-        id,
-        {
-          include: {
-            model: User,
-            as: 'users',
-            attributes: { exclude: USER_SECRETS },
-          }
-        });
+      const role = await RoleFind.call(id);
 
       res.json({ data: role });
     } catch(error) {

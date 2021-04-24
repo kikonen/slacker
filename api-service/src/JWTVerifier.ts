@@ -25,6 +25,13 @@ export class JWTVerifier {
 
   static async verifyToken(req: express.Request) {
     let token: string = req.cookies._slacker_auth;
+    if (!token) {
+      let header = req.headers['authorization'] as string;
+      if (header) {
+        token = header.split(/\s+/).pop() || '';
+      }
+    }
+
     const payload = await this.instance().verify(token);
 
     console.log("jwt: " + token);
