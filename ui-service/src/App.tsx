@@ -9,16 +9,18 @@ function sendCommand() {
   let text: string = el.value;
   console.log("send: " + text);
 
-  const params = new Map([
-    ['channel', channelId],
-    ['text', text],
-  ]);
+  const data = {
+    channel_id: channelId,
+    text: text,
+  };
 
-  let parts: string[] = [];
-  params.forEach((v, k) => { parts.push(`${k}=${encodeURIComponent(v)}`) });
-
-  const url = `/api/commands/send?${parts.join('&')}`;
-  fetch(url, { method: 'POST' });
+  fetch('/api/commands/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  });
 }
 
 let source;

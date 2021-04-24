@@ -9,6 +9,13 @@ import { JWTVerifier } from '../JWTVerifier';
 import { Kafka } from '../Kafka';
 import { DB } from '../DB';
 
+import { ChannelJoin } from '../commands/ChannelJoin';
+import { MessageSend } from '../commands/MessageSend';
+
+const commands = new Map([
+  ['/join', ChannelJoin]
+]);
+
 export class CommandsController {
   static router = express.Router();
 
@@ -16,21 +23,24 @@ export class CommandsController {
     try {
       const payload = await JWTVerifier.verifyToken(req);
 
-      const text = req.query.text;
-      const channelId = req.query.channel;
-      const topic = `channel_${channelId}`;
+      console.log("BODY", req.body);
+      let { text, channel_id } = req.body;
 
-      console.log(`send command: ${topic}`);
+      let handler: any;
+      let commandText: string;
 
-      const key = await DB.nextID();
-      const msg = {
-        content: text,
-        user: payload.id,
-      };
-      console.log(msg);
+      text = text.trim();
+      if (text[0] == '/') {
+        let command: string = text.split(' ')[0];
+        handler = commands.get(command) as any;
+        commandText = text.substring(command.length, text.length).trim();
+      } else {
+        handler = MessageSend;
+        commandText = text;
+      }
 
-      const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-      kafka.publish(topic, key, msg);
+      await handler.handle(req, payload, channel_id, commandText);
+
       res.send({"success": true});
     } catch(error) {
       console.log(error);

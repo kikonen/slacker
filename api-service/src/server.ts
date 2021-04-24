@@ -25,7 +25,14 @@ const app = express();
 const port = parseInt(process.env.SERVER_PORT, 10);
 
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json({
+  limit: 100000
+}));
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.get('/', (req, res) => {
   res.send('Hello World! Via typescript');
