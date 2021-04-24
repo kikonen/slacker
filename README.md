@@ -76,6 +76,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.digitalocean.com/community/tutorials/use-expressjs-to-get-url-and-post-parameters
 - https://gabrieleromanato.name/nodejs-the-mvc-design-pattern-and-the-crud-model-in-expressjs
 - https://stackoverflow.com/questions/11625519/how-to-access-the-request-body-when-posting-using-node-js-and-express
+- https://minaluke.medium.com/trigger-node-inspector-by-code-25c8a07177f4
 
 ### React
 - https://create-react-app.dev/docs/adding-typescript/

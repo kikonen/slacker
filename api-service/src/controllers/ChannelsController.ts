@@ -1,5 +1,7 @@
 import express from 'express';
 
+import { JWTVerifier } from '../JWTVerifier';
+
 import { DB } from '../DB';
 import { User, USER_SECRETS } from '../models/User'
 import { Channel } from '../models/Channel';
@@ -14,6 +16,8 @@ ChannelMember.toString();
 export class ChannelsController {
   static async index(req: express.Request, res: express.Response) {
     try {
+      const payload = await JWTVerifier.verifyToken(req);
+
       const channels = await Channel.findAll({
         include: {
           model: User,
@@ -32,6 +36,8 @@ export class ChannelsController {
   static async show(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
+      const payload = await JWTVerifier.verifyToken(req);
+
       const channel = await Channel.findByPk(
         id,
         {
@@ -51,6 +57,8 @@ export class ChannelsController {
 
   static async create(req: express.Request, res: express.Response) {
     try {
+      const payload = await JWTVerifier.verifyToken(req);
+
       console.log(req.body);
 
       let channel = Channel.build(req.body);
@@ -78,6 +86,8 @@ export class ChannelsController {
   static async update(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
+      const payload = await JWTVerifier.verifyToken(req);
+
       console.log(req.body);
 
       let channel = await Channel.findByPk(id);
@@ -96,6 +106,8 @@ export class ChannelsController {
   static async destroy(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
+      const payload = await JWTVerifier.verifyToken(req);
+
       let channel = Channel.build({ id });
 
       await channel.destroy();

@@ -1,6 +1,5 @@
 import express from 'express';
 
-import { Pool, PoolClient, Client } from 'pg';
 import { QueryTypes } from 'sequelize';
 
 import { DB } from './DB';
@@ -22,10 +21,6 @@ dotenv.config();
 
 const app = express();
 const port = parseInt(process.env.SERVER_PORT, 10);
-
-const pool = new Pool({
-  max: 5,
-});
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

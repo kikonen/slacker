@@ -1,5 +1,9 @@
 SERVER_PORT=3200
 JWT_PRIVATE_KEY=/app/.secrets/jwt_key
 JWT_PUBLIC_KEY=/app/.secrets/jwt_key.pub
+JWT_ALGORITHM=RS512
+#
+# DEPLOY
+#
 OAUTH_CLIENT_ID=xxx
 OAUTH_CLIENT_SECRET=yyy

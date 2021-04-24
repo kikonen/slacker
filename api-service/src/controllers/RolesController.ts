@@ -1,5 +1,7 @@
 import express from 'express';
 
+import { JWTVerifier } from '../JWTVerifier';
+
 import { DB } from '../DB';
 import { User, USER_SECRETS } from '../models/User'
 import { Role } from '../models/Role';
@@ -10,6 +12,8 @@ import { Role } from '../models/Role';
 export class RolesController {
   static async index(req: express.Request, res: express.Response) {
     try {
+      const payload = await JWTVerifier.verifyToken(req);
+
       const roles = await Role.findAll({
         include: {
           model: User,
@@ -27,6 +31,8 @@ export class RolesController {
   static async show(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
+      const payload = await JWTVerifier.verifyToken(req);
+
       const role = await Role.findByPk(
         id,
         {

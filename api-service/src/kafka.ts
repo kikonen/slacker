@@ -7,11 +7,14 @@ export class Kafka {
 
   constructor(kafkaHost: string) {
     this.kafkaHost = kafkaHost;
+
   }
 
-  publish(topic: string, message: string): void {
+  publish(topic: string, key: string, message: any): void {
     const client = new KafkaClient({ kafkaHost: this.kafkaHost });
     const producer = new Producer(client);
+
+    let json = JSON.stringify(message);
 
     console.log("kafka: " + this.kafkaHost);
 
@@ -25,11 +28,10 @@ export class Kafka {
               throw err;
             }
 
-            console.log(`Sending message to ${topic}: ${message}`);
-            let json = JSON.stringify({data: message});
+            console.log(`Sending message to ${topic}: ${json}`);
 
             producer.send(
-              [{ topic, messages: [json] }],
+              [{ topic, key, messages: [json] }],
               (err: Error, result: ProduceRequest): void => {
                 console.log(err || result);
               }

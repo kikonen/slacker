@@ -10,8 +10,8 @@ import fetch from 'node-fetch';
 
 import { URLSearchParams } from 'url';
 
-
 import { GoogleAuth } from '../GoogleAuth';
+
 
 export class AuthenticationController {
   static async login(req: express.Request, res: express.Response) {
@@ -101,11 +101,14 @@ export class AuthenticationController {
           email: user.email as string,
         };
 
-        let privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
-        console.log(privateKey);
+        const PRIVATE_KEY = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+        const PUBLIC_KEY = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
 
-        token = jwt.sign(payload, privateKey)
-        let decodedToken = jwt.decode(token)
+        console.log(PRIVATE_KEY);
+        console.log(PUBLIC_KEY);
+
+        token = jwt.sign(payload, PRIVATE_KEY, { algorithm: 'RS512' });
+        let decodedToken = jwt.decode(token);
 
         console.log("jwt: " + token);
         console.log(decodedToken);
