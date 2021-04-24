@@ -15,27 +15,32 @@ import { GoogleAuth } from '../GoogleAuth';
 
 export class AuthenticationController {
   static async login(req: express.Request, res: express.Response) {
-    const response = await fetch('http://api:3100/roles');
-    const roles = await response.json();
+    try {
+      const response = await fetch('http://api:3100/roles');
+      const roles = await response.json();
 
-    console.log(roles);
+      console.log(roles);
 
-    const code_verifier = generators.codeVerifier();
-    const state = generators.codeChallenge(code_verifier);
+      const code_verifier = generators.codeVerifier();
+      const state = generators.codeChallenge(code_verifier);
 
-    const auth_url = GoogleAuth.client.authorizationUrl({
-      scope: "openid email profile",
-      state,
-    });
+      const auth_url = GoogleAuth.client.authorizationUrl({
+        scope: "openid email profile",
+        state,
+      });
 
-    res.cookie("_slacker_auth_state", state, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.PRODUCTION === 'true',
-    });
+      res.cookie("_slacker_auth_state", state, {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: process.env.PRODUCTION === 'true',
+      });
 
-//    res.render(`${__dirname}/../../view/index`, { roles: roles.data, auth_url: auth_url });
-    res.redirect(302, auth_url);
+      //    res.render(`${__dirname}/../../view/index`, { roles: roles.data, auth_url: auth_url });
+      res.redirect(302, auth_url);
+    } catch(error) {
+      console.log(error);
+      res.status(500).json({ "success": false, error: error });
+    }
   }
 
   static async callback(req: express.Request, res: express.Response) {

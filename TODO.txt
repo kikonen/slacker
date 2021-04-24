@@ -1,6 +1,4 @@
 # TODO
-- postgres setup
-- oauth register user
 - sketch react
 - experiment kafka
 - remove "event" from DB schema; kafka is enough
@@ -21,3 +19,5 @@
 - websocket
 ** going with SSE instead
 - sketch models using Sequelize
+- postgres setup
+- oauth register user
