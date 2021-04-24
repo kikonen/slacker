@@ -13,9 +13,9 @@ export class User extends Model {
   email: string;
   nick: string;
   status: string;
-  status_message: string;
-  password: string;
-  salt: string;
+  // status_message: string;
+  // password: string;
+  // salt: string;
   role_id: string;
   created_at: Date;
   updated_at: Date;
@@ -40,15 +40,15 @@ User.init({
   status: {
     type: DataTypes.STRING,
   },
-  status_message: {
-    type: DataTypes.STRING,
-  },
-  password: {
-    type: DataTypes.STRING,
-  },
-  salt: {
-    type: DataTypes.STRING,
-  },
+  // status_message: {
+  //   type: DataTypes.STRING,
+  // },
+  // password: {
+  //   type: DataTypes.STRING,
+  // },
+  // salt: {
+  //   type: DataTypes.STRING,
+  // },
   role_id: {
     type: DataTypes.UUID,
     field: 'role_id',

@@ -24,6 +24,7 @@ export class UsersController {
 
       res.json({ data: users });
     } catch(error) {
+      console.log(error);
       res.status(404).json({ success: false, error: error });
     }
   }
@@ -42,6 +43,7 @@ export class UsersController {
 
       res.json({ data: user });
     } catch(error) {
+      console.log(error);
       res.status(404).json({ success: false, error: error });
     }
   }
@@ -66,6 +68,7 @@ export class UsersController {
 
       res.status(201).json({ success: true, data: user });
     } catch(error) {
+      console.log(error);
       res.status(404).json({ success: false, error: error });
     }
   }
@@ -85,6 +88,7 @@ export class UsersController {
 
       res.status(200).json({ success: true, data: user });
     } catch(error) {
+      console.log(error);
       res.status(404).json({ success: false, error: error });
     }
   }
@@ -98,6 +102,7 @@ export class UsersController {
 
       res.status(200).json({ success: true, data: { id } });
     } catch(error) {
+      console.log(error);
       res.status(404).json({ success: false, error: error });
     }
   }

@@ -66,6 +66,7 @@ export class AuthenticationController {
 
       let user;
       {
+        console.log("FINDING USER...");
         const userParams = new URLSearchParams();
         userParams.append('email', userInfo.email);
 
@@ -79,14 +80,18 @@ export class AuthenticationController {
       }
 
       if (!user) {
-        console.log("VIA NEW USER:");
+        console.log("CREATING USER...");
         const userParams = new URLSearchParams();
         userParams.append('email', userInfo.email);
         userParams.append('name', userInfo.name);
 
         let response = await fetch('http://api:3100/users', { method: 'POST', body: userParams });
         let parsed = await response.json();
+        console.log(parsed);
         user = parsed.data;
+
+        console.log("VIA NEW USER:");
+        console.log(user);
       }
 
       let token;
