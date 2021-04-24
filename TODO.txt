@@ -1,15 +1,24 @@
 # TODO
 - sketch react
-- experiment kafka
 - remove "event" from DB schema; kafka is enough
-- add fast-jwt
-- add remaining sequelize models
-- sketch system@system user auth => api logi
-- JWT validator class
-- validate JWT always
 - command logic to allow join/leave channel
-- ChannelState to track "read" pointers per user
 - "me" API for getting info/controlling current user
+- Separate APIs for events
+** "events" for new events
+** "history" for "past events"
+- Handle all commnads also as events
+** enqeue them into private channel of user
+** in web UI side do actions based into "event type" (command, message, etc.)
+- middleware for validating JWT
+- separate express.Router for each controller
+- React: show user profile
+- React: show user info
+- React: list channels
+- React: join channel
+- React: leave channel
+- React: send message to channel
+
+# WONT
 - User registration email sending for new users
 
 # DONE
@@ -21,3 +30,10 @@
 - sketch models using Sequelize
 - postgres setup
 - oauth register user
+- JWT validator class
+- validate JWT always
+- add fast-jwt
+- add remaining sequelize models
+- sketch system@system user auth => api logi
+- ChannelState to track "read" pointers per user
+- experiment kafka
