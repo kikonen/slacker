@@ -10,7 +10,6 @@ import { MessageEditComponent } from './components/MessageEditComponent';
 type AppState = {
   userInfo: any,
   channelId: string,
-  channels: Array<any>,
   messages: Array<any>,
   source: EventSource,
 };
@@ -25,7 +24,6 @@ class App extends React.Component<{}, AppState>
       messages: [],
       source: null,
       channelId: null,
-      channels: [],
     };
 
     this.onSelectChannel = this.onSelectChannel.bind(this);
@@ -33,7 +31,6 @@ class App extends React.Component<{}, AppState>
 
   componentDidMount() {
     this.fetchUserInfo();
-    this.fetchChannels();
   }
 
   async stopEvents() {
@@ -94,15 +91,6 @@ class App extends React.Component<{}, AppState>
     this.startEvents();
   }
 
-  async fetchChannels() {
-    const response = await fetch('/api/channels');
-    let rs = await response.json();
-    console.log("CHANNELS", rs);
-    this.setState((state, props) => ({
-      channels: rs.data || []
-    }));
-  }
-
   onSelectChannel(channelId: string) {
     console.log("SELECT: " + channelId);
     this.setState((state, props) => ({
@@ -122,7 +110,6 @@ class App extends React.Component<{}, AppState>
               <ChannelsComponent
                 userInfo={this.state.userInfo}
                 channelId={this.state.channelId}
-                channels={this.state.channels}
                 onSelect={this.onSelectChannel} />
             </div>
             <div className="col-10">
