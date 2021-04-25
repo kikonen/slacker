@@ -1,6 +1,5 @@
 # TODO
 - sketch react
-- remove "event" from DB schema; kafka is enough
 - command logic to allow join/leave channel
 - "me" API for getting info/controlling current user
 - Separate APIs for events
@@ -11,8 +10,6 @@
 ** in web UI side do actions based into "event type" (command, message, etc.)
 ** i.e. allows another user to send "invite", which will then become as event for another user
    and refresh their UI
-- middleware for validating JWT
-- separate express.Router for each controller
 - React: show user profile
 - React: show user info
 - React: list channels
@@ -39,3 +36,6 @@
 - sketch system@system user auth => api logi
 - ChannelState to track "read" pointers per user
 - experiment kafka
+- middleware for validating JWT
+- separate express.Router for each controller
+- remove "event" from DB schema; kafka is enough

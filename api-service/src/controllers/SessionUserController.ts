@@ -14,8 +14,9 @@ ChannelMember.toString();
  */
 export class SessionUserController {
   static async show(req: express.Request, res: express.Response) {
-    const { id } = req.params;
+    const { id } = res.locals.slacker_jwt;
     try {
+      console.log("ME", id);
       const user = await User.findByPk(
         id,
         {

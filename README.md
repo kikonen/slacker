@@ -89,6 +89,8 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://skryvets.com/blog/2018/09/20/an-elegant-solution-of-deploying-react-app-into-a-subdirectory/
 - https://create-react-app.dev/docs/advanced-configuration/
 - https://stackoverflow.com/questions/40516288/webpack-dev-server-with-nginx-proxy-pass
+- https://fettblog.eu/typescript-react/components/
+- https://www.freecodecamp.org/news/get-pro-with-react-setstate-in-10-minutes-d38251d1c781/
 
 ### Docker
 - https://hub.docker.com/_/postgres
@@ -181,3 +183,4 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 
 ### Editor
 - https://emacs.stackexchange.com/questions/33536/how-to-edit-jsx-react-files-in-emacs
+- https://dev.to/viglioni/how-i-set-up-my-emacs-for-typescript-3eeh

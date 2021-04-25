@@ -2,6 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+type AppState = {
+  userInfo: string,
+  events: Array<any>,
+  source: EventSource,
+};
+
 const channelId = 'b9335aed-5ecb-43b8-b026-014925752084';
 
 function sendCommand() {
@@ -23,62 +29,97 @@ function sendCommand() {
   });
 }
 
-let source;
+class App extends React.Component<{}, AppState>
+{
+  constructor(props: any) {
+    super(props);
 
-function startEvents() {
-  const params = new Map([
-    ['channel', channelId],
-  ]);
+    this.state = {
+      userInfo: 'pending...',
+      events: [],
+      source: null,
+    };
+  }
 
-  let parts: string[] = [];
-  params.forEach((v, k) => { parts.push(`${k}=${encodeURIComponent(v)}`) });
+  componentWillMount() {
+    this.fetchUserInfo();
+    this.startEvents();
+  }
 
-  const url = `/api/events/latest?${parts.join('&')}`;
+  async startEvents() {
+    const self = this;
 
-  source = new EventSource(url);
-  source.addEventListener('message', function(e: any) {
-    console.log(e.data);
+    const params = new Map([
+      ['channel', channelId],
+    ]);
 
-    let inboxEl: HTMLInputElement = document.querySelector("#incoming");
-    let msgEl = document.createElement('div');
-    msgEl.className = 'alert alert-primary';
-    msgEl.innerText = e.data;
+    let parts: string[] = [];
+    params.forEach((v, k) => { parts.push(`${k}=${encodeURIComponent(v)}`) });
 
-    inboxEl.appendChild(msgEl);
-  }, false);
-}
+    const url = `/api/events/latest?${parts.join('&')}`;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <b>So be it</b>
-        <b>So say we all, so say we all</b>
-        <b>So say we all, so say we all</b>
-      </header>
+    let source = new EventSource(url);
 
-      <form>
-        <div className="form-group">
-          <label htmlFor="command">Message</label>
-          <textarea id="command" className="form-control">
-         </textarea>
+    this.setState((state, props) => ({ source: source }));
+
+    source.addEventListener('message', function(e: any) {
+      console.log(e.data);
+      self.setState((state, props) => (
+        {
+          events: [...state.events, e.data]
+        }
+      ));
+    }, false);
+  }
+
+  async fetchUserInfo() {
+    const response = await fetch('/api/session/me');
+    let data = await response.json();
+    console.log(data);
+    this.setState((state, props) => ({
+      userInfo: JSON.stringify(data.data)
+    }));
+  }
+
+  render() {
+    const { userInfo } = this.state;
+
+    return (
+      <div className="App">
+        <header className="App-header">
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <b>So be it</b>
+          <b>So say we all, so say we all</b>
+          <b>So say we all, so say we all</b>
+        </header>
+
+        <div className="card">
+          <div className="card-body">{userInfo}</div>
+          <a href="../auth/login" className="btn btn-normal">Login</a>
         </div>
 
-        <button type="button" className="btn btn-success" onClick={sendCommand}>Send</button>
-      </form>
+        <form>
+          <div className="form-group">
+            <label htmlFor="command">Message</label>
+            <textarea id="command" className="form-control">
+            </textarea>
+          </div>
 
-      <a href="../auth/login" className="btn btn-normal">Login</a>
+          <button type="button" className="btn btn-success" onClick={sendCommand}>Send</button>
+        </form>
 
-      <div id="incoming">
-        ....
+        <div>
+          <div>
+            {this.state.events.map((event) => (
+              <div className="alert alert-info">{event}</div>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-startEvents();
 
 export default App;
