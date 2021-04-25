@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 type AppState = {
-  userInfo: string,
+  userInfo: any,
   events: Array<any>,
   source: EventSource,
 };
@@ -35,13 +35,13 @@ class App extends React.Component<{}, AppState>
     super(props);
 
     this.state = {
-      userInfo: 'pending...',
+      userInfo: { name: 'na', email: 'na' },
       events: [],
       source: null,
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchUserInfo();
     this.startEvents();
   }
@@ -62,11 +62,13 @@ class App extends React.Component<{}, AppState>
 
     this.setState((state, props) => ({ source: source }));
 
-    source.addEventListener('message', function(e: any) {
-      console.log(e.data);
+    source.addEventListener('message', async function(e: any) {
+      const ev: any = JSON.parse(e.data)
+      ev.value = JSON.parse(ev.value);
+      console.log(ev);
       self.setState((state, props) => (
         {
-          events: [...state.events, e.data]
+          events: [...state.events, ev]
         }
       ));
     }, false);
@@ -74,10 +76,14 @@ class App extends React.Component<{}, AppState>
 
   async fetchUserInfo() {
     const response = await fetch('/api/session/me');
-    let data = await response.json();
-    console.log(data);
+    let rs = await response.json();
+    console.log(rs);
+    let userInfo = rs.data;
+    if (!userInfo) {
+      userInfo = { name: 'failed - please login', email: '' };
+    }
     this.setState((state, props) => ({
-      userInfo: JSON.stringify(data.data)
+      userInfo: userInfo
     }));
   }
 
@@ -87,33 +93,35 @@ class App extends React.Component<{}, AppState>
     return (
       <div className="App">
         <header className="App-header">
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <b>So be it</b>
-          <b>So say we all, so say we all</b>
-          <b>So say we all, so say we all</b>
+          <b>Slacker: Stop slacking become total slacker</b>
         </header>
 
-        <div className="card">
-          <div className="card-body">{userInfo}</div>
+        <div className="m-2 border border-primary">
+          <div>{userInfo.name}</div>
+          <div>{userInfo.email}</div>
           <a href="../auth/login" className="btn btn-normal">Login</a>
         </div>
 
-        <form>
-          <div className="form-group">
-            <label htmlFor="command">Message</label>
-            <textarea id="command" className="form-control">
-            </textarea>
-          </div>
+        <div className="m-2 border border-success">
+          <form>
+            <div className="form-group">
+              <label htmlFor="command">Message</label>
+             <textarea id="command" className="m-2 form-control">
+               </textarea>
+            </div>
 
-          <button type="button" className="btn btn-success" onClick={sendCommand}>Send</button>
-        </form>
+            <button type="button" className="btn btn-success" onClick={sendCommand}>Send</button>
+          </form>
+        </div>
 
-        <div>
+        <div className="m-2 border border-info">
           <div>
             {this.state.events.map((event) => (
-              <div className="alert alert-info">{event}</div>
+              <div key={event.key} className="alert alert-info">
+                <b>{event.value.user}</b>
+                <p>{event.value.content}</p>
+                {JSON.stringify(event)}
+              </div>
             ))}
           </div>
         </div>
