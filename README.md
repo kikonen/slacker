@@ -94,6 +94,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://www.digitalocean.com/community/conceptual_articles/understanding-how-to-render-arrays-in-react
 - https://reactjs.org/docs/handling-events.html
 - https://reactjs.org/docs/lifting-state-up.html
+- https://medium.com/@krzakmarek88/eventemitter-instead-of-lifting-state-up-f5f105054a5
 
 ### Docker
 - https://hub.docker.com/_/postgres

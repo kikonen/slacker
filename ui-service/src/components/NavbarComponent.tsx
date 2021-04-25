@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ChannelSelectorComponent } from './ChannelSelectorComponent';
+import Emitter from '../Emitter';
 
 interface Props {
   userInfo: any,
@@ -16,11 +16,12 @@ export class NavbarComponent extends React.Component<Props> {
 
   onJoinChannel(e) {
     console.log("join...");
-    $('#channel_selector').modal({});
+    Emitter.emit('channel.join.show');
   }
 
   onCreateChannel(e) {
     console.log("create...");
+    Emitter.emit('channel.create.show');
   }
 
   render() {
@@ -57,8 +58,6 @@ export class NavbarComponent extends React.Component<Props> {
 
           {loginBtn}
         </span>
-
-        <ChannelSelectorComponent userInfo={this.props.userInfo} />
       </nav>
     );
   }

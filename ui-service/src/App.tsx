@@ -6,6 +6,8 @@ import { NavbarComponent } from './components/NavbarComponent';
 import { ChannelsComponent } from './components/ChannelsComponent';
 import { MessagesComponent } from './components/MessagesComponent';
 import { MessageEditComponent } from './components/MessageEditComponent';
+import { ChannelSelectorComponent } from './components/ChannelSelectorComponent';
+import { ChannelCreateComponent } from './components/ChannelCreateComponent';
 
 type AppState = {
   userInfo: any,
@@ -102,7 +104,7 @@ class App extends React.Component<{}, AppState>
 
   render() {
     return (
-      <div className="App">
+      <div>
         <NavbarComponent userInfo={this.state.userInfo} />
         <div className="container-fluid">
           <div className="row no-gutters">
@@ -118,7 +120,10 @@ class App extends React.Component<{}, AppState>
             </div>
           </div>
         </div>
-     </div>
+
+        <ChannelSelectorComponent userInfo={this.state.userInfo} />
+        <ChannelCreateComponent userInfo={this.state.userInfo} />
+      </div>
     );
   }
 }

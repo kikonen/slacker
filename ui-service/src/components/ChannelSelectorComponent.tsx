@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import Emitter from '../Emitter';
+
 interface Props {
   userInfo: any,
 }
@@ -18,9 +20,17 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
     };
 
     this.onSelect = this.onSelect.bind(this);
+    this.onJoinChannel = this.onJoinChannel.bind(this);
   }
 
   componentDidMount() {
+    Emitter.on('channel.join.show', this.onJoinChannel);
+  }
+
+  onJoinChannel(e) {
+    console.log("show join dialog...");
+
+    $('#channel_selector').modal({});
     this.fetchChannels();
   }
 
@@ -28,6 +38,7 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
     const response = await fetch('/api/channels');
     let rs = await response.json();
     console.log("CHANNELS", rs);
+
     this.setState((state, props) => ({
       channels: rs.data || []
     }));
