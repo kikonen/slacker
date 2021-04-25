@@ -52,6 +52,16 @@ export class AuthenticationController {
     }
   }
 
+  static async logout(req: express.Request, res: express.Response) {
+    try {
+      res.clearCookie("_slacker_auth");
+      res.redirect(302, "../ui");
+    } catch(error) {
+      console.log(error);
+      res.status(500).json({ "success": false, error: error });
+    }
+  }
+
   static async callback(req: express.Request, res: express.Response) {
     try {
       let userInfo;

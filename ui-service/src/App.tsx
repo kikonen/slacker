@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { NavbarComponent } from './components/NavbarComponent';
+
 type AppState = {
   userInfo: any,
   events: Array<any>,
@@ -35,7 +37,7 @@ class App extends React.Component<{}, AppState>
     super(props);
 
     this.state = {
-      userInfo: { name: 'na', email: 'na' },
+      userInfo: { name: 'na', email: 'na', valid: false },
       events: [],
       source: null,
     };
@@ -80,7 +82,9 @@ class App extends React.Component<{}, AppState>
     console.log(rs);
     let userInfo = rs.data;
     if (!userInfo) {
-      userInfo = { name: 'failed - please login', email: '' };
+      userInfo = { name: 'Not logged in', email: '', valid: false };
+    } else {
+      userInfo.valid = true;
     }
     this.setState((state, props) => ({
       userInfo: userInfo
@@ -92,15 +96,7 @@ class App extends React.Component<{}, AppState>
 
     return (
       <div className="App">
-        <header className="App-header">
-          <b>Slacker: Stop slacking become total slacker</b>
-        </header>
-
-        <div className="m-2 border border-primary">
-          <div>{userInfo.name}</div>
-          <div>{userInfo.email}</div>
-          <a href="../auth/login" className="btn btn-normal">Login</a>
-        </div>
+        <NavbarComponent userInfo={userInfo} />
 
         <div className="m-2 border border-success">
           <form>

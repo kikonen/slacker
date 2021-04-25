@@ -16,6 +16,7 @@
 - React: join channel
 - React: leave channel
 - React: send message to channel
+- basic i18n logic
 
 # WONT
 - User registration email sending for new users

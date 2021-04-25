@@ -18,6 +18,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 app.get('/login', AuthenticationController.login);
+app.get('/logout', AuthenticationController.logout);
 app.get('/callback', AuthenticationController.callback);
 
 app.listen(port, 'auth', () => {
