@@ -21,7 +21,7 @@ export class ChannelsController {
 
   static async index(req: express.Request, res: express.Response) {
     try {
-      const channels = ChannelFindAll.call(req.query);
+      const channels = await ChannelFindAll.call(req.query);
 
       res.json({ data: channels });
     } catch(error) {

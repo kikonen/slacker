@@ -9,13 +9,11 @@ import { MessageEditComponent } from './components/MessageEditComponent';
 
 type AppState = {
   userInfo: any,
-  channel_id: string,
+  channelId: string,
   channels: Array<any>,
   messages: Array<any>,
   source: EventSource,
 };
-
-const TEST_CHANNEL = 'b9335aed-5ecb-43b8-b026-014925752084';
 
 class App extends React.Component<{}, AppState>
 {
@@ -23,24 +21,35 @@ class App extends React.Component<{}, AppState>
     super(props);
 
     this.state = {
-      userInfo: { name: 'na', email: 'na', valid: false },
+      userInfo: { name: 'na', email: 'na', channels: [], valid: false },
       messages: [],
       source: null,
-      channel_id: TEST_CHANNEL,
+      channelId: null,
       channels: [],
     };
+
+    this.onSelectChannel = this.onSelectChannel.bind(this);
   }
 
   componentDidMount() {
     this.fetchUserInfo();
-    this.startEvents();
+    this.fetchChannels();
+  }
+
+  async stopEvents() {
+    if (this.state.source) {
+      this.state.source.close();
+      this.setState((state, props) => ({ source: null }));
+    }
   }
 
   async startEvents() {
+    this.stopEvents();
+
     const self = this;
 
     const params = new Map([
-      ['channel', this.state.channel_id],
+      ['channel', this.state.channelId],
     ]);
 
     let parts: string[] = [];
@@ -48,8 +57,9 @@ class App extends React.Component<{}, AppState>
 
     const url = `/api/events/latest?${parts.join('&')}`;
 
-    let source = new EventSource(url);
+    console.log("START_EVENTS: " + url);
 
+    let source = new EventSource(url);
     this.setState((state, props) => ({ source: source }));
 
     source.addEventListener('message', async function(e: any) {
@@ -69,22 +79,58 @@ class App extends React.Component<{}, AppState>
     console.log(rs);
     let userInfo = rs.data;
     if (!userInfo) {
-      userInfo = { name: 'Not logged in', email: '', valid: false };
+      userInfo = { name: 'Not logged in', email: '', channels: [], valid: false };
     } else {
       userInfo.valid = true;
     }
+    userInfo.channels = userInfo.channels || [];
+    let channelId = userInfo.channels.length ? userInfo.channels[0].id : null;
+
     this.setState((state, props) => ({
-      userInfo: userInfo
+      userInfo: userInfo,
+      channelId: channelId,
     }));
+
+    this.startEvents();
+  }
+
+  async fetchChannels() {
+    const response = await fetch('/api/channels');
+    let rs = await response.json();
+    console.log("CHANNELS", rs);
+    this.setState((state, props) => ({
+      channels: rs.data || []
+    }));
+  }
+
+  onSelectChannel(channelId: string) {
+    console.log("SELECT: " + channelId);
+    this.setState((state, props) => ({
+      channelId: channelId,
+      messages: [],
+    }),
+    () => this.startEvents() );
   }
 
   render() {
     return (
       <div className="App">
         <NavbarComponent userInfo={this.state.userInfo} />
-        <ChannelsComponent channels={this.state.channels} />
-        <MessagesComponent messages={this.state.messages} />
-        <MessageEditComponent channel_id={this.state.channel_id} />
+        <div className="container-fluid">
+          <div className="row no-gutters">
+            <div className="col-2">
+              <ChannelsComponent
+                userInfo={this.state.userInfo}
+                channelId={this.state.channelId}
+                channels={this.state.channels}
+                onSelect={this.onSelectChannel} />
+            </div>
+            <div className="col-10">
+              <MessagesComponent messages={this.state.messages} />
+              <MessageEditComponent channelId={this.state.channelId} />
+            </div>
+          </div>
+        </div>
      </div>
     );
   }

@@ -28,7 +28,7 @@ function sendSSE(res: express.Response, event: any) {
 
 function convertMessage(event: any) {
   let msg = JSON.parse(event.value);
-  msg.key = event.key;
+  msg.id = event.key;
   msg.offset = event.offset;
   msg.highWaterOffset = event.highWaterOffset;
   return msg;

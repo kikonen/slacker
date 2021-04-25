@@ -9,11 +9,11 @@ export class MessagesComponent extends React.Component<Props> {
     return (
       <div className="m-2 border border-info">
         <div>
-          {this.props.messages.map((event) => (
-            <div key={event.key} className="alert alert-info">
-              <b>{event.user}</b>
-              <p>{event.content}</p>
-              {JSON.stringify(event)}
+          {this.props.messages.map((msg) => (
+            <div key={msg.key} className="alert alert-info">
+              <b>{msg.user}</b>
+              <span>{msg.content}</span>
+              <span>{JSON.stringify(msg)}</span>
             </div>
           ))}
         </div>

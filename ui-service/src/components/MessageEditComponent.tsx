@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-  channel_id: string,
+  channelId: string,
 }
 
 export class MessageEditComponent extends React.Component<Props> {
@@ -20,7 +20,7 @@ export class MessageEditComponent extends React.Component<Props> {
     console.log("SEND: " + text);
 
     const data = {
-      channel_id: this.props.channel_id,
+      channel_id: this.props.channelId,
       text: text,
     };
 
