@@ -14,7 +14,11 @@ export class ChannelJoin {
     return { data: member };
   }
 
-  static async handle(req: express.Request, jwt: any, channelId: string, text: string) {
+  static async handle(
+    req: express.Request,
+    res: express.Response,
+    channelId: string,
+    text: string) {
     console.log("JOIN", text);
 
     let channel = await Channel.findOne({
@@ -22,6 +26,6 @@ export class ChannelJoin {
         name: text,
       }
     });
-    return ChannelJoin.call(channel.id, jwt.id);
+    return ChannelJoin.call(channel.id, res.locals.slacker_jwt.id);
   }
 }

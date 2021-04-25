@@ -1,7 +1,5 @@
 import express from 'express';
 
-import { JWTVerifier } from '../JWTVerifier';
-
 import { DB } from '../DB';
 import { User, USER_SECRETS } from '../models/User'
 import { Channel } from '../models/Channel';
@@ -23,7 +21,6 @@ export class ChannelsController {
 
   static async index(req: express.Request, res: express.Response) {
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const channels = ChannelFindAll.call(req.query);
 
       res.json({ data: channels });
@@ -35,7 +32,6 @@ export class ChannelsController {
   static async show(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const channel = await ChannelFind.call(id);
 
       res.json({ data: channel });
@@ -46,7 +42,6 @@ export class ChannelsController {
 
   static async create(req: express.Request, res: express.Response) {
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const channel = await ChannelCreate.call(req.body);
 
       res.status(201).json({ success: true, data: channel });
@@ -58,7 +53,6 @@ export class ChannelsController {
   static async update(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const channel = await ChannelUpdate.call(id, req.body);
 
       res.status(200).json({ success: true, data: channel });
@@ -70,8 +64,6 @@ export class ChannelsController {
   static async destroy(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
-      const payload = await JWTVerifier.verifyToken(req);
-
       let channel = Channel.build({ id });
 
       await channel.destroy();

@@ -20,8 +20,12 @@ export class MessageSend {
     return kafka.publish(topic, key, msg);
   }
 
-  static async handle(req: express.Request, jwt: any, channelId: string, text: string) {
+  static async handle(
+    req: express.Request,
+    res: express.Response,
+    channelId: string,
+    text: string) {
     console.log("MSG", text);
-    return this.call(channelId, jwt.user, text);
+    return this.call(channelId, res.locals.slacker_jwt.id, text);
   }
 }

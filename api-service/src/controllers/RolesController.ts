@@ -1,7 +1,5 @@
 import express from 'express';
 
-import { JWTVerifier } from '../JWTVerifier';
-
 import { DB } from '../DB';
 import { User, USER_SECRETS } from '../models/User'
 import { Role } from '../models/Role';
@@ -17,7 +15,6 @@ export class RolesController {
 
   static async index(req: express.Request, res: express.Response) {
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const roles = await RoleFindAll.call(req.query);
 
       res.json({ data: roles });
@@ -29,7 +26,6 @@ export class RolesController {
   static async show(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const role = await RoleFind.call(id);
 
       res.json({ data: role });

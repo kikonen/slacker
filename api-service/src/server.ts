@@ -4,6 +4,8 @@ import { QueryTypes } from 'sequelize';
 
 import { DB } from './DB';
 
+import { AuthenticationMiddleware } from './middleware/AuthenticationMiddleware';
+
 import { ChannelsController } from './controllers/ChannelsController';
 import { UsersController } from './controllers/UsersController';
 import { RolesController } from './controllers/RolesController';
@@ -12,7 +14,6 @@ import { SessionUserController } from './controllers/SessionUserController';
 import { EventsController } from './controllers/EventsController';
 import { CommandsController } from './controllers/CommandsController';
 
-import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
@@ -25,6 +26,7 @@ const app = express();
 const port = parseInt(process.env.SERVER_PORT, 10);
 
 app.use(cookieParser());
+app.use(AuthenticationMiddleware.process);
 
 app.use(bodyParser.json({
   limit: 100000

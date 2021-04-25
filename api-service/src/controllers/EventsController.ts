@@ -5,7 +5,6 @@ import querystring from 'querystring';
 
 import { URLSearchParams } from 'url';
 
-import { JWTVerifier } from '../JWTVerifier';
 import { Kafka } from '../Kafka';
 import { DB } from '../DB';
 
@@ -31,8 +30,6 @@ export class EventsController {
 
   static async latest(req: express.Request, res: express.Response) {
     try {
-      const payload = await JWTVerifier.verifyToken(req);
-
       const channelId = req.query.channel;
       const topic = `channel_${channelId}`;
       const autoCommit = true;
@@ -41,7 +38,7 @@ export class EventsController {
       sendSSEHeader(req, res);
 
       console.log("kafkaing...");
-      let groupId: string = payload.id;
+      let groupId: string = `user_${res.locals.slacker_jwt.id}`;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
       kafka.subscribe(topic, groupId, autoCommit, (event) => {
         console.log(event);
@@ -55,8 +52,6 @@ export class EventsController {
 
   static async history(req: express.Request, res: express.Response) {
     try {
-      const payload = await JWTVerifier.verifyToken(req);
-
       const channelId = req.query.channel;
       const topic = `channel_${channelId}`;
       const autoCommit = false;
@@ -65,7 +60,7 @@ export class EventsController {
       sendSSEHeader(req, res);
 
       console.log("kafkaing...");
-      let groupId: string = payload.id;
+      let groupId: string = `user_${res.locals.slacker_jwt.id}`;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
       kafka.subscribe(topic, groupId, autoCommit, (event) => {
         console.log("EVENT", event);

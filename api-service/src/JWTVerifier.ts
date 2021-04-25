@@ -32,12 +32,12 @@ export class JWTVerifier {
       }
     }
 
-    const payload = await this.instance().verify(token);
+    const jwt = await this.instance().verify(token);
 
     console.log("jwt: " + token);
-    console.log(payload);
+    console.log(jwt);
 
-    return payload;
+    return jwt;
   }
 
   static instance(): JWTVerifier {

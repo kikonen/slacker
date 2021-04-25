@@ -1,7 +1,5 @@
 import express from 'express';
 
-import { JWTVerifier } from '../JWTVerifier';
-
 import { DB } from '../DB';
 import { User, USER_SECRETS } from '../models/User'
 import { Role } from '../models/Role';
@@ -24,7 +22,6 @@ export class UsersController {
 
   static async index(req: express.Request, res: express.Response) {
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const users = await UserFindAll.call(req.query);
 
       res.json({ data: users });
@@ -37,7 +34,6 @@ export class UsersController {
   static async show(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const user = await UserFind.call(id);
 
       res.json({ data: user });
@@ -49,7 +45,6 @@ export class UsersController {
 
   static async create(req: express.Request, res: express.Response) {
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const user = await UserCreate.call(req.body);
 
       res.status(201).json({ success: true, data: user });
@@ -62,7 +57,6 @@ export class UsersController {
   static async update(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
-      const payload = await JWTVerifier.verifyToken(req);
       const user = await UserUpdate.call(id, req.body);
 
       res.status(200).json({ success: true, data: user });
@@ -75,8 +69,6 @@ export class UsersController {
   static async destroy(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
-      const payload = await JWTVerifier.verifyToken(req);
-
       let user = User.build({ id });
 
       await user.destroy();
@@ -93,8 +85,6 @@ export class UsersController {
 
     console.log(`email: ${email}`);
     try {
-      const payload = await JWTVerifier.verifyToken(req);
-
       const user = await User.findOne({
         where: {
           email: email,

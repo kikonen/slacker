@@ -1,7 +1,5 @@
 import express from 'express';
 
-import { JWTVerifier } from '../JWTVerifier';
-
 import { DB } from '../DB';
 import { User, USER_SECRETS } from '../models/User'
 import { Role } from '../models/Role';
@@ -18,8 +16,6 @@ export class SessionUserController {
   static async show(req: express.Request, res: express.Response) {
     const { id } = req.params;
     try {
-      const payload = await JWTVerifier.verifyToken(req);
-
       const user = await User.findByPk(
         id,
         {

@@ -5,7 +5,6 @@ import querystring from 'querystring';
 
 import { URLSearchParams } from 'url';
 
-import { JWTVerifier } from '../JWTVerifier';
 import { Kafka } from '../Kafka';
 import { DB } from '../DB';
 
@@ -21,8 +20,6 @@ export class CommandsController {
 
   static async send(req: express.Request, res: express.Response) {
     try {
-      const payload = await JWTVerifier.verifyToken(req);
-
       console.log("BODY", req.body);
       let { text, channel_id } = req.body;
 
@@ -39,7 +36,7 @@ export class CommandsController {
         commandText = text;
       }
 
-      await handler.handle(req, payload, channel_id, commandText);
+      await handler.handle(req, res, channel_id, commandText);
 
       res.send({"success": true});
     } catch(error) {
