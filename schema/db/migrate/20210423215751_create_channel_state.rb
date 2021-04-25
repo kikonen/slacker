@@ -16,5 +16,13 @@ class CreateChannelState < ActiveRecord::Migration[6.1]
       foreign_key: true,
       type: :uuid,
       index: { name: 'idx_user_channel_state' })
+
+    add_reference(
+      :channel_states,
+      :channel,
+      null: false,
+      foreign_key: true,
+      type: :uuid,
+      index: { name: 'idx_channel_channel_state' })
   end
 end

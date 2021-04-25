@@ -1,6 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import { DB } from '../DB'
 import { Role } from './Role'
+import { ChannelState } from './ChannelState'
 
 export const USER_SECRETS = [
   'password',
@@ -79,4 +80,9 @@ Role.hasMany(User, {
 
 User.belongsTo(Role, {
   foreignKey: 'role_id'
+});
+
+User.hasMany(ChannelState, {
+  foreignKey: 'user_id',
+  as: 'channel_states',
 });

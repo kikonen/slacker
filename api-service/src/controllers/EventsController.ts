@@ -37,11 +37,15 @@ function convertMessage(event: any) {
 export class EventsController {
   static router = express.Router();
 
+  static async commit(req: express.Request, res: express.Response) {
+    res.status(500).json({ "success": false, error: "NYI!" });
+  }
+
   static async latest(req: express.Request, res: express.Response) {
     try {
       const channelId = req.query.channel;
       const topic = `channel_${channelId}`;
-      const autoCommit = true;
+      const autoCommit = false;
 
       console.log(`latest events: ${topic}`);
       sendSSEHeader(req, res);
@@ -83,5 +87,6 @@ export class EventsController {
 }
 
 const router = EventsController.router;
+router.post('/commit', EventsController.commit);
 router.get('/latest', EventsController.latest);
 router.get('/history', EventsController.history);

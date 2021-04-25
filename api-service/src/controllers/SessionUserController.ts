@@ -6,6 +6,8 @@ import { Role } from '../models/Role';
 import { Channel } from '../models/Channel';
 import { ChannelMember } from '../models/ChannelMember';
 
+import { UserFind } from '../commands/UserFind';
+
 // HACK KI ensure assocation is not dropped; fails queries if so
 ChannelMember.toString();
 
@@ -16,15 +18,7 @@ export class SessionUserController {
   static async show(req: express.Request, res: express.Response) {
     const { id } = res.locals.slacker_jwt;
     try {
-      console.log("ME", id);
-      const user = await User.findByPk(
-        id,
-        {
-          attributes: { exclude: USER_SECRETS },
-          include: [
-            Role,
-            { model: Channel, as: 'channels', through: {attributes: []} }]
-        });
+      const user = await UserFind.call(id);
 
       res.json({ data: user });
     } catch(error) {
