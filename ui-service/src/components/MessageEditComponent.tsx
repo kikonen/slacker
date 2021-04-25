@@ -1,0 +1,54 @@
+import React from 'react';
+
+interface Props {
+  channel_id: string,
+}
+
+export class MessageEditComponent extends React.Component<Props> {
+  constructor(props: any) {
+    super(props);
+
+    this.onSend = this.onSend.bind(this);
+  }
+
+  async onSend(e) {
+    e.preventDefault();
+
+    let el: HTMLInputElement = document.querySelector("#command");
+    let text: string = el.value;
+
+    console.log("SEND: " + text);
+
+    const data = {
+      channel_id: this.props.channel_id,
+      text: text,
+    };
+
+    const response = await fetch('/api/commands/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    console.log(response);
+    if (response.ok) {
+      el.value = '';
+    }
+  }
+
+  render() {
+    return (
+      <div className="m-2 border border-success">
+        <form className="d-flex align-items-start">
+          <label htmlFor="command" className="sr-only">Message</label>
+          <textarea id="command" className="m-2 form-control">
+          </textarea>
+
+          <button type="button" className="mt-2 mr-2 mb-2 btn btn-success" onClick={this.onSend}>Send</button>
+        </form>
+      </div>
+    );
+  }
+}

@@ -92,6 +92,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://fettblog.eu/typescript-react/components/
 - https://www.freecodecamp.org/news/get-pro-with-react-setstate-in-10-minutes-d38251d1c781/
 - https://www.digitalocean.com/community/conceptual_articles/understanding-how-to-render-arrays-in-react
+- https://reactjs.org/docs/handling-events.html
 
 ### Docker
 - https://hub.docker.com/_/postgres

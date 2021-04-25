@@ -22,7 +22,16 @@ function sendSSEHeader(req: express.Request, res: express.Response) {
 }
 
 function sendSSE(res: express.Response, event: any) {
+  console.log("SSE", event);
   res.write(`data: ${JSON.stringify(event)}\n\n`);
+}
+
+function convertMessage(event: any) {
+  let msg = JSON.parse(event.value);
+  msg.key = event.key;
+  msg.offset = event.offset;
+  msg.highWaterOffset = event.highWaterOffset;
+  return msg;
 }
 
 export class EventsController {
@@ -42,7 +51,7 @@ export class EventsController {
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
       kafka.subscribe(topic, groupId, autoCommit, (event) => {
         console.log(event);
-        sendSSE(res, event);
+        sendSSE(res, convertMessage(event));
       });
     } catch(error) {
       console.log(error);

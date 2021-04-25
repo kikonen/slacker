@@ -3,33 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 
 import { NavbarComponent } from './components/NavbarComponent';
+import { ChannelsComponent } from './components/ChannelsComponent';
+import { MessagesComponent } from './components/MessagesComponent';
+import { MessageEditComponent } from './components/MessageEditComponent';
 
 type AppState = {
   userInfo: any,
-  events: Array<any>,
+  channel_id: string,
+  channels: Array<any>,
+  messages: Array<any>,
   source: EventSource,
 };
 
-const channelId = 'b9335aed-5ecb-43b8-b026-014925752084';
-
-function sendCommand() {
-  let el: HTMLInputElement = document.querySelector("#command");
-  let text: string = el.value;
-  console.log("send: " + text);
-
-  const data = {
-    channel_id: channelId,
-    text: text,
-  };
-
-  fetch('/api/commands/send', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data)
-  });
-}
+const TEST_CHANNEL = 'b9335aed-5ecb-43b8-b026-014925752084';
 
 class App extends React.Component<{}, AppState>
 {
@@ -38,8 +24,10 @@ class App extends React.Component<{}, AppState>
 
     this.state = {
       userInfo: { name: 'na', email: 'na', valid: false },
-      events: [],
+      messages: [],
       source: null,
+      channel_id: TEST_CHANNEL,
+      channels: [],
     };
   }
 
@@ -52,7 +40,7 @@ class App extends React.Component<{}, AppState>
     const self = this;
 
     const params = new Map([
-      ['channel', channelId],
+      ['channel', this.state.channel_id],
     ]);
 
     let parts: string[] = [];
@@ -66,11 +54,10 @@ class App extends React.Component<{}, AppState>
 
     source.addEventListener('message', async function(e: any) {
       const ev: any = JSON.parse(e.data)
-      ev.value = JSON.parse(ev.value);
       console.log(ev);
       self.setState((state, props) => (
         {
-          events: [...state.events, ev]
+          messages: [...state.messages, ev]
         }
       ));
     }, false);
@@ -92,36 +79,13 @@ class App extends React.Component<{}, AppState>
   }
 
   render() {
-    const { userInfo } = this.state;
-
     return (
       <div className="App">
-        <NavbarComponent userInfo={userInfo} />
-
-        <div className="m-2 border border-success">
-          <form>
-            <div className="form-group">
-              <label htmlFor="command">Message</label>
-             <textarea id="command" className="m-2 form-control">
-               </textarea>
-            </div>
-
-            <button type="button" className="btn btn-success" onClick={sendCommand}>Send</button>
-          </form>
-        </div>
-
-        <div className="m-2 border border-info">
-          <div>
-            {this.state.events.map((event) => (
-              <div key={event.key} className="alert alert-info">
-                <b>{event.value.user}</b>
-                <p>{event.value.content}</p>
-                {JSON.stringify(event)}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+        <NavbarComponent userInfo={this.state.userInfo} />
+        <ChannelsComponent channels={this.state.channels} />
+        <MessagesComponent messages={this.state.messages} />
+        <MessageEditComponent channel_id={this.state.channel_id} />
+     </div>
     );
   }
 }
