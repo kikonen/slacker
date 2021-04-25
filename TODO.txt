@@ -17,6 +17,10 @@
 - React: leave channel
 - React: send message to channel
 - basic i18n logic
+- commit events API
+** commit tracking *needs* to be per web client instance, not just per channel
+- logic for canceling old subscriptions after SSE closes
+- events sent to UI need to have channel indicated to track race conditions
 
 # WONT
 - User registration email sending for new users
