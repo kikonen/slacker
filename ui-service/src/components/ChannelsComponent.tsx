@@ -28,8 +28,8 @@ export class ChannelsComponent extends React.Component<Props> {
 
   render() {
     return (
-      <div className="m-2 border border-dark">
-        <div className="container-fluid">
+      <div className="m-2 border border-dark sl-channels-container">
+        <div className="container-fluid sl-channels-content">
           <div className="row">
             {this.props.userInfo.channels.map((channel: any) => (
               <div key={channel.id} className="col-12">

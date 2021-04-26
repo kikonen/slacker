@@ -42,14 +42,16 @@ export class MessageEditComponent extends React.Component<Props> {
 
   render() {
     return (
-      <div className="m-2 border border-success">
-        <form className="d-flex align-items-start">
-          <label htmlFor="command" className="sr-only">Message</label>
-          <textarea id="command" className="m-2 form-control">
-          </textarea>
+      <div className="m-2 border border-success sl-message-edit-container">
+        <div>
+          <form className="d-flex align-items-start">
+            <label htmlFor="command" className="sr-only">Message</label>
+            <textarea id="command" className="m-2 form-control">
+            </textarea>
 
-          <button type="button" className="mt-2 mr-2 mb-2 btn btn-success" onClick={this.onSend}>Send</button>
-        </form>
+            <button type="button" className="mt-2 mr-2 mb-2 btn btn-success" onClick={this.onSend}>Send</button>
+          </form>
+        </div>
       </div>
     );
   }

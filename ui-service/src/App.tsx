@@ -106,9 +106,9 @@ class App extends React.Component<{}, AppState>
 
   render() {
     return (
-      <div>
+      <div className="sl-app">
         <NavbarComponent userInfo={this.state.userInfo} />
-        <div className="container-fluid">
+        <div className="container-fluid sl-content">
           <div className="row no-gutters">
             <div className="col-2">
               <ChannelsComponent

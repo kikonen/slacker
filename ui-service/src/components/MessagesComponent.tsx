@@ -15,8 +15,8 @@ export class MessagesComponent extends React.Component<Props> {
 
   render() {
     return (
-      <div className="m-2 border border-info">
-        <div>
+      <div className="m-2 border border-info sl-messages-container">
+        <div className="sl-messages-content">
           {this.props.messages.map((msg) => (
             <div key={msg.key} className="alert alert-info">
               <b>{msg.user}</b>
