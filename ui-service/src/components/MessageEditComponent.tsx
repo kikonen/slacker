@@ -1,5 +1,7 @@
 import React from 'react';
 
+import autobind from "../autobind";
+
 interface Props {
   channelId: string,
 }
@@ -8,7 +10,7 @@ export class MessageEditComponent extends React.Component<Props> {
   constructor(props: any) {
     super(props);
 
-    this.onSend = this.onSend.bind(this);
+    autobind(this);
   }
 
   async onSend(e: any) {

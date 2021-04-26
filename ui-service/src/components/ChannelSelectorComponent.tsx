@@ -2,6 +2,7 @@ import React from 'react';
 //import classNames from 'classnames';
 
 import Emitter from '../Emitter';
+import autobind from "../autobind";
 
 declare var $ :any;
 
@@ -21,8 +22,7 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
       channels: [],
     };
 
-    this.onSelect = this.onSelect.bind(this);
-    this.eventJoinChannel = this.eventJoinChannel.bind(this);
+    autobind(this);
   }
 
   componentDidMount() {

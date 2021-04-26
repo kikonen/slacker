@@ -1,5 +1,6 @@
 import React from 'react';
 
+import autobind from "../autobind";
 import Emitter from '../Emitter';
 
 declare var $ :any;
@@ -18,7 +19,7 @@ export class ChannelCreateComponent extends React.Component<Props, State> {
     this.state = {
     };
 
-    this.eventCreateChannel = this.eventCreateChannel.bind(this);
+    autobind(this);
   }
 
   componentDidMount() {

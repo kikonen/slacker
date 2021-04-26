@@ -1,10 +1,18 @@
 import React from 'react';
 
+import autobind from "../autobind";
+
 interface Props {
   messages: Array<any>
 }
 
 export class MessagesComponent extends React.Component<Props> {
+  constructor(props: any) {
+    super(props);
+
+    autobind(this);
+ }
+
   render() {
     return (
       <div className="m-2 border border-info">

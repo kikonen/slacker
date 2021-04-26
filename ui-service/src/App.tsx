@@ -2,6 +2,8 @@ import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
 
+import autobind from './autobind'
+
 import { NavbarComponent } from './components/NavbarComponent';
 import { ChannelsComponent } from './components/ChannelsComponent';
 import { MessagesComponent } from './components/MessagesComponent';
@@ -28,7 +30,7 @@ class App extends React.Component<{}, AppState>
       channelId: null,
     };
 
-    this.onSelectChannel = this.onSelectChannel.bind(this);
+    autobind(this);
   }
 
   componentDidMount() {

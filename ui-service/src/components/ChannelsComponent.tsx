@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import autobind from "../autobind";
+
 interface Props {
   userInfo: any,
   channelId: string,
@@ -11,12 +13,17 @@ export class ChannelsComponent extends React.Component<Props> {
   constructor(props: any) {
     super(props);
 
-    this.onSelect = this.onSelect.bind(this);
+    autobind(this);
   }
 
-  onSelect(e: any, channelId: string) {
+  onSelectChannel(e: any, channelId: string) {
     e.preventDefault();
     this.props.onSelect(channelId);
+  }
+
+  onLeaveChannel(e: any, channelId: string) {
+    e.preventDefault();
+    console.log("leave channel...");
   }
 
   render() {
@@ -27,14 +34,15 @@ export class ChannelsComponent extends React.Component<Props> {
             {this.props.userInfo.channels.map((channel: any) => (
               <div key={channel.id} className="col-12">
                 <div className="btn-group" role="group" aria-label="Channel">
-                  <button className={ classNames('btn btn-sm mt-1', {
+                  <button className={ classNames('btn btn-sm mt-1 mb-1', {
                       'btn-primary': this.props.channelId === channel.id,
                       'btn-outline-primary': this.props.channelId !== channel.id,
                     })}
-                    onClick={(e) => this.onSelect(e, channel.id)}>
+                    onClick={(e) => this.onSelectChannel(e, channel.id)}>
                     <b>{channel.name}</b>
                   </button>
-                  <button className="btn btn-danger">
+                  <button className="btn btn-danger btn-sm mt-1 mb-1"
+                    onClick={(e) => this.onLeaveChannel(e, channel.id)}>
                     &times;
                   </button>
                 </div>

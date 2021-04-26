@@ -1,5 +1,6 @@
 import React from 'react';
 
+import autobind from "../autobind";
 import Emitter from '../Emitter';
 
 interface Props {
@@ -10,8 +11,7 @@ export class NavbarComponent extends React.Component<Props> {
   constructor(props: any) {
     super(props);
 
-    this.onJoinChannel = this.onJoinChannel.bind(this);
-    this.onCreateChannel = this.onCreateChannel.bind(this);
+    autobind(this);
  }
 
   onJoinChannel(e: any) {
