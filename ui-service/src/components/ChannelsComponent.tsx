@@ -14,7 +14,7 @@ export class ChannelsComponent extends React.Component<Props> {
     this.onSelect = this.onSelect.bind(this);
   }
 
-  onSelect(e, channelId: string) {
+  onSelect(e: any, channelId: string) {
     e.preventDefault();
     this.props.onSelect(channelId);
   }
@@ -24,15 +24,20 @@ export class ChannelsComponent extends React.Component<Props> {
       <div className="m-2 border border-dark">
         <div className="container-fluid">
           <div className="row">
-            {this.props.userInfo.channels.map((channel) => (
+            {this.props.userInfo.channels.map((channel: any) => (
               <div key={channel.id} className="col-12">
-                <button className={ classNames('btn btn-sm mt-1', {
-                    'btn-primary': this.props.channelId === channel.id,
-                    'btn-outline-primary': this.props.channelId !== channel.id,
-                  })}
-                  onClick={(e) => this.onSelect(e, channel.id)}>
-                  <b>{channel.name}</b>
-                </button>
+                <div className="btn-group" role="group" aria-label="Channel">
+                  <button className={ classNames('btn btn-sm mt-1', {
+                      'btn-primary': this.props.channelId === channel.id,
+                      'btn-outline-primary': this.props.channelId !== channel.id,
+                    })}
+                    onClick={(e) => this.onSelect(e, channel.id)}>
+                    <b>{channel.name}</b>
+                  </button>
+                  <button className="btn btn-danger">
+                    &times;
+                  </button>
+                </div>
               </div>
             ))}
           </div>

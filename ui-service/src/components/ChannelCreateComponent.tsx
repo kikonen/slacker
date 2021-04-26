@@ -2,6 +2,8 @@ import React from 'react';
 
 import Emitter from '../Emitter';
 
+declare var $ :any;
+
 interface Props {
   userInfo: any,
 }
@@ -15,26 +17,28 @@ export class ChannelCreateComponent extends React.Component<Props, State> {
 
     this.state = {
     };
+
+    this.eventCreateChannel = this.eventCreateChannel.bind(this);
   }
 
   componentDidMount() {
-    Emitter.on('channel.create.show', this.onCreateChannel);
+    Emitter.on('channel.create.show', this.eventCreateChannel);
   }
 
-  onCreateChannel(e) {
+  eventCreateChannel(e: any) {
     console.log("show create dialog...");
 
     $('#channel_create').modal({});
   }
 
-  onCreate(e, channelId: string) {
+  onCreate(e: any, channelId: string) {
     e.preventDefault();
     console.log("CREATED: " + channelId);
   }
 
   render() {
     return (
-      <div className="modal" id="channel_create" tabIndex="-1" role="dialog">
+      <div className="modal" id="channel_create" tabIndex={-1} role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">

@@ -1,7 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
+//import classNames from 'classnames';
 
 import Emitter from '../Emitter';
+
+declare var $ :any;
 
 interface Props {
   userInfo: any,
@@ -20,14 +22,14 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
     };
 
     this.onSelect = this.onSelect.bind(this);
-    this.onJoinChannel = this.onJoinChannel.bind(this);
+    this.eventJoinChannel = this.eventJoinChannel.bind(this);
   }
 
   componentDidMount() {
-    Emitter.on('channel.join.show', this.onJoinChannel);
+    Emitter.on('channel.join.show', this.eventJoinChannel);
   }
 
-  onJoinChannel(e) {
+  eventJoinChannel(e: any) {
     console.log("show join dialog...");
 
     $('#channel_selector').modal({});
@@ -44,14 +46,14 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
     }));
   }
 
-  onSelect(e, channelId: string) {
+  onSelect(e: any, channelId: string) {
     e.preventDefault();
     console.log("JOINED: " + channelId);
   }
 
   render() {
     return (
-      <div className="modal" id="channel_selector" tabIndex="-1" role="dialog">
+      <div className="modal" id="channel_selector" tabIndex={-1} role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -66,10 +68,7 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
                   <div className="row">
                     {this.state.channels.map((channel) => (
                       <div key={channel.id} className="col-12">
-                        <button className={ classNames('btn btn-sm mt-1', {
-                            'btn-primary': this.props.channelId === channel.id,
-                            'btn-outline-primary': this.props.channelId !== channel.id,
-                          })}
+                        <button className='btn-outline-primary'
                           onClick={(e) => this.onSelect(e, channel.id)}>
                           <b>{channel.name}</b>
                         </button>

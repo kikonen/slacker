@@ -14,12 +14,12 @@ export class NavbarComponent extends React.Component<Props> {
     this.onCreateChannel = this.onCreateChannel.bind(this);
  }
 
-  onJoinChannel(e) {
+  onJoinChannel(e: any) {
     console.log("join...");
     Emitter.emit('channel.join.show');
   }
 
-  onCreateChannel(e) {
+  onCreateChannel(e: any) {
     console.log("create...");
     Emitter.emit('channel.create.show');
   }

@@ -11,7 +11,7 @@ export class MessageEditComponent extends React.Component<Props> {
     this.onSend = this.onSend.bind(this);
   }
 
-  async onSend(e) {
+  async onSend(e: any) {
     e.preventDefault();
 
     let el: HTMLInputElement = document.querySelector("#command");
