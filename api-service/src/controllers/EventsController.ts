@@ -54,7 +54,7 @@ export class EventsController {
       console.log("kafkaing...");
       let groupId: string = `user_${res.locals.slacker_jwt.id}`;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-      kafka.subscribe(topic, groupId, autoCommit, (event) => {
+      kafka.subscribe(topic, groupId, autoCommit, (event: any) => {
         console.log(event);
         sendSSE(res, convertMessage(event));
       });
@@ -76,7 +76,7 @@ export class EventsController {
       console.log("kafkaing...");
       let groupId: string = `user_${res.locals.slacker_jwt.id}`;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-      kafka.subscribe(topic, groupId, autoCommit, (event) => {
+      kafka.subscribe(topic, groupId, autoCommit, (event: any) => {
         console.log("EVENT", event);
         sendSSE(res, event);
       });
