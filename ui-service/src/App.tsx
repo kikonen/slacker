@@ -16,6 +16,7 @@ type AppState = {
   channelId: string,
   messages: Array<any>,
   source: EventSource,
+  users: Map<String, any>,
 };
 
 class App extends React.Component<{}, AppState>
@@ -25,6 +26,7 @@ class App extends React.Component<{}, AppState>
 
     this.state = {
       userInfo: { name: 'na', email: 'na', channels: [], valid: false },
+      users: new Map(),
       messages: [],
       source: null,
       channelId: null,
@@ -35,7 +37,8 @@ class App extends React.Component<{}, AppState>
 
   componentDidMount() {
     this.fetchUserInfo();
-  }
+    this.fetchUsers();
+ }
 
   async stopEvents() {
     if (this.state.source) {
@@ -95,6 +98,19 @@ class App extends React.Component<{}, AppState>
     this.startEvents();
   }
 
+  async fetchUsers() {
+    const response = await fetch('/api/users');
+    let rs = await response.json();
+    console.log(rs);
+
+    let users = new Map();
+    rs.data.forEach((user: any) => users.set(user.id, user));
+
+    this.setState((state, props) => ({
+      users: users,
+    }));
+  }
+
   onSelectChannel(channelId: string) {
     console.log("SELECT: " + channelId);
     this.setState((state, props) => ({
@@ -117,7 +133,7 @@ class App extends React.Component<{}, AppState>
                 onSelect={this.onSelectChannel} />
             </div>
             <div className="col-10">
-              <MessagesComponent messages={this.state.messages} />
+              <MessagesComponent users={this.state.users} messages={this.state.messages} />
               <MessageEditComponent channelId={this.state.channelId} />
             </div>
           </div>
