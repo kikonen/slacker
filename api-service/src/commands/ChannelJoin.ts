@@ -8,7 +8,7 @@ export class ChannelJoin {
     let member = ChannelMember.build({ channel_id: channelId, user_id: userId });
     member = await member.save();
 
-    console.log("SAVED", member);
+    console.log("JOINED", member);
 
 //    return ChannelMember.call(.id);
     return { data: member };

@@ -26,10 +26,10 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    Emitter.on('channel.join.show', this.eventJoinChannel);
+    Emitter.on('channel.join.show', this.eventShow);
   }
 
-  eventJoinChannel(e: any) {
+  eventShow(e: any) {
     console.log("show join dialog...");
 
     $('#channel_selector').modal({});
@@ -46,9 +46,13 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
     }));
   }
 
-  onSelect(e: any, channelId: string) {
+  async onSelect(e: any, channelId: string) {
     e.preventDefault();
-    console.log("JOINED: " + channelId);
+
+    const url = `/api/channels/${channelId}/actions/join`;
+    const response = await fetch(url, { method: 'post' });
+    let rs = await response.json();
+    console.log("JOINED", rs);
   }
 
   render() {

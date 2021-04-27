@@ -109,4 +109,4 @@ router.get('/:id', UsersController.show);
 router.post('/', UsersController.create);
 router.put('/:id', UsersController.update);
 router.delete('/:id', UsersController.destroy);
-router.get('/action/find_email', UsersController.findByEmail);
+router.get('/actions/find_email', UsersController.findByEmail);

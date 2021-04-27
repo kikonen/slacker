@@ -10,6 +10,8 @@ import { ChannelFind } from '../commands/ChannelFind';
 import { ChannelCreate } from '../commands/ChannelCreate';
 import { ChannelUpdate } from '../commands/ChannelUpdate';
 
+import { ChannelJoin } from '../commands/ChannelJoin';
+
 // HACK KI ensure assocation is not dropped; fails queries if so
 ChannelMember.toString();
 
@@ -73,6 +75,17 @@ export class ChannelsController {
       res.status(404).json({ success: false, error: error });
     }
   }
+
+  static async joinChannel(req: express.Request, res: express.Response) {
+    const { id } = req.params;
+    try {
+      const rs = ChannelJoin.call(id, res.locals.slacker_jwt.id);
+
+      res.status(200).json({ success: true, data: rs });
+    } catch(error) {
+      res.status(404).json({ success: false, error: error });
+    }
+  }
 }
 
 const router = ChannelsController.router;
@@ -81,3 +94,4 @@ router.get('/:id', ChannelsController.show);
 router.post('/', ChannelsController.create);
 router.put('/:id', ChannelsController.update);
 router.delete('/:id', ChannelsController.destroy);
+router.post('/:id/actions/join', ChannelsController.joinChannel);

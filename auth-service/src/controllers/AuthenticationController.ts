@@ -95,7 +95,7 @@ export class AuthenticationController {
 
         var query = querystring.stringify({email: userInfo.email});
 
-        let response = await fetch(`http://api:3100/users/action/find_email?${query}`,
+        let response = await fetch(`http://api:3100/users/actions/find_email?${query}`,
                                    { headers: systemFetchHeaders } );
 
         let parsed = await response.json();
