@@ -13,6 +13,13 @@ export class MessageEditComponent extends React.Component<Props> {
     autobind(this);
   }
 
+  async onKeyPress(e: any) {
+    if (e.code !== 'Enter') return;
+    if (e.shiftKey) return;
+
+    this.onSend(e);
+  }
+
   async onSend(e: any) {
     e.preventDefault();
 
@@ -46,7 +53,7 @@ export class MessageEditComponent extends React.Component<Props> {
         <div>
           <form className="d-flex align-items-start">
             <label htmlFor="command" className="sr-only">Message</label>
-            <textarea id="command" className="m-2 form-control">
+            <textarea id="command" className="m-2 form-control" onKeyPress={this.onKeyPress}>
             </textarea>
 
             <button type="button" className="mt-2 mr-2 mb-2 btn btn-success" onClick={this.onSend}>Send</button>
