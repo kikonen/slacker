@@ -17,14 +17,16 @@ export class MessagesComponent extends React.Component<Props> {
   render() {
     const users = this.props.users;
 
+    // <span className="ml-2">- DBG: {JSON.stringify(msg)}</span>
     return (
       <div className="m-2 border border-info sl-messages-container">
         <div className="sl-messages-content">
           {this.props.messages.map((msg) => (
-            <div key={msg.key} className="alert alert-info">
-              <b>{users.get(msg.user)?.name || msg.user}</b>
-              <span className="ml-1">{msg.content}</span>
-              <span className="ml-2">- DBG: {JSON.stringify(msg)}</span>
+            <div key={msg.key} className="card m-1">
+              <div className="card-body m-1 p-1">
+                <b>{users.get(msg.user)?.name || msg.user}</b>
+                 <span className="ml-1">{msg.content}</span>
+              </div>
             </div>
           ))}
         </div>
