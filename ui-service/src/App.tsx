@@ -16,6 +16,7 @@ type AppState = {
   userInfo: any,
   channelId: string,
   messages: Array<any>,
+  messageIds: Set<String>,
   source: EventSource,
   users: Map<String, any>,
 };
@@ -29,6 +30,7 @@ class App extends React.Component<{}, AppState>
       userInfo: { name: 'na', email: 'na', channels: [], valid: false },
       users: new Map(),
       messages: [],
+      messageIds: new Set(),
       source: null,
       channelId: null,
     };
@@ -73,7 +75,11 @@ class App extends React.Component<{}, AppState>
   async stopEvents() {
     if (this.state.source) {
       this.state.source.close();
-      this.setState((state, props) => ({ messages: [], source: null }));
+      this.setState((state, props) => ({
+        messages: [],
+        messageIds: new Set(),
+        source: null
+      }));
     }
   }
 
@@ -96,12 +102,21 @@ class App extends React.Component<{}, AppState>
     let source = new EventSource(url);
     this.setState((state, props) => ({ source: source }));
 
-    source.addEventListener('message', async function(e: any) {
+    source.addEventListener('message', async (e: any) => {
       const ev: any = JSON.parse(e.data)
+
       console.log(ev);
+      if (this.state.messageIds.has(ev.id)) {
+        console.log("DUPLICATE: " + ev.id);
+        return;
+      }
+
+      this.state.messageIds.add(ev.id);
+      this.state.messages.push(ev);
       self.setState((state, props) => (
         {
-          messages: [...state.messages, ev]
+          messageIds: state.messageIds,
+          messages: state.messages,
         }
       ));
     }, false);
@@ -148,6 +163,7 @@ class App extends React.Component<{}, AppState>
     this.setState((state, props) => ({
       channelId: channelId,
       messages: [],
+      messageIds: new Set(),
     }),
     () => this.startEvents() );
   }
