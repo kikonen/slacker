@@ -13,6 +13,8 @@ import { ChannelUpdate } from '../commands/ChannelUpdate';
 import { ChannelJoin } from '../commands/ChannelJoin';
 import { ChannelLeave } from '../commands/ChannelLeave';
 
+import { MessageSend } from '../commands/MessageSend';
+
 // HACK KI ensure assocation is not dropped; fails queries if so
 ChannelMember.toString();
 
@@ -46,6 +48,8 @@ export class ChannelsController {
   static async create(req: express.Request, res: express.Response) {
     try {
       const channel = await ChannelCreate.call(req.body);
+
+      await MessageSend.call(channel.id, res.locals.slacker_jwt.id, "First message...");
 
       res.status(201).json({ success: true, data: channel });
     } catch(error) {

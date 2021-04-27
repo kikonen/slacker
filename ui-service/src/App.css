@@ -4,6 +4,14 @@
   height: 100vh;
 }
 
+.sl-h-100 {
+  width: 100%;
+}
+
+.sl-w-100 {
+  width: 100%;
+}
+
 .sl-channels-container {
   height: 70vh;
   overflow-y: auto;
@@ -11,6 +19,10 @@
 
 .sl-channels-content {
   height: 100%;
+}
+
+.sl-channels-channel {
+  width: 100%;
 }
 
 .sl-messages-container {

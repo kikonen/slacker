@@ -75,7 +75,7 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
                   <div className="row">
                     {this.state.channels.map((channel) => (
                       <div key={channel.id} className="col-12">
-                        <button className='btn-outline-primary'
+                        <button className='btn-outline-primary btn-sm mt-1 mb-1 sl-w-100'
                           onClick={(e) => this.onSelectChannel(e, channel.id)}>
                           <b>{channel.name}</b>
                         </button>

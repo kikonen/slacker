@@ -40,8 +40,8 @@ export class ChannelsComponent extends React.Component<Props> {
           <div className="row">
             {this.props.userInfo.channels.map((channel: any) => (
               <div key={channel.id} className="col-12">
-                <div className="btn-group" role="group" aria-label="Channel">
-                  <button className={ classNames('btn btn-sm mt-1 mb-1', {
+                <div className="btn-group sl-w-100" role="group" aria-label="Channel">
+                  <button className={ classNames('btn btn-sm mt-1 mb-1 sl-w-100', {
                       'btn-primary': this.props.channelId === channel.id,
                       'btn-outline-primary': this.props.channelId !== channel.id,
                     })}
