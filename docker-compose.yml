@@ -24,7 +24,6 @@ services:
     container_name: api
     ports:
       - "3100"
-      - "9201:9201"
     environment:
       SERVER_PORT: "3100"
       PGHOST: db
@@ -49,7 +48,6 @@ services:
     container_name: auth
     ports:
       - "3200"
-      - "9202:9202"
     environment:
       SERVER_PORT: "3200"
       PGHOST: db
@@ -75,7 +73,6 @@ services:
     container_name: ui
     ports:
       - "3000"
-      - "9203:9203"
     environment:
       SERVER_PORT: "3000"
       WDS_SOCKET_PATH: /ui/sockjs-node

@@ -2,17 +2,11 @@ services:
   api:
     environment:
       PRODUCTION: 'true'
-    ports:
-      - "3100"
 
   auth:
     environment:
       PRODUCTION: 'true'
-    ports:
-      - "3200"
 
   ui:
     environment:
       PRODUCTION: 'true'
-    ports:
-      - "3000"

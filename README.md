@@ -110,6 +110,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://stackoverflow.com/questions/26331651/how-can-i-backup-a-docker-container-with-its-data-volumes
 - https://stackoverflow.com/questions/50848797/docker-compose-exclude-service-by-default
 - https://docs.docker.com/compose/install/
+- https://stackoverflow.com/questions/48851190/docker-compose-override-a-ports-property-instead-of-merging-it
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy

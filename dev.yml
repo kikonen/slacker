@@ -1,0 +1,18 @@
+services:
+  api:
+    environment:
+      PRODUCTION: 'false'
+    ports:
+      - "9201:9201"
+
+  auth:
+    environment:
+      PRODUCTION: 'false'
+    ports:
+      - "9202:9202"
+
+  ui:
+    environment:
+      PRODUCTION: 'false'
+    ports:
+      - "9203:9203"
