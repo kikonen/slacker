@@ -51,16 +51,29 @@ class App extends React.Component<{}, AppState>
     if (userInfo) {
       userInfo.channels = userInfo.channels || [];
 
+      let channelId = this.state.channelId;
+      console.log("CURRENT_CHANNEL: " + channelId);
+
+      const changedChannel = userInfo.channels.findIndex((channel: any) => channel.id === channelId) < 0;
+      if (changedChannel) {
+        channelId = userInfo.channels.length ? userInfo.channels[0].id : null;
+        console.log("CHANGED_CHANNEL: " + channelId);
+      }
+
+      let fn = changedChannel ? () => this.startEvents() : null;
+
       this.setState((state, props) => ({
         userInfo: userInfo,
-      }));
+        channelId: channelId,
+      }),
+      fn );
     }
   }
 
   async stopEvents() {
     if (this.state.source) {
       this.state.source.close();
-      this.setState((state, props) => ({ source: null }));
+      this.setState((state, props) => ({ messages: [], source: null }));
     }
   }
 
