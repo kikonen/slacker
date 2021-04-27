@@ -23,23 +23,48 @@ export class ChannelCreateComponent extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    Emitter.on('channel.create.show', this.eventCreateChannel);
+    Emitter.on('channel.create.show', this.eventShow);
   }
 
-  eventCreateChannel(e: any) {
+  eventShow(e: any) {
     console.log("show create dialog...");
 
-    $('#channel_create').modal({});
+    let el: HTMLInputElement = document.querySelector("#channel_name");
+    el.value = '';
+
+    $('#channel_create_dialog').modal({});
   }
 
-  onCreate(e: any, channelId: string) {
+  async onCreateChannelSubmit(e: any) {
     e.preventDefault();
-    console.log("CREATED: " + channelId);
+
+    let el: HTMLInputElement = document.querySelector("#channel_name");
+    const name = el.value;
+
+    const data = {
+      name: name,
+    };
+
+    console.log("CREATE", data);
+
+    const response = await fetch('/api/channels', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      let rs = await response.json();
+      console.log("CREATED", rs);
+      $('#channel_create_dialog').modal('hide');
+    }
   }
 
   render() {
     return (
-      <div className="modal" id="channel_create" tabIndex={-1} role="dialog">
+      <div className="modal" id="channel_create_dialog" tabIndex={-1} role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -49,7 +74,7 @@ export class ChannelCreateComponent extends React.Component<Props, State> {
               </button>
             </div>
             <div className="modal-body">
-              <form>
+              <form id="create_channel_form" onSubmit={this.onCreateChannelSubmit}>
                 <div className="container-fluid">
                   <div className="row">
                     <div className="col-12">
@@ -63,7 +88,7 @@ export class ChannelCreateComponent extends React.Component<Props, State> {
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-success" data-dismiss="modal">Create</button>
+              <button form="create_channel_form" className="btn btn-success">Create</button>
             </div>
           </div>
         </div>

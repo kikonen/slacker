@@ -32,7 +32,7 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
   eventShow(e: any) {
     console.log("show join dialog...");
 
-    $('#channel_selector').modal({});
+    $('#channel_selector_dialog').modal({});
     this.fetchChannels();
   }
 
@@ -54,13 +54,13 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
     let rs = await response.json();
     console.log("JOINED", rs);
 
-    $('#channel_selector').modal('hide');
+    $('#channel_selector_dialog').modal('hide');
     Emitter.emit('user.refresh.channels');
   }
 
   render() {
     return (
-      <div className="modal" id="channel_selector" tabIndex={-1} role="dialog">
+      <div className="modal" id="channel_selector_dialog" tabIndex={-1} role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
