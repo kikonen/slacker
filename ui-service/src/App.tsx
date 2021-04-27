@@ -158,13 +158,13 @@ class App extends React.Component<{}, AppState>
         <NavbarComponent userInfo={this.state.userInfo} />
         <div className="container-fluid sl-content">
           <div className="row no-gutters">
-            <div className="col-2">
+            <div className="col-12 col-sm-2">
               <ChannelsComponent
                 userInfo={this.state.userInfo}
                 channelId={this.state.channelId}
                 onSelect={this.onSelectChannel} />
             </div>
-            <div className="col-10">
+            <div className="col-12 col-sm-10">
               <MessagesComponent users={this.state.users} messages={this.state.messages} />
               <MessageEditComponent channelId={this.state.channelId} />
             </div>

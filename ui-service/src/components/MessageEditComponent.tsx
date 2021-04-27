@@ -42,7 +42,7 @@ export class MessageEditComponent extends React.Component<Props> {
 
   render() {
     return (
-      <div className="m-2 border border-success sl-message-edit-container">
+      <div className="m-1 border border-success sl-message-edit-container">
         <div>
           <form className="d-flex align-items-start">
             <label htmlFor="command" className="sr-only">Message</label>

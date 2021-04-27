@@ -30,6 +30,8 @@ export class NavbarComponent extends React.Component<Props> {
       <a href="../auth/logout" className="btn btn-primary">Logout</a> :
       <a href="../auth/login" className="btn btn-primary">Login</a>;
 
+    // <span className="mr-1"><b>Email: </b>{userInfo?.email || 'na'}</span>
+
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="./"><b>Slacker</b>: Stop slacking become total slacker</a>
@@ -53,9 +55,7 @@ export class NavbarComponent extends React.Component<Props> {
         </div>
 
         <span className="ml-auto">
-          <span className="mr-1"><b>User: </b> {userInfo?.name || 'na'}</span>
-          <span className="mr-1"><b>Email: </b>{userInfo?.email || 'na'}</span>
-
+          <span className="mr-1">{userInfo?.name || 'na'}</span>
           {loginBtn}
         </span>
       </nav>

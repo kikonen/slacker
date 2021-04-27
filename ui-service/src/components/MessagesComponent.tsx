@@ -19,7 +19,7 @@ export class MessagesComponent extends React.Component<Props> {
 
     // <span className="ml-2">- DBG: {JSON.stringify(msg)}</span>
     return (
-      <div className="m-2 border border-info sl-messages-container">
+      <div className="m-1 border border-info sl-messages-container">
         <div className="sl-messages-content">
           {this.props.messages.map((msg) => (
             <div key={msg.key} className="card m-1">
