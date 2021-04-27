@@ -134,7 +134,9 @@ class App extends React.Component<{}, AppState>
     console.log(rs);
 
     let users = new Map();
-    rs.data.forEach((user: any) => users.set(user.id, user));
+    if (rs.data) {
+      rs.data.forEach((user: any) => users.set(user.id, user));
+    }
 
     this.setState((state, props) => ({
       users: users,
