@@ -2,6 +2,7 @@ import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
 
+import Emitter from './Emitter';
 import autobind from './autobind'
 
 import { NavbarComponent } from './components/NavbarComponent';
@@ -38,7 +39,23 @@ class App extends React.Component<{}, AppState>
   componentDidMount() {
     this.fetchUserInfo();
     this.fetchUsers();
- }
+
+    Emitter.on('user.refresh.channels', this.eventUserRefresh);
+  }
+
+  async eventUserRefresh(e: any) {
+    const response = await fetch('/api/session/me');
+    let rs = await response.json();
+    console.log(rs);
+    let userInfo = rs.data;
+    if (userInfo) {
+      userInfo.channels = userInfo.channels || [];
+
+      this.setState((state, props) => ({
+        userInfo: userInfo,
+      }));
+    }
+  }
 
   async stopEvents() {
     if (this.state.source) {

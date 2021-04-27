@@ -11,6 +11,7 @@ import { ChannelCreate } from '../commands/ChannelCreate';
 import { ChannelUpdate } from '../commands/ChannelUpdate';
 
 import { ChannelJoin } from '../commands/ChannelJoin';
+import { ChannelLeave } from '../commands/ChannelLeave';
 
 // HACK KI ensure assocation is not dropped; fails queries if so
 ChannelMember.toString();
@@ -86,6 +87,17 @@ export class ChannelsController {
       res.status(404).json({ success: false, error: error });
     }
   }
+
+  static async leaveChannel(req: express.Request, res: express.Response) {
+    const { id } = req.params;
+    try {
+      const rs = ChannelLeave.call(id, res.locals.slacker_jwt.id);
+
+      res.status(200).json({ success: true, data: rs });
+    } catch(error) {
+      res.status(404).json({ success: false, error: error });
+    }
+  }
 }
 
 const router = ChannelsController.router;
@@ -95,3 +107,4 @@ router.post('/', ChannelsController.create);
 router.put('/:id', ChannelsController.update);
 router.delete('/:id', ChannelsController.destroy);
 router.post('/:id/actions/join', ChannelsController.joinChannel);
+router.post('/:id/actions/leave', ChannelsController.leaveChannel);

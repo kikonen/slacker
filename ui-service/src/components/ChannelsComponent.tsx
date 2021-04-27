@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 interface Props {
@@ -21,9 +22,15 @@ export class ChannelsComponent extends React.Component<Props> {
     this.props.onSelect(channelId);
   }
 
-  onLeaveChannel(e: any, channelId: string) {
+  async onLeaveChannel(e: any, channelId: string) {
     e.preventDefault();
-    console.log("leave channel...");
+
+    const url = `/api/channels/${channelId}/actions/leave`;
+    const response = await fetch(url, { method: 'post' });
+    let rs = await response.json();
+    console.log("LEAVED", rs);
+
+    Emitter.emit('user.refresh.channels');
   }
 
   render() {

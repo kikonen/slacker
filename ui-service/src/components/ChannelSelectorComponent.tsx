@@ -46,13 +46,16 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
     }));
   }
 
-  async onSelect(e: any, channelId: string) {
+  async onSelectChannel(e: any, channelId: string) {
     e.preventDefault();
 
     const url = `/api/channels/${channelId}/actions/join`;
     const response = await fetch(url, { method: 'post' });
     let rs = await response.json();
     console.log("JOINED", rs);
+
+    $('#channel_selector').modal('hide');
+    Emitter.emit('user.refresh.channels');
   }
 
   render() {
@@ -73,7 +76,7 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
                     {this.state.channels.map((channel) => (
                       <div key={channel.id} className="col-12">
                         <button className='btn-outline-primary'
-                          onClick={(e) => this.onSelect(e, channel.id)}>
+                          onClick={(e) => this.onSelectChannel(e, channel.id)}>
                           <b>{channel.name}</b>
                         </button>
                       </div>
