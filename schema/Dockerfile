@@ -6,5 +6,7 @@ WORKDIR /app
 RUN apt-get install -y libxml2-dev libxslt1-dev
 
 
-COPY Gemfile* /app
+COPY Gemfile /app
+COPY Gemfile.lock /app
+
 RUN bundle install
