@@ -10,6 +10,38 @@ export class Kafka {
 
   }
 
+  createTopic(topic: string): void {
+    console.log(`create: ${topic}`);
+
+    const client = new KafkaClient({ kafkaHost: this.kafkaHost });
+
+    let topicsToCreate = [
+      {
+        topic: topic,
+        partitions: 1,
+        replicationFactor: 1,
+        configEntries: [
+          {
+            name: 'cleanup.policy',
+            value: 'compact'
+          },
+          {
+            name: 'retention.ms',
+            value: '-1'
+          },
+          {
+            name: 'retention.bytes',
+            value: '-1'
+          },
+        ],
+      }
+    ];
+
+    return client.createTopics(topicsToCreate, (error, result) => {
+      console.log(error || result);
+    });
+  }
+
   publish(topic: string, key: string, message: any): void {
     const client = new KafkaClient({ kafkaHost: this.kafkaHost });
     const producer = new Producer(client);
