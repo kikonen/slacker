@@ -3,7 +3,9 @@
 #
 SECRETS_DIR=.secrets
 
-mkdir $SECRETS_DIR
+if [[ ! -d $SECRETS_DIR ]]; then
+    mkdir $SECRETS_DIR
+fi
 
 cd $SECRETS_DIR
 echo "NOTE: Don't add passphrase"

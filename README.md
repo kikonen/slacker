@@ -18,14 +18,27 @@ yarn upgrade nodemon
 
 ## Dev
 
+### Setup
+```bash
+sh scripts/create_env.sh
+sh scripts/create_jwt_secrets.sh
+
+docker-compose up -d schema
+docker-compose exec schema rake db:create db:migrate
+docker-compose down
+```
+
+### Setup Google Auth
+```bash
+vim auth-service/.env
+# --------------
+OAUTH_CLIENT_ID=....
+OAUTH_CLIENT_SECRET=....
+```
+
 ### Run
 ```bash
 COMPOSE_PROFILES=dev,schema docker-compose up
-```
-
-### Generate JWT secrets
-```bash
-scripts/create_jwt_secrets.sh
 ```
 
 ## Testing

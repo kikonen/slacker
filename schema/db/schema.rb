@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_215751) do
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
     t.uuid "user_id", null: false
+    t.uuid "channel_id", null: false
     t.index ["user_id"], name: "idx_user_channel_state"
   end
 
@@ -85,6 +86,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_215751) do
 
   add_foreign_key "channel_members", "channels"
   add_foreign_key "channel_members", "users"
+  add_foreign_key "channel_states", "channels", name: "channel_states_channel_id_fkey", on_update: :cascade, on_delete: :cascade
   add_foreign_key "channel_states", "users"
   add_foreign_key "events", "channels"
   add_foreign_key "events", "events", column: "target_event_id"
