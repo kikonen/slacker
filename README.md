@@ -41,7 +41,7 @@ OAUTH_CLIENT_SECRET=....
 
 ### Run app
 ```bash
-COMPOSE_PROFILES=dev,schema docker-compose up
+COMPOSE_PROFILES=dev docker-compose up
 ```
 
 ## Testing
