@@ -29,6 +29,9 @@ docker-compose down
 ```
 
 ### Setup Google Auth
+
+See [Google Cloud console](https://console.cloud.google.com/apis/credentials)
+
 ```bash
 vim auth-service/.env
 # --------------
