@@ -122,6 +122,7 @@ services:
       ALLOW_PLAINTEXT_LISTENER: "yes"
     volumes:
       - "kafka_data:/bitnami"
+      - ./kafka/server.properties:/bitnami/kafka/config/server.properties
     networks:
       - default
     ports:

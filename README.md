@@ -139,6 +139,7 @@ docker-compose run schema bin/rails generate migration CreateUsers name:string e
 - https://ksqldb.io
 - https://www.confluent.io/blog/building-a-microservices-ecosystem-with-kafka-streams-and-ksql/
 - https://stackoverflow.com/questions/14755030/apache-kafka-consumer-state
+- https://stackoverflow.com/questions/39735036/make-kafka-topic-log-retention-permanent
 
 ### Server events
 - https://www.telerik.com/blogs/websockets-vs-server-sent-events
