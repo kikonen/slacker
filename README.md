@@ -36,7 +36,7 @@ OAUTH_CLIENT_ID=....
 OAUTH_CLIENT_SECRET=....
 ```
 
-### Run
+### Run app
 ```bash
 COMPOSE_PROFILES=dev,schema docker-compose up
 ```
@@ -57,14 +57,20 @@ docker-compose exec ksqldb-cli ksql http://ksqldb-server:8088
 ```
 
 ## Database
+
+### Start schem
+```bash
+docker-compose up -d schema
+```
+
 ### Migrate
 ```bash
-docker-compose run schema rake db:migrate
+docker-compose exec schema rake db:migrate
 ```
 
 ### Create migration
 ```bash
-docker-compose run schema bin/rails generate migration CreateUsers name:string email:string
+docker-compose exec schema bin/rails generate migration CreateUsers name:string email:string
 ```
 
 ## References
