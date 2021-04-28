@@ -43,7 +43,11 @@ OAUTH_CLIENT_SECRET=....
 ```bash
 COMPOSE_PROFILES=dev docker-compose up
 ```
-And then [Slacker - http://localhost:8080](http://localhost:8080)
+Server runs at http://localhost:8080
+
+Server links
+- [Slacker - Main app](http://localhost:8080)
+- [Adminer - DB schemaa](http://localhost:8080/adminer)
 
 ## Testing
 
