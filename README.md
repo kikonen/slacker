@@ -43,6 +43,7 @@ OAUTH_CLIENT_SECRET=....
 ```bash
 COMPOSE_PROFILES=dev docker-compose up
 ```
+And then [Slacker - http://localhost:8080](http://localhost:8080)
 
 ## Testing
 
