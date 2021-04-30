@@ -27,7 +27,7 @@ class App extends React.Component<{}, AppState>
     super(props);
 
     this.state = {
-      userInfo: { name: 'na', email: 'na', channels: [], valid: false },
+      userInfo: { name: 'Not logged in', email: 'na', channels: [], valid: false },
       users: new Map(),
       messages: [],
       messageIds: new Set(),
@@ -43,6 +43,7 @@ class App extends React.Component<{}, AppState>
     this.fetchUsers();
 
     Emitter.on('user.refresh.channels', this.eventUserRefresh);
+    Emitter.on('channel.select', this.eventChannelSelect);
   }
 
   async eventUserRefresh(e: any) {
@@ -70,6 +71,17 @@ class App extends React.Component<{}, AppState>
       }),
       fn );
     }
+  }
+
+  async eventChannelSelect(e: any) {
+    const channelId = e.channelId;
+    console.log("SELECT: " + channelId);
+    this.setState((state, props) => ({
+      channelId: channelId,
+      messages: [],
+      messageIds: new Set(),
+    }),
+    () => this.startEvents() );
   }
 
   async stopEvents() {
@@ -158,16 +170,6 @@ class App extends React.Component<{}, AppState>
     }));
   }
 
-  onSelectChannel(channelId: string) {
-    console.log("SELECT: " + channelId);
-    this.setState((state, props) => ({
-      channelId: channelId,
-      messages: [],
-      messageIds: new Set(),
-    }),
-    () => this.startEvents() );
-  }
-
   render() {
     return (
       <div className="sl-app">
@@ -177,8 +179,7 @@ class App extends React.Component<{}, AppState>
             <div className="col-12 col-sm-2">
               <ChannelsComponent
                 userInfo={this.state.userInfo}
-                channelId={this.state.channelId}
-                onSelect={this.onSelectChannel} />
+                channelId={this.state.channelId} />
             </div>
             <div className="col-12 col-sm-10">
               <MessagesComponent users={this.state.users} messages={this.state.messages} />
