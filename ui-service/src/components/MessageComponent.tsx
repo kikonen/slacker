@@ -20,7 +20,7 @@ export class MessageComponent extends React.Component<Props> {
   render() {
     const users = this.props.users;
     const msg = this.props.message;
-    const formatted = marked(msg.content) + `<button onclick="alert('foo')">Foo</button>`;
+    const formatted = marked(msg.content);// + `<button onclick="alert('foo')">Foo</button>`;
     const sanitized = DOMPurify.sanitize(formatted);
 
     const dtStr = msg.updated_at || msg.created_at;
@@ -32,9 +32,9 @@ export class MessageComponent extends React.Component<Props> {
     const dbg= <span className="ml-2">- DBG: {JSON.stringify(msg)}</span>
     return (
       <div className="card">
-        <div className="card-body m-1 p-1">
+        <div className="card-body m-1 p-0">
           <b>{users.get(msg.user)?.name || msg.user}</b> {formattedTime}
-           <div className="ml-1" dangerouslySetInnerHTML={{ __html: sanitized }}></div>
+           <div className="ml-0" dangerouslySetInnerHTML={{ __html: sanitized }}></div>
         </div>
       </div>
     );
