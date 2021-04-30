@@ -11,6 +11,7 @@ export class MessageSend {
 
     const key = await DB.nextID();
     const msg = {
+      created_at: new Date().toISOString(),
       content: text,
       user: userId,
     };
