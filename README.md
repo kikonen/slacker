@@ -123,6 +123,8 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://reactjs.org/docs/lifting-state-up.html
 - https://medium.com/@krzakmarek88/eventemitter-instead-of-lifting-state-up-f5f105054a5
 - https://medium.com/komenco/react-autobinding-2261a1092849
+- https://survivejs.com/webpack/styling/separating-css/
+- https://www.w3schools.com/react/react_sass.asp
 
 ### Docker
 - https://hub.docker.com/_/postgres

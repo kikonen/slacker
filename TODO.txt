@@ -23,6 +23,8 @@
 - events sent to UI need to have channel indicated to track race conditions
 - track "already received" events in UI (via id)
 - Extra CSS to be own asset; not silly CSS embedded in JS
+- Add SASS
+- discard postcss
 
 # WONT
 - User registration email sending for new users
