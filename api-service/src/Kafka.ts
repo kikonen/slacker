@@ -2,12 +2,15 @@ import { KafkaClient } from 'kafka-node';
 import { Producer, ProduceRequest } from 'kafka-node';
 import { Consumer, Message, Offset, OffsetFetchRequest, ConsumerOptions } from 'kafka-node';
 
+import autobind from './autobind'
+
 export class Kafka {
   kafkaHost: string;
 
   constructor(kafkaHost: string) {
     this.kafkaHost = kafkaHost;
 
+    autobind(this);
   }
 
   createTopic(topic: string): void {
@@ -81,7 +84,7 @@ export class Kafka {
     );
   }
 
-  subscribe(topic: string, groupId: string, autoCommit: boolean, onMessage:  (message: Message) => any): void {
+  async subscribe(topic: string, groupId: string, autoCommit: boolean, onMessage:  (message: Message) => any) {
     const client = new KafkaClient({ kafkaHost: this.kafkaHost });
     const topics: OffsetFetchRequest[] = [{ topic: topic, partition: 0 }];
     const options: ConsumerOptions = {
@@ -93,37 +96,59 @@ export class Kafka {
 
     const consumer = new Consumer(client, topics, options);
 
+    await this.refreshClient(topic, client);
+
+    const offset = new Offset(client);
+    const topicOffset = await this.fetchOffsets(topic, 0, offset);
+
+    console.log("OFFSET", topicOffset);
+
     consumer.on('error', function(err: Error): void {
       console.log('error', err);
     });
 
-    client.refreshMetadata(
-      [topic],
-      (err: Error): void => {
-        const offset = new Offset(client);
+    consumer.on('message', onMessage);
 
-        if (err) {
-          throw err;
-        }
-
-        consumer.on('message', onMessage);
-
-        /*
-         * If consumer get `offsetOutOfRange` event, fetch data from the smallest(oldest) offset
-         */
-        consumer.on(
-          'offsetOutOfRange',
-          (topic: OffsetFetchRequest): void => {
-            offset.fetch([topic], function(err, offsets): void {
-              if (err) {
-                return console.error(err);
-              }
-              const min = Math.min.apply(null, offsets[topic.topic][topic.partition]);
-              consumer.setOffset(topic.topic, topic.partition, min);
-            });
+    // If consumer get `offsetOutOfRange` event, fetch data from the smallest(oldest) offset
+    consumer.on(
+      'offsetOutOfRange',
+      (topic: OffsetFetchRequest): void => {
+        offset.fetch([topic], function(err, offsets): void {
+          if (err) {
+            return console.error(err);
           }
-        );
+          const min = Math.min.apply(null, offsets[topic.topic][topic.partition]);
+          consumer.setOffset(topic.topic, topic.partition, min);
+        });
       }
     );
+  }
+
+  async refreshClient(topic: string, client: KafkaClient) {
+    new Promise((resolve, reject) => {
+      client.refreshMetadata(
+        [topic],
+        (error: Error): void => {
+          if (error) {
+            reject(error);
+            return;
+          }
+
+          resolve(client);
+        });
+    });
+  }
+
+  async fetchOffsets(topic: string, partition: number, offset: Offset) {
+    return new Promise((resolve, reject) => {
+      offset.fetchLatestOffsets([topic], function (error, offsets) {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve(offsets[topic][partition]);
+      });
+    });
   }
 }
