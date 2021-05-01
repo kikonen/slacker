@@ -64,6 +64,12 @@ kafka-console-producer.sh --topic channel_1 --bootstrap-server kafka:9092
 docker-compose exec ksqldb-cli ksql http://ksqldb-server:8088
 ```
 
+### Debug channel content
+```bash
+docker-compose exec api sh
+kafkacat -C -b kafka:9092 -t channel_b9335aed-5ecb-43b8-b026-014925752084 -p 0 -c 10 -f '%T offset %o: key %k: %s\n'
+```
+
 ## Database
 
 ### Start schem
