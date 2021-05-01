@@ -36,9 +36,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.get('/', (req, res) => {
-  res.send('Hello World! Via typescript');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World! Via typescript');
+// });
 
 app.use('/Channels', ChannelsController.router);
 app.use('/Users', UsersController.router);

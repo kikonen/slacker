@@ -25,16 +25,20 @@ services:
     ports:
       - "3100"
     environment:
+      NODE_PATH: /node_modules
       SERVER_PORT: "3100"
       PGHOST: db
       PGUSER : postgres
       PGPASSWORD: password
       PGDATABASE: slacker
       KAFKA_HOST: kafka:9092
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
     working_dir: /app
     volumes:
     - ./api-service:/app
-    - api_node_modules:/app/node_modules
     networks:
       - default
     depends_on:
@@ -49,6 +53,7 @@ services:
     ports:
       - "3200"
     environment:
+      NODE_PATH: /node_modules
       SERVER_PORT: "3200"
       PGHOST: db
       PGUSER : postgres
@@ -56,14 +61,17 @@ services:
       PGDATABASE: slacker
       OAUTH_API: https://accounts.google.com/o/oauth2/v2/auth
       OAUTH_REDIRECT_URI: http://localhost:8080/auth/callback
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
     working_dir: /app
     volumes:
     - ./auth-service:/app
-    - auth_node_modules:/app/node_modules
     networks:
       - default
     depends_on:
-      - db
+      - api
     command: sh -c "yarn run dev"
 
   ui:
@@ -74,27 +82,36 @@ services:
     ports:
       - "3000"
     environment:
+      NODE_PATH: /node_modules
       SERVER_PORT: "3000"
       WDS_SOCKET_PATH: /ui/sockjs-node
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
     working_dir: /app
     volumes:
     - ./ui-service:/app
-    - ui_node_modules:/app/node_modules
     networks:
       - default
     depends_on:
       - api
-    command: sh -c "yarn run start"
+      - auth
+    command: sh -c "yarn run dev"
 
   db:
     image: postgres:13.2
+    container_name: db
     restart: always
     environment:
       PGDATA: /data/db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: slacker
-    container_name: db
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
     volumes:
     - postgres_data:/data
     networks:
@@ -107,6 +124,10 @@ services:
     container_name: zookeeper
     ports:
       - "2181"
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
     volumes:
       - "zookeeper_data:/bitnami"
     networks:
@@ -120,6 +141,10 @@ services:
     environment:
       KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
       ALLOW_PLAINTEXT_LISTENER: "yes"
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
     volumes:
       - "kafka_data:/bitnami"
       - ./kafka/server.properties:/bitnami/kafka/config/server.properties
@@ -149,6 +174,10 @@ services:
       KSQL_BOOTSTRAP_SERVERS: kafka:9092
       KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
       KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
 
   ksqldb-cli:
     image: confluentinc/ksqldb-cli:0.15.0
@@ -159,6 +188,10 @@ services:
       - ksqldb-server
     entrypoint: /bin/sh
     tty: true
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
 
   schema:
     build: ./schema
@@ -168,6 +201,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: slacker
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
     working_dir: /app
     volumes:
     - ./schema:/app
@@ -180,6 +217,10 @@ services:
     container_name: adminer
     profiles: ["dev"]
     restart: always
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
     networks:
       - default
     ports:
@@ -191,6 +232,3 @@ volumes:
     driver: local
   kafka_data:
     driver: local
-  api_node_modules:
-  auth_node_modules:
-  ui_node_modules:

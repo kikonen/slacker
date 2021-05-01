@@ -140,6 +140,8 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://stackoverflow.com/questions/50848797/docker-compose-exclude-service-by-default
 - https://docs.docker.com/compose/install/
 - https://stackoverflow.com/questions/48851190/docker-compose-override-a-ports-property-instead-of-merging-it
+- https://stackoverflow.com/questions/42510002/how-to-clear-the-logs-properly-for-a-docker-container
+- https://docs.docker.com/engine/reference/commandline/system_prune/
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy

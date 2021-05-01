@@ -3,8 +3,8 @@
   "name": "slacker",
   "version": "1.0.0",
   "scripts": {
-    "build": "yarn run tsc",
-    "dev:start": "./node_modules/.bin/npm-run-all build debug",
+    "build": "tsc -p .",
+    "dev:start": "npm-run-all build debug",
     "dev": "nodemon --watch src -e ts,ejs --exec yarn run dev:start",
     "start": "node dist/server.js",
     "debug": "node --inspect=0.0.0.0:9202 dist/server.js"

@@ -87,7 +87,7 @@
     "nodemon": "^1.19.2"
   },
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "node scripts/start.js",
     "start2": "sleep 100000000",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",

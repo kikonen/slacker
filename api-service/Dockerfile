@@ -2,9 +2,14 @@ FROM node:14-alpine
 WORKDIR /app
 
 RUN apk add build-base python
-COPY package.json yarn.lock ./
+
+RUN mkdir -p /node_modules
+#RUN ln -sf /node_modules node_modules
+ENV PATH="${PATH}:./node_modules/.bin"
+
+COPY .yarnrc package.json yarn.lock ./
 RUN yarn install
 
-COPY . .
+#COPY . .
 
-RUN yarn run build
+#RUN yarn run build
