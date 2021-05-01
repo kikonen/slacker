@@ -13,6 +13,6 @@ export class TopicCreate {
     const response = kafka.createTopic(topic);
     console.log(response);
 
-    await MessageSend.call(channelId, userId, "First message...");
+    await MessageSend.call(channelId, userId, null, "First message...");
   }
 }

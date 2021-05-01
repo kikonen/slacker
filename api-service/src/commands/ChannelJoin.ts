@@ -18,6 +18,7 @@ export class ChannelJoin {
     req: express.Request,
     res: express.Response,
     channelId: string,
+    key: string,
     text: string) {
     console.log("JOIN", text);
 

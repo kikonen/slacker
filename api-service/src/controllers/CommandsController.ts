@@ -21,7 +21,7 @@ export class CommandsController {
   static async send(req: express.Request, res: express.Response) {
     try {
       console.log("BODY", req.body);
-      let { text, channel_id } = req.body;
+      let { text, channel_id, id } = req.body;
 
       let handler: any;
       let commandText: string;
@@ -36,7 +36,7 @@ export class CommandsController {
         commandText = text;
       }
 
-      await handler.handle(req, res, channel_id, commandText);
+      await handler.handle(req, res, channel_id, id, commandText);
 
       res.send({"success": true});
     } catch(error) {

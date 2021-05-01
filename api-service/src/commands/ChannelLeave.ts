@@ -25,6 +25,7 @@ export class ChannelLeave {
     req: express.Request,
     res: express.Response,
     channelId: string,
+    key: string,
     text: string) {
     console.log("LEAVE", text);
 

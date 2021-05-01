@@ -1,16 +1,32 @@
 import React from 'react';
 
 import autobind from "../autobind";
+import Emitter from '../Emitter';
 
 interface Props {
-  channelId: string,
-}
+  channelId?: string,
+  message?: any,
+};
 
-export class MessageEditComponent extends React.Component<Props> {
+type State = {
+  content: string,
+};
+
+export class MessageEditComponent extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
 
+    this.state = {
+      content: this.props.message?.content || '',
+    };
+
     autobind(this);
+  }
+
+  async onChange(e: any) {
+    this.setState({
+      content: e.target.value,
+    });
   }
 
   async onKeyPress(e: any) {
@@ -20,16 +36,24 @@ export class MessageEditComponent extends React.Component<Props> {
     this.onSend(e);
   }
 
+  async onKeyDown(e: any) {
+    if (!this.props.message) return;
+    if (e.code !== 'Escape') return;
+    Emitter.emit('message.edit.close', { id: this.props.message.id });
+  }
+
   async onSend(e: any) {
     e.preventDefault();
 
-    let el: HTMLInputElement = document.querySelector("#command");
-    let text: string = el.value;
+    const text = this.state.content;
 
     console.log("SEND: " + text);
 
+    let channelId = this.props.message?.channel || this.props.channelId;
+
     const data = {
-      channel_id: this.props.channelId,
+      id: this.props.message?.id,
+      channel_id: channelId,
       text: text,
     };
 
@@ -43,17 +67,29 @@ export class MessageEditComponent extends React.Component<Props> {
 
     console.log(response);
     if (response.ok) {
-      el.value = '';
+      if (this.props.message) {
+        Emitter.emit('message.edit.close', { id: this.props.message.id });
+      } else {
+        this.setState({
+          content: '',
+        });
+      }
     }
   }
 
   render() {
+    //let msg = this.props.message || { content: '' }
+
     return (
       <div className="m-1 border border-success sl-message-edit-container">
         <div>
           <form className="d-flex align-items-start">
             <label htmlFor="command" className="sr-only">Message</label>
-            <textarea id="command" className="m-2 form-control" onKeyPress={this.onKeyPress}>
+            <textarea id="command" className="m-2 form-control"
+              onKeyPress={this.onKeyPress}
+              onKeyDown={this.onKeyDown}
+              onChange={this.onChange}
+              value={this.state.content}>
             </textarea>
 
             <button type="button" className="mt-2 mr-2 mb-2 btn btn-success" onClick={this.onSend}>Send</button>

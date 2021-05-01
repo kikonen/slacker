@@ -15,8 +15,8 @@ import { ChannelCreateComponent } from './components/ChannelCreateComponent';
 type AppState = {
   userInfo: any,
   channelId: string,
-  messages: Array<any>,
-  messageIds: Set<String>,
+  messageIds: Array<any>,
+  messagesById: Map<String, any>,
   source: EventSource,
   users: Map<String, any>,
 };
@@ -29,8 +29,8 @@ class App extends React.Component<{}, AppState>
     this.state = {
       userInfo: { name: 'Not logged in', email: 'na', channels: [], valid: false },
       users: new Map(),
-      messages: [],
-      messageIds: new Set(),
+      messageIds: [],
+      messagesById: new Map(),
       source: null,
       channelId: null,
     };
@@ -78,8 +78,8 @@ class App extends React.Component<{}, AppState>
     console.log("SELECT: " + channelId);
     this.setState((state, props) => ({
       channelId: channelId,
-      messages: [],
-      messageIds: new Set(),
+      messageIds: [],
+      messagesById: new Map(),
     }),
     () => this.startEvents() );
   }
@@ -88,8 +88,8 @@ class App extends React.Component<{}, AppState>
     if (this.state.source) {
       this.state.source.close();
       this.setState((state, props) => ({
-        messages: [],
-        messageIds: new Set(),
+        messageIds: [],
+        messagesById: new Map(),
         source: null
       }));
     }
@@ -118,17 +118,20 @@ class App extends React.Component<{}, AppState>
       const ev: any = JSON.parse(e.data)
 
       console.log(ev);
-      if (this.state.messageIds.has(ev.id)) {
+      if (!ev.updated_at && this.state.messagesById.has(ev.id)) {
         console.log("DUPLICATE: " + ev.id);
         return;
       }
 
-      this.state.messageIds.add(ev.id);
-      this.state.messages.push(ev);
+      this.state.messagesById.set(ev.id, ev);
+      if (!ev.updated_at) {
+        this.state.messageIds.push(ev.id);
+      }
+
       self.setState((state, props) => (
         {
           messageIds: state.messageIds,
-          messages: state.messages,
+          messagesById: state.messagesById,
         }
       ));
     }, false);
@@ -182,7 +185,10 @@ class App extends React.Component<{}, AppState>
                 channelId={this.state.channelId} />
             </div>
             <div className="col-12 col-sm-10">
-              <MessagesComponent users={this.state.users} messages={this.state.messages} />
+              <MessagesComponent users={this.state.users}
+                messageIds={this.state.messageIds}
+                messagesById={this.state.messagesById}/>
+
               <MessageEditComponent channelId={this.state.channelId} />
             </div>
           </div>
