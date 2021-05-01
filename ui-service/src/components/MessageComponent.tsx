@@ -60,7 +60,7 @@ export class MessageComponent extends React.Component<Props, State> {
     return (
       <div className="card">
         <div className="card-body m-1 p-0">
-          <b>{users.get(msg.user)?.name || msg.user}</b> {formattedTime}
+          <b>{users.get(msg.user)?.name || msg.user}</b> {formattedTime} { msg.updated_at? '(Edited)' : null}
           <div className="ml-0" dangerouslySetInnerHTML={{ __html: sanitized }}></div>
           { this.state.edit ? null : <button onClick={this.onEdit}>Edit</button> }
         </div>
