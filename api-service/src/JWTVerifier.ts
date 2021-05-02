@@ -34,8 +34,8 @@ export class JWTVerifier {
 
     const jwt = await this.instance().verify(token);
 
-    console.log("jwt: " + token);
-    console.log(jwt);
+    //console.log("jwt: " + token);
+    //console.log(jwt);
 
     return jwt;
   }

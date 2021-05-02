@@ -47,7 +47,6 @@ export class EventsController {
     try {
       const channelId = req.query.channel;
       const topic = `channel_${channelId}`;
-      const autoCommit = false;
 
       let closed = false;
 
@@ -69,7 +68,7 @@ export class EventsController {
       console.log("============== kafkaing...");
       let groupId: string = `user_${res.locals.slacker_jwt.id}`;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-      kafka.subscribe(topic, groupId, autoCommit, (event: any) => {
+      kafka.subscribe(topic, groupId, (event: any) => {
         if (closed) return false;
         //console.log(event);
         return sendSSE(res, convertMessage(event));
@@ -84,7 +83,6 @@ export class EventsController {
     try {
       const channelId = req.query.channel;
       const topic = `channel_${channelId}`;
-      const autoCommit = false;
 
       console.log(`history events: ${topic}`);
       sendSSEHeader(req, res);
@@ -92,7 +90,7 @@ export class EventsController {
       console.log("kafkaing...");
       let groupId: string = `user_${res.locals.slacker_jwt.id}`;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
-      kafka.subscribe(topic, groupId, autoCommit, (event: any) => {
+      kafka.subscribe(topic, groupId, (event: any) => {
         console.log("EVENT", event);
         sendSSE(res, event);
       });

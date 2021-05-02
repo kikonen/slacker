@@ -84,24 +84,38 @@ export class Kafka {
     );
   }
 
-  async subscribe(topic: string, groupId: string, autoCommit: boolean, onMessage:  (message: Message) => any) {
+  async subscribe(topic: string, groupId: string, onMessage:  (message: Message) => any) {
     const client = new KafkaClient({ kafkaHost: this.kafkaHost });
-    const topics: OffsetFetchRequest[] = [{ topic: topic, partition: 0 }];
+    const partition = 0;
+
+    await this.refreshClient(client, topic);
+
+    const query = new Offset(client);
+    const lowWaterOffset = await this.fetchLowWaterOffset(query, topic, partition);
+    const highWaterOffset = await this.fetchHighWaterOffset(query, topic, partition);
+
+    // TODO KI history fetch support; temporarily just fetch 100 latest
+    let offset = highWaterOffset - 100;
+    if (offset < lowWaterOffset) {
+      offset = lowWaterOffset;
+    }
+
+    console.log("OFFSET_RANGE", [lowWaterOffset, highWaterOffset]);
+    console.log("OFFSET", offset);
+
+    const topics: OffsetFetchRequest[] = [{
+      topic: topic,
+      partition: partition,
+      offset: offset,
+    }];
     const options: ConsumerOptions = {
       groupId,
-      autoCommit,
+      autoCommit: false,
       fetchMaxWaitMs: 1000,
       fetchMaxBytes: 1024 * 1024,
+      fromOffset: true,
     };
-
     const consumer = new Consumer(client, topics, options);
-
-    await this.refreshClient(topic, client);
-
-    const offset = new Offset(client);
-    const topicOffset = await this.fetchOffsets(topic, 0, offset);
-
-    console.log("OFFSET", topicOffset);
 
     consumer.on('error', function(err: Error): void {
       console.log('error', err);
@@ -122,30 +136,15 @@ export class Kafka {
         });
       }
     });
-
-    // If consumer get `offsetOutOfRange` event, fetch data from the smallest(oldest) offset
-    consumer.on(
-      'offsetOutOfRange',
-      (topic: OffsetFetchRequest): void => {
-        offset.fetch([topic], function(err, offsets): void {
-          if (err) {
-            return console.error(err);
-          }
-          const min = Math.min.apply(null, offsets[topic.topic][topic.partition]);
-          consumer.setOffset(topic.topic, topic.partition, min);
-        });
-      }
-    );
   }
 
-  async refreshClient(topic: string, client: KafkaClient) {
-    new Promise((resolve, reject) => {
+  async refreshClient(client: KafkaClient, topic: string): Promise<KafkaClient> {
+    return new Promise((resolve, reject) => {
       client.refreshMetadata(
         [topic],
         (error: Error): void => {
           if (error) {
-            reject(error);
-            return;
+            return reject(error);
           }
 
           resolve(client);
@@ -153,16 +152,28 @@ export class Kafka {
     });
   }
 
-  async fetchOffsets(topic: string, partition: number, offset: Offset) {
+  async fetchHighWaterOffset(query: Offset, topic: string, partition: number): Promise<number> {
     return new Promise((resolve, reject) => {
-      offset.fetchLatestOffsets([topic], function (error, offsets) {
+      query.fetchLatestOffsets([topic], function (error, offsets) {
         if (error) {
-          reject(error);
-          return;
+          return reject(error);
         }
 
         resolve(offsets[topic][partition]);
       });
     });
   }
+
+  async fetchLowWaterOffset(query: Offset, topic: string, partition: number): Promise<number> {
+    return new Promise((resolve, reject) => {
+      query.fetchEarliestOffsets([topic], function (error, offsets) {
+        if (error) {
+          return reject(error);
+        }
+
+        resolve(offsets[topic][partition]);
+      });
+    });
+  }
+
 }
