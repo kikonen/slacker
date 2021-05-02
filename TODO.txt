@@ -27,6 +27,8 @@
 - Add SASS
 - discard postcss
 - closing of stale SSE sockets in server side
+- elasticsearch for kafka
+- kafka-node vs. node-rdkafka
 
 # WONT
 - User registration email sending for new users
