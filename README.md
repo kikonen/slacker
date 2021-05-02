@@ -161,6 +161,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://serverfault.com/questions/801628/for-server-sent-events-sse-what-nginx-proxy-configuration-is-appropriate
 - https://linuxize.com/post/nginx-reverse-proxy/
 - https://tarunlalwani.com/post/nginx-proxypass-server-paths/
+- https://stackoverflow.com/questions/18740635/nginx-upstream-timed-out-110-connection-timed-out-while-reading-response-hea
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
@@ -185,7 +186,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://stackoverflow.com/questions/34657222/how-to-use-server-sent-events-in-express-js
 - https://stackoverflow.com/questions/28176933/http-authorization-header-in-eventsource-server-sent-events
 - https://stackoverflow.com/questions/6534572/how-to-close-a-server-sent-events-connection-on-the-server
-
+'
 ### DB
 - https://hub.docker.com/_/postgres
 - https://node-postgres.com
