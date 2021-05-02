@@ -8,5 +8,8 @@ services:
       PRODUCTION: 'true'
 
   ui:
+    build:
+      dockerfile: Dockerfile.production
     environment:
       PRODUCTION: 'true'
+    command: [nginx, '-g', 'daemon off;']

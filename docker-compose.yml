@@ -15,7 +15,7 @@ services:
       - api
       - auth
       - ui
-    command: [nginx-debug, '-g', 'daemon off;']
+    command: [nginx, '-g', 'daemon off;']
 
   api:
     build:
@@ -80,10 +80,10 @@ services:
       dockerfile: Dockerfile
     container_name: ui
     ports:
-      - "3000"
+      - "80"
     environment:
       NODE_PATH: /node_modules
-      SERVER_PORT: "3000"
+      PORT: "80"
       WDS_SOCKET_PATH: /ui/sockjs-node
     logging:
       options:

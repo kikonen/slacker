@@ -131,6 +131,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://medium.com/komenco/react-autobinding-2261a1092849
 - https://survivejs.com/webpack/styling/separating-css/
 - https://www.w3schools.com/react/react_sass.asp
+- https://tech.amikelive.com/node-830/reactjs-changing-default-port-3000-in-create-react-app/
 
 ### Docker
 - https://hub.docker.com/_/postgres
@@ -148,6 +149,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://stackoverflow.com/questions/48851190/docker-compose-override-a-ports-property-instead-of-merging-it
 - https://stackoverflow.com/questions/42510002/how-to-clear-the-logs-properly-for-a-docker-container
 - https://docs.docker.com/engine/reference/commandline/system_prune/
+- https://typeofnan.dev/how-to-serve-a-react-app-with-nginx-in-docker/
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy
@@ -162,6 +164,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://linuxize.com/post/nginx-reverse-proxy/
 - https://tarunlalwani.com/post/nginx-proxypass-server-paths/
 - https://stackoverflow.com/questions/18740635/nginx-upstream-timed-out-110-connection-timed-out-while-reading-response-hea
+- https://serverfault.com/questions/804298/nginx-reverse-proxy-without-base-url
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
