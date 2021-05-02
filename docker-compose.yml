@@ -165,6 +165,7 @@ services:
     image: confluentinc/ksqldb-server:0.15.0
     hostname: ksqldb-server
     container_name: ksqldb-server
+    profiles: ["dev"]
     depends_on:
       - kafka
     ports:
