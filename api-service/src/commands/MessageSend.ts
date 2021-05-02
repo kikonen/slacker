@@ -28,7 +28,7 @@ export class MessageSend {
       };
     } else {
       msg = {
-        create_at: dt_str,
+        created_at: dt_str,
         content: text,
         user: userId,
       };
