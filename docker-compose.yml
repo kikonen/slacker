@@ -15,7 +15,7 @@ services:
       - api
       - auth
       - ui
-    command: [nginx, '-g', 'daemon off;']
+    command: ['nginx', '-g', 'daemon off;']
 
   api:
     build:

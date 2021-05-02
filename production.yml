@@ -12,4 +12,4 @@ services:
       dockerfile: Dockerfile.production
     environment:
       PRODUCTION: 'true'
-    command: [nginx, '-g', 'daemon off;']
+    command: ['nginx', '-g', 'daemon off;']
