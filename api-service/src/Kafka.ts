@@ -107,7 +107,21 @@ export class Kafka {
       console.log('error', err);
     });
 
-    consumer.on('message', onMessage);
+    consumer.on('message', (msg) => {
+      try {
+        if (!onMessage(msg)) {
+          console.log("CLOSING consumer");
+          consumer.close(false, (error) => {
+            if (error) console.log("CLOSE FAILED", error);
+          });
+        }
+      } catch (error) {
+        console.log("ON_MESSAGE failed", error);
+        consumer.close(false, (error) => {
+          if (error) console.log("CLOSE FAILED", error);
+        });
+      }
+    });
 
     // If consumer get `offsetOutOfRange` event, fetch data from the smallest(oldest) offset
     consumer.on(

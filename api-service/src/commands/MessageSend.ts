@@ -9,6 +9,11 @@ export class MessageSend {
       throw "Channel missing";
     }
 
+    text = text.trim();
+    if (!text) {
+      throw "no content";
+    }
+
     const topic = `channel_${channelId}`;
     const dt_str = new Date().toISOString();
 

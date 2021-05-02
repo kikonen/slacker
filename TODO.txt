@@ -16,6 +16,7 @@
 - React: join channel
 - React: leave channel
 - React: send message to channel
+- React: edit message
 - basic i18n logic
 - commit events API
 ** commit tracking *needs* to be per web client instance, not just per channel
@@ -25,6 +26,7 @@
 - Extra CSS to be own asset; not silly CSS embedded in JS
 - Add SASS
 - discard postcss
+- closing of stale SSE sockets in server side
 
 # WONT
 - User registration email sending for new users

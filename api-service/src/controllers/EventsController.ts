@@ -24,6 +24,7 @@ function sendSSEHeader(req: express.Request, res: express.Response) {
 function sendSSE(res: express.Response, event: any) {
   console.log("SSE", event);
   res.write(`data: ${JSON.stringify(event)}\n\n`);
+  return true;
 }
 
 function convertMessage(event: any) {
@@ -48,15 +49,30 @@ export class EventsController {
       const topic = `channel_${channelId}`;
       const autoCommit = false;
 
+      let closed = false;
+
+      res.socket.on('close', (e: any) => {
+        closed = true;
+        console.log('SSE CLOSED');
+        res.end();
+      });
+
+      res.on('error', function(error) {
+        closed = true;
+        console.log('SSE FAILED');
+        console.log(error);
+      });
+
       console.log(`latest events: ${topic}`);
       sendSSEHeader(req, res);
 
-      console.log("kafkaing...");
+      console.log("============== kafkaing...");
       let groupId: string = `user_${res.locals.slacker_jwt.id}`;
       const kafka:Kafka = new Kafka(process.env.KAFKA_HOST);
       kafka.subscribe(topic, groupId, autoCommit, (event: any) => {
-        console.log(event);
-        sendSSE(res, convertMessage(event));
+        if (closed) return false;
+        //console.log(event);
+        return sendSSE(res, convertMessage(event));
       });
     } catch(error) {
       console.log(error);

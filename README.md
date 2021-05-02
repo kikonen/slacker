@@ -184,6 +184,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://www.html5rocks.com/en/tutorials/eventsource/basics/
 - https://stackoverflow.com/questions/34657222/how-to-use-server-sent-events-in-express-js
 - https://stackoverflow.com/questions/28176933/http-authorization-header-in-eventsource-server-sent-events
+- https://stackoverflow.com/questions/6534572/how-to-close-a-server-sent-events-connection-on-the-server
 
 ### DB
 - https://hub.docker.com/_/postgres

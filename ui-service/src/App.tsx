@@ -118,13 +118,17 @@ class App extends React.Component<{}, AppState>
       const ev: any = JSON.parse(e.data)
 
       console.log(ev);
-      if (!ev.updated_at && this.state.messagesById.has(ev.id)) {
-        console.log("DUPLICATE: " + ev.id);
-        return;
-      }
 
-      this.state.messagesById.set(ev.id, ev);
-      if (!ev.updated_at) {
+      let old = this.state.messagesById.get(ev.id);
+
+      if (old) {
+        if (ev.offset <= old.offset) {
+          console.log("IGNORE: " + ev.id);
+          return;
+        }
+        this.state.messagesById.set(ev.id, ev);
+      } else {
+        this.state.messagesById.set(ev.id, ev);
         this.state.messageIds.push(ev.id);
       }
 
