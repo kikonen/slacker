@@ -1,5 +1,4 @@
 # TODO
-- sketch react
 - command logic to allow join/leave channel
 - "me" API for getting info/controlling current user
 - Separate APIs for events
@@ -12,23 +11,16 @@
    and refresh their UI
 - React: show user profile
 - React: show user info
-- React: list channels
-- React: join channel
-- React: leave channel
-- React: send message to channel
-- React: edit message
+- React: inline channel join instead of dialog
+- React: inline channel create instead of dialog
 - basic i18n logic
 - commit events API
 ** commit tracking *needs* to be per web client instance, not just per channel
-- logic for canceling old subscriptions after SSE closes
 - events sent to UI need to have channel indicated to track race conditions
-- track "already received" events in UI (via id)
-- Extra CSS to be own asset; not silly CSS embedded in JS
-- Add SASS
-- discard postcss
-- closing of stale SSE sockets in server side
 - elasticsearch for kafka
 - kafka-node vs. node-rdkafka
+- add timer logic for closing stale SSE sockets in server side
+- handle "fetch historical events", aka. out of order for incoming events
 
 # WONT
 - User registration email sending for new users
@@ -52,3 +44,15 @@
 - middleware for validating JWT
 - separate express.Router for each controller
 - remove "event" from DB schema; kafka is enough
+- Extra CSS to be own asset; production build doing this
+- Add SASS
+- discard postcss; can keep don't care
+- closing of stale SSE sockets in server side
+- logic for canceling old subscriptions after SSE closes
+- track "already received" events in UI (via id)
+- sketch react
+- React: list channels
+- React: join channel
+- React: leave channel
+- React: send message to channel
+- React: edit message
