@@ -22,6 +22,7 @@
 - add timer logic for closing stale SSE sockets in server side
 - handle "fetch historical events", aka. out of order for incoming events
 - Encrypting messages in channels
+- kafka: forever persistency config didn't seem to work; why
 
 # WONT
 - User registration email sending for new users
