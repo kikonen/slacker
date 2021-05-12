@@ -21,6 +21,7 @@
 - kafka-node vs. node-rdkafka
 - add timer logic for closing stale SSE sockets in server side
 - handle "fetch historical events", aka. out of order for incoming events
+- Encrypting messages in channels
 
 # WONT
 - User registration email sending for new users
