@@ -1,0 +1,14 @@
+services:
+  api:
+    image: docker.ikari.fi/slacker_api:1.0
+
+  auth:
+    image: docker.ikari.fi/slacker_auth:1.0
+
+  ui:
+    image: docker.ikari.fi/slacker_ui:1.0
+    command: ['nginx', '-g', 'daemon off;']
+
+  schema:
+    image: docker.ikari.fi/slacker_schema:1.0
+    command: sh -c "echo production"
