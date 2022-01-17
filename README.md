@@ -184,6 +184,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://www.confluent.io/blog/kafka-elasticsearch-connector-tutorial/
 - https://stackoverflow.com/questions/43435424/comparing-kafka-node-and-node-rdkafka/44331609
 - https://rclayton.silvrback.com/thoughts-on-node-rdkafka-development
+- https://www.confluent.io/blog/kafka-elasticsearch-connector-tutorial/
 
 ### Server events
 - https://www.telerik.com/blogs/websockets-vs-server-sent-events
