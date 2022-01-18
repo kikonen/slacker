@@ -32,7 +32,7 @@ export class JWTVerifier {
       }
     }
 
-    const jwt = await this.instance().verify(token);
+    const jwt = token != null ? await this.instance().verify(token) : null;
 
     //console.log("jwt: " + token);
     //console.log(jwt);
