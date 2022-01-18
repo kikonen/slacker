@@ -1,9 +1,10 @@
 services:
   api:
-    image: docker.ikari.fi/slacker_api:1.1
+    image: docker.ikari.fi/slacker_api:1.2
+    command: sh -c "node dist/server.js"
 
   auth:
-    image: docker.ikari.fi/slacker_auth:1.0
+    image: docker.ikari.fi/slacker_auth:1.2
 
   ui:
     image: docker.ikari.fi/slacker_ui:1.0

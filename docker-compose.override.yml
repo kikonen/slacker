@@ -5,16 +5,22 @@ services:
     build:
       context: ./api-service
       dockerfile: Dockerfile
+    volumes:
+    - ./api-service:/app
 
   auth:
     build:
       context: ./auth-service
       dockerfile: Dockerfile
+    volumes:
+    - ./auth-service:/app
 
   ui:
     build:
       context: ./ui-service
       dockerfile: Dockerfile
+    volumes:
+    - ./ui-service:/app
 
   schema:
     build: ./schema

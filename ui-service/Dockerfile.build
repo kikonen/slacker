@@ -18,6 +18,8 @@ FROM nginx:alpine
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
 
+ENV PRODUCTION=true
+
 # Remove default nginx static assets
 RUN rm -rf ./*
 

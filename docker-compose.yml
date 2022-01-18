@@ -34,8 +34,6 @@ services:
         max-size: "1m"
         max-file: "2"
     working_dir: /app
-    volumes:
-    - ./api-service:/app
     networks:
       - default
     depends_on:
@@ -60,8 +58,6 @@ services:
         max-size: "1m"
         max-file: "2"
     working_dir: /app
-    volumes:
-    - ./auth-service:/app
     networks:
       - default
     depends_on:
@@ -81,8 +77,6 @@ services:
         max-size: "1m"
         max-file: "2"
     working_dir: /app
-    volumes:
-    - ./ui-service:/app
     networks:
       - default
     depends_on:

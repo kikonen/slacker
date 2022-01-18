@@ -5,6 +5,7 @@ Dockerfile
 .git
 .gitignore
 .npmrc
+_env
 
 *~
 #*
