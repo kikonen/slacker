@@ -1,6 +1,6 @@
 services:
   api:
-    image: docker.ikari.fi/slacker_api:1.0
+    image: docker.ikari.fi/slacker_api:1.1
 
   auth:
     image: docker.ikari.fi/slacker_auth:1.0
