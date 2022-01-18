@@ -11,4 +11,3 @@ services:
 
   schema:
     image: docker.ikari.fi/slacker_schema:1.0
-    command: sh -c "echo production"

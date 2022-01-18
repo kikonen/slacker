@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  api:
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile
+
+  auth:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+
+  ui:
+    build:
+      context: ./ui-service
+      dockerfile: Dockerfile
+
+  schema:
+    build: ./schema

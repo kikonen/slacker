@@ -9,7 +9,7 @@ services:
 
   ui:
     build:
-      dockerfile: Dockerfile.production
+      dockerfile: Dockerfile.build
     environment:
       PRODUCTION: 'true'
     command: ['nginx', '-g', 'daemon off;']

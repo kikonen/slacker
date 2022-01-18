@@ -18,9 +18,6 @@ services:
     command: ['nginx', '-g', 'daemon off;']
 
   api:
-    build:
-      context: ./api-service
-      dockerfile: Dockerfile
     container_name: api
     ports:
       - "3100"
@@ -46,9 +43,6 @@ services:
     command: sh -c "yarn run dev"
 
   auth:
-    build:
-      context: ./auth-service
-      dockerfile: Dockerfile
     container_name: auth
     ports:
       - "3200"
@@ -75,9 +69,6 @@ services:
     command: sh -c "yarn run dev"
 
   ui:
-    build:
-      context: ./ui-service
-      dockerfile: Dockerfile
     container_name: ui
     ports:
       - "80"
@@ -195,7 +186,6 @@ services:
         max-file: "2"
 
   schema:
-    build: ./schema
     container_name: schema
     profiles: ["dev", "schema"]
     environment:

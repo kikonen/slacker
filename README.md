@@ -150,6 +150,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://stackoverflow.com/questions/42510002/how-to-clear-the-logs-properly-for-a-docker-container
 - https://docs.docker.com/engine/reference/commandline/system_prune/
 - https://typeofnan.dev/how-to-serve-a-react-app-with-nginx-in-docker/
+- https://stackoverflow.com/questions/42179146/docker-compose-how-to-extend-service-with-build-to-use-an-image-instead
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy
