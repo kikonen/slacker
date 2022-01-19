@@ -151,6 +151,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://docs.docker.com/engine/reference/commandline/system_prune/
 - https://typeofnan.dev/how-to-serve-a-react-app-with-nginx-in-docker/
 - https://stackoverflow.com/questions/42179146/docker-compose-how-to-extend-service-with-build-to-use-an-image-instead
+- https://stackoverflow.com/questions/45109398/how-can-i-make-docker-compose-bind-the-containers-only-on-defined-network-instea
 - https://docs.docker.com/network/iptables/
 - https://forums.docker.com/t/override-docker-firewall-rules-without-disabling-iptables-modification-by-docker/49206
 - https://medium.com/swlh/manage-iptables-firewall-for-docker-kubernetes-daa5870aca4d
