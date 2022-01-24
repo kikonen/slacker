@@ -151,6 +151,12 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://docs.docker.com/engine/reference/commandline/system_prune/
 - https://typeofnan.dev/how-to-serve-a-react-app-with-nginx-in-docker/
 - https://stackoverflow.com/questions/42179146/docker-compose-how-to-extend-service-with-build-to-use-an-image-instead
+- https://docs.docker.com/network/iptables/
+- https://forums.docker.com/t/override-docker-firewall-rules-without-disabling-iptables-modification-by-docker/49206
+- https://medium.com/swlh/manage-iptables-firewall-for-docker-kubernetes-daa5870aca4d
+- https://unrouted.io/2017/08/15/docker-firewall/
+- https://www.thegeekstuff.com/2011/01/iptables-fundamentals/
+- https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy
