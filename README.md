@@ -158,6 +158,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://unrouted.io/2017/08/15/docker-firewall/
 - https://www.thegeekstuff.com/2011/01/iptables-fundamentals/
 - https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
+- https://stackoverflow.com/questions/27937185/assign-static-ip-to-docker-container
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy
