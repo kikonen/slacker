@@ -20,8 +20,6 @@ services:
 
   api:
     container_name: api
-    ports:
-      - "3100"
     environment:
       NODE_PATH: /node_modules
       SERVER_PORT: "3100"
@@ -43,8 +41,6 @@ services:
 
   auth:
     container_name: auth
-    ports:
-      - "3200"
     environment:
       NODE_PATH: /node_modules
       SERVER_PORT: "3200"
@@ -67,8 +63,6 @@ services:
 
   ui:
     container_name: ui
-    ports:
-      - "80"
     environment:
       NODE_PATH: /node_modules
       PORT: "80"
@@ -102,14 +96,10 @@ services:
     - postgres_data:/data
     networks:
       - backend
-    ports:
-      - "5432"
 
   zookeeper:
     image: "docker.io/bitnami/zookeeper:3"
     container_name: zookeeper
-    ports:
-      - "2181"
     logging:
       options:
         max-size: "1m"
@@ -136,8 +126,6 @@ services:
       - ./kafka/server.properties:/bitnami/kafka/config/server.properties
     networks:
       - backend
-    ports:
-      - "9092"
     depends_on:
       - zookeeper
     deploy:
@@ -156,8 +144,6 @@ services:
       - backend
     depends_on:
       - kafka
-    ports:
-      - "8088"
     environment:
       KSQL_LISTENERS: http://0.0.0.0:8088
       KSQL_BOOTSTRAP_SERVERS: kafka:9092
@@ -215,8 +201,6 @@ services:
         max-file: "2"
     networks:
       - backend
-    ports:
-      - "8080"
 
 networks:
   frontend:
