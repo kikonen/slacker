@@ -1,4 +1,5 @@
 # https://stackoverflow.com/questions/64081992/docker-opened-up-ports-to-public-how-do-i-close-them
+# https://www.jeffgeerling.com/blog/2020/be-careful-docker-might-be-exposing-ports-world
 echo "Patch DOCKER-USER"
 sudo iptables -N DOCKER-USER
 
@@ -14,8 +15,8 @@ sudo iptables -A DOCKER-USER -s 172.0.0.0/8 -j RETURN
 # IN: response
 # IN=eth0 OUT=br-0c887f4982d7 SRC=193.210.18.18 DST=172.18.0.6 PROTO=UDP SPT=53 DPT=5664
 # IN=eth0 OUT=br-53c1912761b2 SRC=216.58.209.173 DST=172.18.0.6 PROTO=TCP SPT=443 DPT=34310
-#sudo iptables -A DOCKER-USER -d 172.0.0.0/8 -m state --state ESTABLISHED -j DOCKER-USER-YES
-sudo iptables -A DOCKER-USER -d 172.0.0.0/8 -m state --state ESTABLISHED -j RETURN
+#sudo iptables -A DOCKER-USER -m state --state ESTABLISHED -j DOCKER-USER-YES
+sudo iptables -A DOCKER-USER -m state --state ESTABLISHED -j RETURN
 
 #sudo iptables -A DOCKER-USER -d 172.0.0.0/8 -p tcp -m multiport --sports 53 -j DOCKER-USER-YES
 #sudo iptables -A DOCKER-USER -d 172.0.0.0/8 -p tcp -m multiport --sports 53 -j RETURN
