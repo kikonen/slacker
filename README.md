@@ -159,6 +159,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://www.thegeekstuff.com/2011/01/iptables-fundamentals/
 - https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
 - https://stackoverflow.com/questions/27937185/assign-static-ip-to-docker-container
+- https://stackoverflow.com/questions/64081992/docker-opened-up-ports-to-public-how-do-i-close-them
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy

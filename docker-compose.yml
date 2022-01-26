@@ -131,8 +131,8 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 18s
-        max_attempts: 2
+        delay: 25s
+        max_attempts: 3
         window: 30s
 
   ksqldb-server:
