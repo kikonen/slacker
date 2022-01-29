@@ -162,7 +162,6 @@ services:
       - kafka
       - ksqldb-server
     entrypoint: /bin/sh
-    tty: true
     logging:
       options:
         max-size: "1m"
