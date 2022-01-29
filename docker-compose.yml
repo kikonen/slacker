@@ -13,6 +13,10 @@ services:
     ports:
       - "127.0.0.1:${NGINX_PORT}:8080"
     command: ['nginx', '-g', 'daemon off;']
+    depends_on:
+      - auth
+      - api
+      - ui
 
   api:
     container_name: api
@@ -33,7 +37,6 @@ services:
       - backend
     depends_on:
       - db
-      - nginx
     command: sh -c "yarn run dev"
 
   auth:
@@ -56,7 +59,6 @@ services:
       - backend
     depends_on:
       - api
-      - nginx
     command: sh -c "yarn run dev"
 
   ui:
@@ -75,7 +77,6 @@ services:
     depends_on:
       - api
       - auth
-      - nginx
     command: sh -c "yarn run dev"
 
   db:
