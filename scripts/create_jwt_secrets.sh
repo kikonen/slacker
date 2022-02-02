@@ -1,7 +1,11 @@
+DIR=`dirname $0`
+DIR=`realpath $DIR`
+ROOT_DIR=`dirname $DIR`
+
 #
 # https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9
 #
-SECRETS_DIR=.secrets
+SECRETS_DIR=$ROOT_DIR/.secrets
 
 if [[ ! -d $SECRETS_DIR ]]; then
     mkdir $SECRETS_DIR
@@ -16,5 +20,5 @@ cd ..
 
 ls -al $SECRETS_DIR
 
-cp -a $SECRETS_DIR api-service
-cp -a $SECRETS_DIR auth-service
+cp -a $SECRETS_DIR $ROOT_DIR/api-service
+cp -a $SECRETS_DIR $ROOT_DIR/auth-service

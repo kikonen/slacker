@@ -1,0 +1,15 @@
+services:
+  api:
+    image: docker.ikari.fi/slacker_api:1.3
+    command: sh -c "node dist/server.js"
+
+  auth:
+    image: docker.ikari.fi/slacker_auth:1.3
+    command: sh -c "node dist/server.js"
+
+  ui:
+    image: docker.ikari.fi/slacker_ui:1.3
+    command: ['nginx', '-g', 'daemon off;']
+
+  schema:
+    image: docker.ikari.fi/slacker_schema:1.3

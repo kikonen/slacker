@@ -1,18 +1,22 @@
+DIR=`dirname $0`
+DIR=`realpath $DIR`
+ROOT_DIR=`dirname $DIR`
+
 #
 #
 #
 
-cd auth-service
+cd $ROOT_DIR/auth-service
 if [[ ! -f .env ]]; then
     cp _env .env
 fi
 cd ..
 
-cd api-service
+cd $ROOT_DIR/api-service
 if [[ ! -f .env ]]; then
     cp _env .env
 fi
 cd ..
 
-ls -l auth-service/.env
-ls -l api-service/.env
+ls -l $ROOT_DIR/auth-service/.env
+ls -l $ROOT_DIR/api-service/.env

@@ -13,7 +13,7 @@ COPY . .
 RUN yarn run build
 
 # nginx state for serving content
-FROM nginx:alpine
+FROM node:14-alpine
 
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
