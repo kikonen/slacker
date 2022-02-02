@@ -248,6 +248,8 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 ### Editor
 - https://emacs.stackexchange.com/questions/33536/how-to-edit-jsx-react-files-in-emacs
 - https://dev.to/viglioni/how-i-set-up-my-emacs-for-typescript-3eeh
+- https://github.com/facebook/create-react-app/issues/9056
+- https://stackoverflow.com/questions/8246483/emacs-how-to-disable-files-creation
 
 ### GIT
 - https://stackoverflow.com/questions/17683458/how-do-i-commit-case-sensitive-only-filename-changes-in-git
