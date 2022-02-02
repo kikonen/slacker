@@ -5,21 +5,16 @@ services:
     build:
       context: ./api-service
       dockerfile: Dockerfile.build
-    command: sh -c "node dist/server.js"
 
   auth:
     build:
       context: ./auth-service
       dockerfile: Dockerfile.build
-    environment:
-      PRODUCTION: 'true'
-    command: sh -c "node dist/server.js"
 
   ui:
     build:
       context: ./ui-service
-      dockerfile: Dockerfile
-    command: ['nginx', '-g', 'daemon off;']
+      dockerfile: Dockerfile.build
 
   schema:
     build: ./schema

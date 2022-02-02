@@ -1,15 +1,12 @@
 services:
   api:
-    image: docker.ikari.fi/slacker_api:1.3
-    command: sh -c "node dist/server.js"
+    image: docker.ikari.fi/slacker_build_api:${BUILD_TAG}
 
   auth:
-    image: docker.ikari.fi/slacker_auth:1.3
-    command: sh -c "node dist/server.js"
+    image: docker.ikari.fi/slacker_build_auth:${BUILD_TAG}
 
   ui:
-    image: docker.ikari.fi/slacker_ui:1.3
-    command: ['nginx', '-g', 'daemon off;']
+    image: docker.ikari.fi/slacker_build_ui:${BUILD_TAG}
 
   schema:
-    image: docker.ikari.fi/slacker_schema:1.3
+    image: docker.ikari.fi/slacker_build_schema:${BUILD_TAG}
