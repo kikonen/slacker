@@ -32,7 +32,7 @@ ENV NODE_PATH=/node_modules \
 
 RUN mkdir -p /node_modules
 
-#RUN apk add build-base python2
+RUN apk add build-base python2
 RUN npm config set scripts-prepend-node-path true
 
 COPY . .
