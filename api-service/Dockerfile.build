@@ -1,10 +1,16 @@
 FROM node:14-alpine as builder
 WORKDIR /app
 
-RUN apk add build-base python
+ENV PRODUCTION=true \
+    NODE_ENV=production
+
+ENV NODE_PATH=/node_modules \
+    PATH=$PATH:/app/bin:/node_modules/.bin
 
 RUN mkdir -p /node_modules
-ENV PATH="${PATH}:/node_modules/.bin"
+
+#RUN apk add build-base python
+RUN npm config set scripts-prepend-node-path true
 
 COPY .yarnrc package.json yarn.lock ./
 RUN yarn install
@@ -19,14 +25,18 @@ WORKDIR /app
 ENV PRODUCTION=true \
     NODE_ENV=production
 
-RUN apk add build-base python
+ENV NODE_PATH=/node_modules \
+    PATH=$PATH:/app/bin:/node_modules/.bin
 
 RUN mkdir -p /node_modules
-ENV PATH="${PATH}:/node_modules/.bin"
 
-COPY .yarnrc package.json yarn.lock ./
-RUN yarn install
+#RUN apk add build-base python
+RUN npm config set scripts-prepend-node-path true
 
 COPY . .
 COPY .secrets .secrets
 COPY --from=builder /app/dist dist
+
+RUN yarn install
+
+ENTRYPOINT ["docker/docker-entrypoint-production.sh"]

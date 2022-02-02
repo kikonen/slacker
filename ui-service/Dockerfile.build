@@ -1,30 +1,39 @@
 FROM node:14-alpine as builder
 WORKDIR /app
 
-RUN mkdir -p /node_modules
-RUN ln -sf /node_modules node_modules
-ENV PATH="${PATH}:/node_modules/.bin"
+ENV NODE_PATH=/node_modules \
+    PATH=$PATH:/app/bin:/node_modules/.bin
 
-COPY .yarnrc package.json yarn.lock ./
-RUN yarn install
+ENV NODE_ENV=production
+
+####################
+RUN mkdir -p /node_modules
+
+RUN npm config set scripts-prepend-node-path true
 
 COPY . .
 
+#COPY .yarnrc package.json yarn.lock ./
+
+RUN yarn install
 RUN yarn run build
 
+####################
 # nginx state for serving content
-FROM node:14-alpine
+FROM nginx:alpine
 
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
 
-ENV PRODUCTION=true
+ENV PRODUCTION=true \
+    NODE_ENV=production
 
+####################
 # Remove default nginx static assets
 RUN rm -rf ./*
 
 # Copy static assets from builder stage
 COPY --from=builder /app/build .
 
-# Containers run nginx with global directives and daemon off
-#ENTRYPOINT ["nginx", "-g", "daemon off;"]
+####################
+ENTRYPOINT ["docker/docker-entrypoint-production.sh"]

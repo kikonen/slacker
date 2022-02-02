@@ -9,6 +9,7 @@ services:
       - "3100"
     volumes:
     - ./api-service:/app
+    - api_node_modules:/node_modules
 
   auth:
     build:
@@ -18,6 +19,7 @@ services:
       - "3200"
     volumes:
     - ./auth-service:/app
+    - auth_node_modules:/node_modules
 
   ui:
     build:
@@ -27,6 +29,7 @@ services:
       - "80"
     volumes:
     - ./ui-service:/app
+    - ui_node_modules:/node_modules
 
   db:
     ports:
@@ -50,3 +53,8 @@ services:
   adminer:
     ports:
       - "8080"
+
+volumes:
+  auth_node_modules:
+  api_node_modules:
+  ui_node_modules:

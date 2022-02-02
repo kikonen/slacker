@@ -1,13 +1,9 @@
 FROM node:14-alpine
 WORKDIR /app
 
-RUN mkdir -p /node_modules
-RUN ln -sf /node_modules node_modules
-ENV PATH="${PATH}:/node_modules/.bin"
+ENV NODE_PATH=/node_modules \
+    PATH=$PATH:/app/bin:/node_modules/.bin
 
-COPY .yarnrc package.json yarn.lock ./
-RUN yarn install
+RUN npm config set scripts-prepend-node-path true
 
-#COPY . .
-
-#RUN yarn run build
+ENTRYPOINT ["docker/docker-entrypoint.sh"]

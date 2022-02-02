@@ -11,10 +11,6 @@ services:
       - backend
     ports:
       - "127.0.0.1:${NGINX_PORT}:8080"
-    depends_on:
-      - api
-      - auth
-      - ui
     command: ['nginx', '-g', 'daemon off;']
 
   api:
@@ -36,7 +32,7 @@ services:
       - backend
     depends_on:
       - db
-    command: sh -c "yarn run dev"
+      - nginx
 
   auth:
     container_name: auth
@@ -58,7 +54,7 @@ services:
       - backend
     depends_on:
       - api
-    command: sh -c "yarn run dev"
+      - nginx
 
   ui:
     container_name: ui
@@ -76,7 +72,7 @@ services:
     depends_on:
       - api
       - auth
-    command: sh -c "yarn run dev"
+      - nginx
 
   db:
     image: postgres:13.2
