@@ -1,15 +1,17 @@
 FROM node:14-alpine as builder
 WORKDIR /app
 
-ENV PRODUCTION=true \
-    NODE_ENV=production
+RUN apk add build-base python2
+
+ENV PRODUCTION=true
+# NOTE KI NOT production for build dev dependencies
+# NODE_ENV=production
 
 ENV NODE_PATH=/node_modules \
     PATH=$PATH:/app/bin:/node_modules/.bin
 
 RUN mkdir -p /node_modules
 
-#RUN apk add build-base python
 RUN npm config set scripts-prepend-node-path true
 
 COPY .yarnrc package.json yarn.lock ./
@@ -30,7 +32,7 @@ ENV NODE_PATH=/node_modules \
 
 RUN mkdir -p /node_modules
 
-#RUN apk add build-base python
+#RUN apk add build-base python2
 RUN npm config set scripts-prepend-node-path true
 
 COPY . .
