@@ -2,8 +2,8 @@ version: '3.3'
 
 services:
   nginx:
-    image: nginx:1.21.6-alpine
     container_name: nginx
+    image: nginx:1.21.6-alpine
     volumes:
      - ./nginx/reverse_proxy.conf:/etc/nginx/conf.d/default.conf
     networks:
@@ -75,8 +75,8 @@ services:
       - nginx
 
   db:
-    image: postgres:13.2
     container_name: db
+    image: postgres:13.2
     restart: always
     environment:
       PGDATA: /data/db
@@ -93,8 +93,8 @@ services:
       - backend
 
   zookeeper:
-    image: "docker.io/bitnami/zookeeper:3"
     container_name: zookeeper
+    image: "docker.io/bitnami/zookeeper:3"
     logging:
       options:
         max-size: "1m"
@@ -107,8 +107,8 @@ services:
       ALLOW_ANONYMOUS_LOGIN: "yes"
 
   kafka:
-    image: "docker.io/bitnami/kafka:latest"
     container_name: kafka
+    image: "docker.io/bitnami/kafka:latest"
     environment:
       KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
       ALLOW_PLAINTEXT_LISTENER: "yes"
@@ -129,9 +129,9 @@ services:
         max_attempts: 3
 
   ksqldb-server:
+    container_name: ksqldb-server
     image: confluentinc/ksqldb-server:0.15.0
     hostname: ksqldb-server
-    container_name: ksqldb-server
     profiles: ["dev"]
     networks:
       - backend
@@ -148,8 +148,8 @@ services:
         max-file: "2"
 
   ksqldb-cli:
-    image: confluentinc/ksqldb-cli:0.15.0
     container_name: ksqldb-cli
+    image: confluentinc/ksqldb-cli:0.15.0
     profiles: ["dev"]
     networks:
       - backend
@@ -184,8 +184,8 @@ services:
     command: sh -c "sleep infinity"
 
   adminer:
-    image: adminer
     container_name: adminer
+    image: adminer
     profiles: ["dev"]
     restart: always
     logging:

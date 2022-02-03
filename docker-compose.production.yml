@@ -1,12 +1,37 @@
 services:
+  nginx:
+    container_name: slacker_production_nginx
+
   api:
+    container_name: slacker_production_api
     image: docker.ikari.fi/slacker_build_api:${BUILD_TAG}
 
   auth:
+    container_name: slacker_production_auth
     image: docker.ikari.fi/slacker_build_auth:${BUILD_TAG}
 
   ui:
+    container_name: slacker_production_ui
     image: docker.ikari.fi/slacker_build_ui:${BUILD_TAG}
 
+  db:
+    container_name: slacker_production_db
+
+  zookeeper:
+    container_name: slacker_production_zookeeper
+
+  kafka:
+    container_name: slacker_production_kafka
+
+  ksqldb-server:
+    container_name: slacker_production_ksqldb-server
+
+  ksqldb-cli:
+    container_name: slacker_production_ksqldb-cli
+
   schema:
+    container_name: slacker_production_schema
     image: docker.ikari.fi/slacker_build_schema:${BUILD_TAG}
+
+  adminer:
+    container_name: slacker_production_adminer
