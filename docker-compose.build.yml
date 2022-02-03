@@ -1,20 +1,30 @@
 version: '3.3'
 
 services:
+  nginx:
+    container_name: slacker_build_nginx
+
   api:
+    container_name: slacker_build_api
     build:
       context: ./api-service
       dockerfile: Dockerfile.build
 
   auth:
+    container_name: slacker_build_auth
     build:
       context: ./auth-service
       dockerfile: Dockerfile.build
 
   ui:
+    container_name: slacker_build_ui
     build:
       context: ./ui-service
       dockerfile: Dockerfile.build
 
+  db:
+    container_name: slacker_build_db
+
   schema:
+    container_name: slacker_build_schema
     build: ./schema

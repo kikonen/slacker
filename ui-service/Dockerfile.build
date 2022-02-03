@@ -20,7 +20,7 @@ RUN yarn run build
 
 ####################
 # nginx state for serving content
-FROM nginx:alpine
+FROM nginx:1.21.6-alpine
 
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
@@ -36,4 +36,4 @@ RUN rm -rf ./*
 COPY --from=builder /app/build .
 
 ####################
-ENTRYPOINT ["docker/docker-entrypoint-production.sh"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

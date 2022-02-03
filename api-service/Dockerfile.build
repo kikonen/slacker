@@ -14,11 +14,8 @@ RUN mkdir -p /node_modules
 
 RUN npm config set scripts-prepend-node-path true
 
-COPY .yarnrc package.json yarn.lock ./
-RUN yarn install
-
 COPY . .
-
+RUN yarn install
 RUN yarn run build
 
 FROM node:14-alpine
