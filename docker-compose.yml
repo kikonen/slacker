@@ -82,7 +82,6 @@ services:
       PGDATA: /data/db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: slacker
     logging:
       options:
         max-size: "1m"
@@ -167,6 +166,7 @@ services:
     container_name: schema
     profiles: ["dev", "schema"]
     environment:
+      SERVER_MODE: debug
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: slacker

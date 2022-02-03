@@ -16,6 +16,8 @@ services:
 
   db:
     container_name: slacker_production_db
+    environment:
+      POSTGRES_DB: slacker_production
 
   zookeeper:
     container_name: slacker_production_zookeeper

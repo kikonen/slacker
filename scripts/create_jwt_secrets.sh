@@ -1,6 +1,7 @@
-DIR=`dirname $0`
-DIR=`realpath $DIR`
-ROOT_DIR=`dirname $DIR`
+#!/usr/bin/env bash
+
+export DIR=`realpath \`dirname $0\``
+. $DIR/base_env.sh
 
 #
 # https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9

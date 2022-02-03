@@ -32,6 +32,8 @@ services:
     - ui_node_modules:/node_modules
 
   db:
+    environment:
+      POSTGRES_DB: slacker_development
     ports:
       - "5432"
 
@@ -48,7 +50,9 @@ services:
       - "8088"
 
   schema:
-    build: ./schema
+    build:
+      context: ./schema
+      dockerfile: Dockerfile
 
   adminer:
     ports:

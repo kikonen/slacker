@@ -24,7 +24,11 @@ services:
 
   db:
     container_name: slacker_build_db
+    environment:
+      POSTGRES_DB: slacker_build
 
   schema:
     container_name: slacker_build_schema
-    build: ./schema
+    build:
+      context: ./schema
+      dockerfile: Dockerfile.build
