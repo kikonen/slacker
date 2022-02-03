@@ -5,6 +5,8 @@ services:
     build:
       context: ./api-service
       dockerfile: Dockerfile
+    environment:
+      PGDATABASE: slacker_development
     ports:
       - "3100"
     volumes:
@@ -15,6 +17,8 @@ services:
     build:
       context: ./auth-service
       dockerfile: Dockerfile
+    environment:
+      PGDATABASE: slacker_development
     ports:
       - "3200"
     volumes:
@@ -53,6 +57,8 @@ services:
     build:
       context: ./schema
       dockerfile: Dockerfile
+    environment:
+      POSTGRES_DB: slacker_development
 
   adminer:
     ports:

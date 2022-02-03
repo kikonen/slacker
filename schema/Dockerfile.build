@@ -61,7 +61,7 @@ ENV BUNDLE_PATH=/bundle/vendor \
     PATH=$PATH:/app/bin:/node_modules/.bin
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libpq-dev postgresql-client sudo && \
+    apt-get install -y --no-install-recommends libpq-dev postgresql-client sudo grep less && \
     rm -rf /var/lib/apt/lists/*
 
 ####################

@@ -5,10 +5,14 @@ services:
   api:
     container_name: slacker_production_api
     image: docker.ikari.fi/slacker_build_api:${BUILD_TAG}
+    environment:
+      PGDATABASE: slacker_production
 
   auth:
     container_name: slacker_production_auth
     image: docker.ikari.fi/slacker_build_auth:${BUILD_TAG}
+    environment:
+      PGDATABASE: slacker_production
 
   ui:
     container_name: slacker_production_ui
@@ -34,6 +38,8 @@ services:
   schema:
     container_name: slacker_production_schema
     image: docker.ikari.fi/slacker_build_schema:${BUILD_TAG}
+    environment:
+      POSTGRES_DB: slacker_production
 
   adminer:
     container_name: slacker_production_adminer

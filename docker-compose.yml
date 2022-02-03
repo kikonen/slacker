@@ -21,7 +21,6 @@ services:
       PGHOST: db
       PGUSER : postgres
       PGPASSWORD: password
-      PGDATABASE: slacker
       KAFKA_HOST: kafka:9092
     logging:
       options:
@@ -42,7 +41,6 @@ services:
       PGHOST: db
       PGUSER : postgres
       PGPASSWORD: password
-      PGDATABASE: slacker
       OAUTH_API: https://accounts.google.com/o/oauth2/v2/auth
       OAUTH_REDIRECT_URI: http://localhost:8080/auth/callback
     logging:
@@ -169,7 +167,6 @@ services:
       SERVER_MODE: debug
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: slacker
     logging:
       options:
         max-size: "1m"

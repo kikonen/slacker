@@ -9,12 +9,16 @@ services:
     build:
       context: ./api-service
       dockerfile: Dockerfile.build
+    environment:
+      PGDATABASE: slacker_build
 
   auth:
     container_name: slacker_build_auth
     build:
       context: ./auth-service
       dockerfile: Dockerfile.build
+    environment:
+      PGDATABASE: slacker_build
 
   ui:
     container_name: slacker_build_ui
@@ -32,3 +36,5 @@ services:
     build:
       context: ./schema
       dockerfile: Dockerfile.build
+    environment:
+      POSTGRES_DB: slacker_build
