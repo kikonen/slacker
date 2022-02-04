@@ -10,9 +10,9 @@ default: &default
   host: <%= ENV.fetch("DB_HOST") %>
   pool: 5
   timeout: 5000
-  database: <%= ENV.fetch("POSTGRES_DB") %>
-  username: <%= ENV.fetch("POSTGRES_USER") || ENV.fetch("PGUSER") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") || ENV.fetch("PGPASSWORD") %>
+  database: <%= ENV.fetch("DB_NAME") %>
+  username: <%= ENV.fetch("DB_USER") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
 
 development:
   <<: *default

@@ -9,10 +9,10 @@ export class DB {
   static init() {
     if (this.sequelize) return;
 
-    let host = process.env.PGHOST;
-    let user = process.env.PGUSER;
-    let pass = process.env.PGPASSWORD;
-    let dbname = process.env.PGDATABASE;
+    let host = process.env.DB_HOST;
+    let user = process.env.DB_USER;
+    let pass = process.env.DB_PASSWORD;
+    let dbname = process.env.DB_NAME
 
     let conn_uri = `postgres://${user}:${pass}@${host}:5432/${dbname}`
     console.log(conn_uri);

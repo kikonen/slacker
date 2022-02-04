@@ -10,7 +10,7 @@ services:
       - .production_env
       - .production_secrets
     environment:
-      PGDATABASE: slacker_production
+      DB_NAME: slacker_production
 
   auth:
     container_name: slacker_production_auth
@@ -19,8 +19,6 @@ services:
       - .env
       - .production_env
       - .production_secrets
-    environment:
-      PGDATABASE: slacker_production
 
   ui:
     container_name: slacker_production_ui
@@ -33,7 +31,7 @@ services:
       - .production_env
       - .production_secrets
     environment:
-      POSTGRES_DB: slacker_production
+      DB_NAME: slacker_production
 
   zookeeper:
     container_name: slacker_production_zookeeper
@@ -56,7 +54,7 @@ services:
       - .production_secrets
       - .schema_production_secrets
     environment:
-      POSTGRES_DB: slacker_production
+      DB_NAME: slacker_production
 
   adminer:
     container_name: slacker_production_adminer

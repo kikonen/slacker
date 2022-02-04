@@ -11,7 +11,7 @@ services:
       - .development_env
       - .development_secrets
     environment:
-      PGDATABASE: slacker_development
+      DB_NAME: slacker_development
     ports:
       - "3100"
     volumes:
@@ -27,8 +27,6 @@ services:
       - .env
       - .development_env
       - .development_secrets
-    environment:
-      PGDATABASE: slacker_development
     ports:
       - "3200"
     volumes:
@@ -53,7 +51,7 @@ services:
       - .development_env
       - .development_secrets
     environment:
-      POSTGRES_DB: slacker_development
+      DB_NAME: slacker_development
     volumes:
     - development_postgres_data:/data
     ports:
@@ -85,7 +83,7 @@ services:
       - .development_secrets
       - .schema_development_secrets
     environment:
-      POSTGRES_DB: slacker_development
+      DB_NAME: slacker_development
 
   adminer:
     container_name: slacker_development_adminer
