@@ -1,6 +1,13 @@
 version: '3.3'
 
 services:
+  nginx:
+    container_name: slacker_development_nginx
+    env_file:
+      - .env
+      - .development_env
+      - .development_secrets
+
   api:
     container_name: slacker_development_api
     build:
@@ -50,8 +57,9 @@ services:
       - .env
       - .development_env
       - .development_secrets
+      - .development_db_secrets
     environment:
-      DB_NAME: slacker_development
+      PGDATABASE: slacker_development
     volumes:
     - development_postgres_data:/data
     ports:
@@ -61,11 +69,15 @@ services:
     container_name: slacker_development_zookeeper
     ports:
       - "2181"
+    volumes:
+    - development_zookeeper_data:/data
 
   kafka:
     container_name: slacker_development_kafka
     ports:
       - "9092"
+    volumes:
+    - development_kafka_data:/data
 
   ksqldb-server:
     container_name: slacker_development_ksqldb-server
@@ -81,9 +93,13 @@ services:
       - .env
       - .development_env
       - .development_secrets
-      - .schema_development_secrets
+      - .development_schema_secrets
     environment:
       DB_NAME: slacker_development
+    volumes:
+    - ui_assets:/assets
+    - ui_bundle:/bundle
+    - ui_node_modules:/node_modules
 
   adminer:
     container_name: slacker_development_adminer
@@ -94,7 +110,7 @@ secrets:
   development_secrets:
     file: ./development_secrets.txt
   schema_development_secrets:
-    file: ./schema_development_secrets.txt
+    file: ./development_schema_secrets.txt
 
 volumes:
   development_postgres_data:
@@ -102,4 +118,6 @@ volumes:
   development_kafka_data:
   auth_node_modules:
   api_node_modules:
+  ui_assets:
+  ui_bundle:
   ui_node_modules:

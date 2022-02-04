@@ -1,6 +1,10 @@
 services:
   nginx:
     container_name: slacker_production_nginx
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
 
   api:
     container_name: slacker_production_api
@@ -30,14 +34,21 @@ services:
       - .env
       - .production_env
       - .production_secrets
+      - .production_db_secrets
     environment:
-      DB_NAME: slacker_production
+      PGDATABASE: slacker_production
+    volumes:
+    - production_postgres_data:/data
 
   zookeeper:
     container_name: slacker_production_zookeeper
+    volumes:
+    - production_zookeeper_data:/data
 
   kafka:
     container_name: slacker_production_kafka
+    volumes:
+    - production_zookeeper_data:/data
 
   ksqldb-server:
     container_name: slacker_production_ksqldb-server
@@ -52,7 +63,7 @@ services:
       - .env
       - .production_env
       - .production_secrets
-      - .schema_production_secrets
+      - .production_schema_secrets
     environment:
       DB_NAME: slacker_production
 
@@ -63,4 +74,9 @@ secrets:
   production_secrets:
     file: ./production_secrets.txt
   schema_production_secrets:
-    file: ./schema_production_secrets.txt
+    file: ./production_schema_secrets.txt
+
+volumes:
+  production_postgres_data:
+  production_zookeeper_data:
+  production_kafka_data:
