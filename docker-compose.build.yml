@@ -9,6 +9,10 @@ services:
     build:
       context: ./api-service
       dockerfile: Dockerfile.build
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
     environment:
       PGDATABASE: slacker_build
 
@@ -17,6 +21,10 @@ services:
     build:
       context: ./auth-service
       dockerfile: Dockerfile.build
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
     environment:
       PGDATABASE: slacker_build
 
@@ -28,6 +36,10 @@ services:
 
   db:
     container_name: slacker_build_db
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
     environment:
       POSTGRES_DB: slacker_build
 
@@ -36,5 +48,16 @@ services:
     build:
       context: ./schema
       dockerfile: Dockerfile.build
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
+      - .schema_build_secrets
     environment:
       POSTGRES_DB: slacker_build
+
+secrets:
+  build_secrets:
+    file: ./build_secrets.txt
+  schema_build_secrets:
+    file: ./schema_build_secrets.txt

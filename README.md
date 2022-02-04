@@ -160,6 +160,7 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
 - https://stackoverflow.com/questions/27937185/assign-static-ip-to-docker-container
 - https://stackoverflow.com/questions/64081992/docker-opened-up-ports-to-public-how-do-i-close-them
+- https://stackoverflow.com/questions/42139605/how-do-you-manage-secret-values-with-docker-compose-v3-1
 
 ### nginx
 - https://phoenixnap.com/kb/nginx-reverse-proxy

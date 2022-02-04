@@ -2,9 +2,14 @@ version: '3.3'
 
 services:
   api:
+    container_name: slacker_development_api
     build:
       context: ./api-service
       dockerfile: Dockerfile
+    env_file:
+      - .env
+      - .development_env
+      - .development_secrets
     environment:
       PGDATABASE: slacker_development
     ports:
@@ -14,9 +19,14 @@ services:
     - api_node_modules:/node_modules
 
   auth:
+    container_name: slacker_development_auth
     build:
       context: ./auth-service
       dockerfile: Dockerfile
+    env_file:
+      - .env
+      - .development_env
+      - .development_secrets
     environment:
       PGDATABASE: slacker_development
     ports:
@@ -26,6 +36,7 @@ services:
     - auth_node_modules:/node_modules
 
   ui:
+    container_name: slacker_development_ui
     build:
       context: ./ui-service
       dockerfile: Dockerfile
@@ -36,35 +47,61 @@ services:
     - ui_node_modules:/node_modules
 
   db:
+    container_name: slacker_development_db
+    env_file:
+      - .env
+      - .development_env
+      - .development_secrets
     environment:
       POSTGRES_DB: slacker_development
+    volumes:
+    - development_postgres_data:/data
     ports:
       - "5432"
 
   zookeeper:
+    container_name: slacker_development_zookeeper
     ports:
       - "2181"
 
   kafka:
+    container_name: slacker_development_kafka
     ports:
       - "9092"
 
   ksqldb-server:
+    container_name: slacker_development_ksqldb-server
     ports:
       - "8088"
 
   schema:
+    container_name: slacker_development_schema
     build:
       context: ./schema
       dockerfile: Dockerfile
+    env_file:
+      - .env
+      - .development_env
+      - .development_secrets
+      - .schema_development_secrets
     environment:
       POSTGRES_DB: slacker_development
 
   adminer:
+    container_name: slacker_development_adminer
     ports:
       - "8080"
 
+secrets:
+  development_secrets:
+    file: ./development_secrets.txt
+  schema_development_secrets:
+    file: ./schema_development_secrets.txt
+
 volumes:
+  development_postgres_data:
+  development_zookeeper_data:
+  development_kafka_data:
   auth_node_modules:
   api_node_modules:
   ui_node_modules:

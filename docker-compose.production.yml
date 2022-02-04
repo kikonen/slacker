@@ -5,12 +5,20 @@ services:
   api:
     container_name: slacker_production_api
     image: docker.ikari.fi/slacker_build_api:${BUILD_TAG}
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
     environment:
       PGDATABASE: slacker_production
 
   auth:
     container_name: slacker_production_auth
     image: docker.ikari.fi/slacker_build_auth:${BUILD_TAG}
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
     environment:
       PGDATABASE: slacker_production
 
@@ -20,6 +28,10 @@ services:
 
   db:
     container_name: slacker_production_db
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
     environment:
       POSTGRES_DB: slacker_production
 
@@ -38,8 +50,19 @@ services:
   schema:
     container_name: slacker_production_schema
     image: docker.ikari.fi/slacker_build_schema:${BUILD_TAG}
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
+      - .schema_production_secrets
     environment:
       POSTGRES_DB: slacker_production
 
   adminer:
     container_name: slacker_production_adminer
+
+secrets:
+  production_secrets:
+    file: ./production_secrets.txt
+  schema_production_secrets:
+    file: ./schema_production_secrets.txt

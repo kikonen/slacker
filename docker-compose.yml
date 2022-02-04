@@ -19,8 +19,6 @@ services:
       NODE_PATH: /node_modules
       SERVER_PORT: "3100"
       PGHOST: db
-      PGUSER : postgres
-      PGPASSWORD: password
       KAFKA_HOST: kafka:9092
     logging:
       options:
@@ -39,8 +37,6 @@ services:
       NODE_PATH: /node_modules
       SERVER_PORT: "3200"
       PGHOST: db
-      PGUSER : postgres
-      PGPASSWORD: password
       OAUTH_API: https://accounts.google.com/o/oauth2/v2/auth
       OAUTH_REDIRECT_URI: http://localhost:8080/auth/callback
     logging:
@@ -78,8 +74,6 @@ services:
     restart: always
     environment:
       PGDATA: /data/db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
     logging:
       options:
         max-size: "1m"
@@ -165,8 +159,6 @@ services:
     profiles: ["dev", "schema"]
     environment:
       SERVER_MODE: debug
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
     logging:
       options:
         max-size: "1m"
@@ -199,6 +191,4 @@ networks:
 volumes:
   postgres_data:
   zookeeper_data:
-    driver: local
   kafka_data:
-    driver: local
