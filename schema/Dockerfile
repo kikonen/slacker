@@ -16,7 +16,8 @@ ENV BUNDLE_PATH=/bundle/vendor \
     GEM_HOME=/bundle/vendor/ruby/2.7.0 \
     GEM_PATH=/bundle/vendor/ruby/2.7.0/bin \
     NODE_PATH=/node_modules \
-    PATH=$PATH:/app/bin:/node_modules/.bin
+    PATH=$PATH:/app/bin:/node_modules/.bin \
+    EDITOR=vim
 
 ####################
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
@@ -27,7 +28,7 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
 RUN npm install --global yarn
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libpq-dev postgresql-client socat sudo grep less && \
+    apt-get install -y --no-install-recommends libpq-dev postgresql-client socat sudo grep less vim && \
     rm -rf /var/lib/apt/lists/*
 
 ####################

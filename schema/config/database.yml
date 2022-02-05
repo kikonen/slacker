@@ -11,8 +11,8 @@ default: &default
   pool: 5
   timeout: 5000
   database: <%= ENV.fetch("DB_NAME") %>
-  username: <%= ENV.fetch("DB_USER") %>
-  password: <%= ENV.fetch("DB_PASSWORD") %>
+  username: <%= Rails.application.credentials.dig(:db, :user) %>
+  password: <%= Rails.application.credentials.dig(:db, :password) %>
 
 development:
   <<: *default
