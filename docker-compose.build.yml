@@ -55,6 +55,12 @@ services:
     volumes:
     - build_kafka_data:/data
 
+  ksqldb-server:
+    container_name: slacker_build_ksqldb-server
+
+  ksqldb-cli:
+    container_name: slacker_build_ksqldb-cli
+
   schema:
     container_name: slacker_build_schema
     build:

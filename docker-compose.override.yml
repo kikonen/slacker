@@ -67,6 +67,9 @@ services:
   ksqldb-server:
     container_name: slacker_development_ksqldb-server
 
+  ksqldb-cli:
+    container_name: slacker_development_ksqldb-cli
+
   schema:
     container_name: slacker_development_schema
     build:
