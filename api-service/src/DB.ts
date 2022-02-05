@@ -12,7 +12,10 @@ export class DB {
     let host = process.env.DB_HOST;
     let user = process.env.DB_USER;
     let pass = process.env.DB_PASSWORD;
-    let dbname = process.env.DB_NAME
+    let dbname = process.env.DB_NAME;
+    if (process.env.DB_SUFFIX) {
+      dbname = `${process.env.DB_NAME}_${process.env.DB_SUFFIX}`
+    }
 
     let conn_uri = `postgres://${user}:${pass}@${host}:5432/${dbname}`
     console.log(conn_uri);

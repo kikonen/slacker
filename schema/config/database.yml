@@ -10,7 +10,7 @@ default: &default
   host: <%= ENV.fetch("DB_HOST") %>
   pool: 5
   timeout: 5000
-  database: <%= ENV.fetch("DB_NAME") %>
+  database: <%= "#{ENV.fetch('DB_NAME')}#{ENV.fetch('DB_SUFFIX') ? '_' : ''}#{ENV.fetch('DB_SUFFIX')}" %>
   username: <%= Rails.application.credentials.dig(:db, :user) %>
   password: <%= Rails.application.credentials.dig(:db, :password) %>
 

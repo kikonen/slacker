@@ -17,8 +17,6 @@ services:
       - .env
       - .development_env
       - .development_secrets
-    environment:
-      DB_NAME: slacker_development
     volumes:
     - ./api-service:/app
     - api_node_modules:/node_modules
@@ -78,8 +76,6 @@ services:
       - .env
       - .development_env
       - .development_secrets
-    environment:
-      DB_NAME: slacker_development
     volumes:
     volumes:
     - ./schema:/app

@@ -1,4 +1,5 @@
 NGINX_PORT=8082
 
 DB_HOST=db
+DB_NAME=slacker_production
 DB_SUFFIX=

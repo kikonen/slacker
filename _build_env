@@ -1,4 +1,5 @@
 NGINX_PORT=8081
 
 DB_HOST=db
+DB_NAME=slacker_build
 DB_SUFFIX=

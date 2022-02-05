@@ -13,8 +13,6 @@ services:
       - .env
       - .production_env
       - .production_secrets
-    environment:
-      DB_NAME: slacker_production
 
   auth:
     container_name: slacker_production_auth
@@ -62,8 +60,6 @@ services:
       - .env
       - .production_env
       - .production_secrets
-    environment:
-      DB_NAME: slacker_production
 
   adminer:
     container_name: slacker_production_adminer

@@ -17,8 +17,6 @@ services:
       - .env
       - .build_env
       - .build_secrets
-    environment:
-      DB_NAME: slacker_build
 
   auth:
     container_name: slacker_build_auth
@@ -66,8 +64,6 @@ services:
       - .env
       - .build_env
       - .build_secrets
-    environment:
-      DB_NAME: slacker_build
 
 secrets:
   build_secrets:
