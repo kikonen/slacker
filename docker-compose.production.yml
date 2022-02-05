@@ -34,7 +34,6 @@ services:
       - .env
       - .production_env
       - .production_secrets
-      - .production_db_secrets
     environment:
       PGDATABASE: slacker_production
     volumes:

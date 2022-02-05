@@ -19,8 +19,6 @@ services:
       - .development_secrets
     environment:
       DB_NAME: slacker_development
-    ports:
-      - "3100"
     volumes:
     - ./api-service:/app
     - api_node_modules:/node_modules
@@ -34,8 +32,6 @@ services:
       - .env
       - .development_env
       - .development_secrets
-    ports:
-      - "3200"
     volumes:
     - ./auth-service:/app
     - auth_node_modules:/node_modules
@@ -45,8 +41,6 @@ services:
     build:
       context: ./ui-service
       dockerfile: Dockerfile
-    ports:
-      - "80"
     volumes:
     - ./ui-service:/app
     - ui_node_modules:/node_modules
@@ -57,32 +51,23 @@ services:
       - .env
       - .development_env
       - .development_secrets
-      - .development_db_secrets
     environment:
       PGDATABASE: slacker_development
     volumes:
     - development_postgres_data:/data
-    ports:
-      - "5432"
 
   zookeeper:
     container_name: slacker_development_zookeeper
-    ports:
-      - "2181"
     volumes:
     - development_zookeeper_data:/data
 
   kafka:
     container_name: slacker_development_kafka
-    ports:
-      - "9092"
     volumes:
     - development_kafka_data:/data
 
   ksqldb-server:
     container_name: slacker_development_ksqldb-server
-    ports:
-      - "8088"
 
   schema:
     container_name: slacker_development_schema
@@ -97,14 +82,14 @@ services:
     environment:
       DB_NAME: slacker_development
     volumes:
+    volumes:
+    - ./schema:/app
     - ui_assets:/assets
     - ui_bundle:/bundle
     - ui_node_modules:/node_modules
 
   adminer:
     container_name: slacker_development_adminer
-    ports:
-      - "8080"
 
 secrets:
   development_secrets:

@@ -42,7 +42,6 @@ services:
       - .env
       - .build_env
       - .build_secrets
-      - .build_db_secrets
     environment:
       PGDATABASE: slacker_build
     volumes:
