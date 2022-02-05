@@ -7,6 +7,10 @@ if [[ -f /app/tmp/pids/server.pid ]]; then
     rm /app/tmp/pids/server.pid
 fi
 
+if [[ $MASTER_KEY != "" ]]; then
+    echo $MASTER_KEY > config/master.key
+fi
+
 echo "SERVER_MODE: $SERVER_MODE"
 
 if [[ "$SERVER_MODE" == "debug" ]]; then

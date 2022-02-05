@@ -6,7 +6,13 @@
 sudo chown -R docker:users /bundle /node_modules /app/log /app/tmp /app/public
 
 # NOTE KI *NEW* intance clear old trash
-rm /app/tmp/pids/server.pid
+if [[ -f /app/tmp/pids/server.pid ]]; then
+    rm /app/tmp/pids/server.pid
+fi
+
+if [[ $MASTER_KEY != "" ]]; then
+    echo $MASTER_KEY > config/master.key
+fi
 
 echo "SERVER_MODE: $SERVER_MODE"
 
