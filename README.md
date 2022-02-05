@@ -41,7 +41,7 @@ OAUTH_CLIENT_SECRET=....
 
 ### Run app
 ```bash
-COMPOSE_PROFILES=dev docker-compose up
+scripts/development_up.sh
 ```
 Server runs at http://localhost:8080
 

@@ -121,7 +121,7 @@ services:
     container_name: ksqldb-server
     image: confluentinc/ksqldb-server:0.15.0
     hostname: ksqldb-server
-    profiles: ["dev"]
+    profiles: ["development"]
     networks:
       - backend
     depends_on:
@@ -139,7 +139,7 @@ services:
   ksqldb-cli:
     container_name: ksqldb-cli
     image: confluentinc/ksqldb-cli:0.15.0
-    profiles: ["dev"]
+    profiles: ["development"]
     networks:
       - backend
     depends_on:
@@ -154,7 +154,7 @@ services:
 
   schema:
     container_name: schema
-    profiles: ["dev", "schema"]
+    profiles: ["development", "schema"]
     environment:
       SERVER_MODE: debug
     logging:
@@ -173,7 +173,7 @@ services:
   adminer:
     container_name: adminer
     image: adminer
-    profiles: ["dev"]
+    profiles: ["development"]
     restart: always
     logging:
       options:
