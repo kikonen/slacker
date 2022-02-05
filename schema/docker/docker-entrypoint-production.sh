@@ -9,6 +9,7 @@ fi
 
 if [[ $MASTER_KEY != "" ]]; then
     echo $MASTER_KEY > config/master.key
+    sudo chown docker:users config/master.key
 fi
 
 echo "SERVER_MODE: $SERVER_MODE"
