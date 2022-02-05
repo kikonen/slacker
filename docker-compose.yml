@@ -40,7 +40,6 @@ services:
       NODE_PATH: /node_modules
       SERVER_PORT: "3200"
       OAUTH_API: https://accounts.google.com/o/oauth2/v2/auth
-      OAUTH_REDIRECT_URI: http://localhost:8080/auth/callback
     logging:
       options:
         max-size: "1m"

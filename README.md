@@ -176,6 +176,8 @@ docker-compose exec schema bin/rails generate migration CreateUsers name:string 
 - https://tarunlalwani.com/post/nginx-proxypass-server-paths/
 - https://stackoverflow.com/questions/18740635/nginx-upstream-timed-out-110-connection-timed-out-while-reading-response-hea
 - https://serverfault.com/questions/804298/nginx-reverse-proxy-without-base-url
+- https://www.journaldev.com/26342/nginx-location-directive
+- https://www.journaldev.com/26618/nginx-configuration-file
 
 ### Kafka
 - https://github.com/bitnami/bitnami-docker-kafka
