@@ -62,7 +62,6 @@ services:
       - .env
       - .production_env
       - .production_secrets
-      - .production_schema_secrets
     environment:
       DB_NAME: slacker_production
 
@@ -72,8 +71,6 @@ services:
 secrets:
   production_secrets:
     file: ./production_secrets.txt
-  schema_production_secrets:
-    file: ./production_schema_secrets.txt
 
 volumes:
   production_postgres_data:

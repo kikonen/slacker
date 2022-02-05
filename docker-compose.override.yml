@@ -78,7 +78,6 @@ services:
       - .env
       - .development_env
       - .development_secrets
-      - .development_schema_secrets
     environment:
       DB_NAME: slacker_development
     volumes:
@@ -94,8 +93,6 @@ services:
 secrets:
   development_secrets:
     file: ./development_secrets.txt
-  schema_development_secrets:
-    file: ./development_schema_secrets.txt
 
 volumes:
   development_postgres_data:

@@ -66,15 +66,12 @@ services:
       - .env
       - .build_env
       - .build_secrets
-      - .build_schema_secrets
     environment:
       DB_NAME: slacker_build
 
 secrets:
   build_secrets:
     file: ./build_secrets.txt
-  schema_build_secrets:
-    file: ./build_schema_secrets.txt
 
 volumes:
   build_postgres_data:
