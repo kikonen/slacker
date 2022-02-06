@@ -42,18 +42,12 @@ services:
       - .build_secrets
     environment:
       PGDATABASE: slacker_build
-    volumes:
-    - build_postgres_data:/data
 
   zookeeper:
     container_name: slacker_build_zookeeper
-    volumes:
-    - build_zookeeper_data:/data
 
   kafka:
     container_name: slacker_build_kafka
-    volumes:
-    - build_kafka_data:/data
 
   ksqldb-server:
     container_name: slacker_build_ksqldb-server
@@ -74,8 +68,3 @@ services:
 secrets:
   build_secrets:
     file: ./build_secrets.txt
-
-volumes:
-  build_postgres_data:
-  build_zookeeper_data:
-  build_kafka_data:

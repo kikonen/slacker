@@ -34,18 +34,12 @@ services:
       - .production_secrets
     environment:
       PGDATABASE: slacker_production
-    volumes:
-    - production_postgres_data:/data
 
   zookeeper:
     container_name: slacker_production_zookeeper
-    volumes:
-    - production_zookeeper_data:/data
 
   kafka:
     container_name: slacker_production_kafka
-    volumes:
-    - production_zookeeper_data:/data
 
   ksqldb-server:
     container_name: slacker_production_ksqldb-server
@@ -67,8 +61,3 @@ services:
 secrets:
   production_secrets:
     file: ./production_secrets.txt
-
-volumes:
-  production_postgres_data:
-  production_zookeeper_data:
-  production_kafka_data:

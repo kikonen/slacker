@@ -51,18 +51,12 @@ services:
       - .development_secrets
     environment:
       PGDATABASE: slacker_development
-    volumes:
-    - development_postgres_data:/data
 
   zookeeper:
     container_name: slacker_development_zookeeper
-    volumes:
-    - development_zookeeper_data:/data
 
   kafka:
     container_name: slacker_development_kafka
-    volumes:
-    - development_kafka_data:/data
 
   ksqldb-server:
     container_name: slacker_development_ksqldb-server
@@ -80,11 +74,10 @@ services:
       - .development_env
       - .development_secrets
     volumes:
-    volumes:
     - ./schema:/app
-    - ui_assets:/assets
-    - ui_bundle:/bundle
-    - ui_node_modules:/node_modules
+    - schema_assets:/assets
+    - schema_bundle:/bundle
+    - schema_node_modules:/node_modules
 
   adminer:
     container_name: slacker_development_adminer
@@ -94,11 +87,9 @@ secrets:
     file: ./development_secrets.txt
 
 volumes:
-  development_postgres_data:
-  development_zookeeper_data:
-  development_kafka_data:
   auth_node_modules:
   api_node_modules:
-  ui_assets:
-  ui_bundle:
   ui_node_modules:
+  schema_assets:
+  schema_bundle:
+  schema_node_modules:
