@@ -23,13 +23,9 @@ ENV BUNDLE_PATH=/bundle/vendor \
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get update && \
     apt-get install -y --no-install-recommends nodejs && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends libpq-dev postgresql-client socat sudo grep less vim
 
 RUN npm install --global yarn
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libpq-dev postgresql-client socat sudo grep less vim && \
-    rm -rf /var/lib/apt/lists/*
 
 ####################
 RUN echo "useradd -m ${DOCKER_USER} --uid=${DOCKER_UID} --gid=${DOCKER_GID}"
