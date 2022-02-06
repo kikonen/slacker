@@ -6,6 +6,11 @@ if [[ -f $ROOT_DIR/.env ]]; then
    . $ROOT_DIR/.env
 fi
 
+if [[ $BASE_NAME == "" ]]; then
+    echo "BASE_NAME missing from .env"
+    exit
+fi
+
 echo "DOCKER_ENV=${DOCKER_ENV}"
 
 if [[ $DOCKER_ENV == 'production' ]]; then
