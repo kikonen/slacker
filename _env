@@ -1,3 +1,5 @@
+BASE_NAME=slacker
+
 #NGINX_PORT=8080
 
 #DB_HOST=db

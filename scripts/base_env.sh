@@ -2,8 +2,11 @@
 
 DIR=`realpath \`dirname $0\``
 ROOT_DIR=`dirname $DIR`
-DOCKER_PRODUCTION_NAME=slacker_production
-DOCKER_BUILD_NAME=slacker_build
+if [[ -f $ROOT_DIR/.env ]]; then
+   . $ROOT_DIR/.env
+fi
+DOCKER_PRODUCTION_NAME="${BASE_NAME}_production"
+DOCKER_BUILD_NAME="${BASE_NAME}_build"
 
 echo "DOCKER_ENV=${DOCKER_ENV}"
 
