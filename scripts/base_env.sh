@@ -22,3 +22,5 @@ else
     COMPOSE_PROFILES=development
 fi
 echo "CMD=$DOCKER_COMPOSE"
+
+$DIR/setup_repositories.sh

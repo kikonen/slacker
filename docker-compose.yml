@@ -58,7 +58,6 @@ services:
   ui:
     container_name: ui
     environment:
-      NODE_PATH: /node_modules
       PORT: "80"
       WDS_SOCKET_PATH: /ui/sockjs-node
     logging:
@@ -87,8 +86,6 @@ services:
       options:
         max-size: "1m"
         max-file: "2"
-    volumes:
-      - postgres_data:/data
     labels:
       ports: "5432"
     networks:
@@ -205,6 +202,5 @@ networks:
   backend:
 
 volumes:
-  postgres_data:
   zookeeper_data:
   kafka_data:
