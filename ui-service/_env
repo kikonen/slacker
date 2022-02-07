@@ -1,1 +1,2 @@
+PUBLIC_URL=/slacker/ui
 CHOKIDAR_USEPOLLING=true

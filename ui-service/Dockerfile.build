@@ -6,6 +6,8 @@ ENV NODE_PATH=/node_modules \
 
 ENV NODE_ENV=production
 
+RUN env
+
 ####################
 RUN mkdir -p /node_modules
 
