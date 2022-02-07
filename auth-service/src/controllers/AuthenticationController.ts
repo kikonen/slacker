@@ -74,7 +74,7 @@ export class AuthenticationController {
         const params = client.callbackParams(req);
 
         const tokenSet = await client.callback(
-          `${GoogleAuth.getDomain(req)}/auth/callback`,
+          `${GoogleAuth.getBaseUrl(req)}/auth/callback`,
           params,
           { state });
         userInfo = await client.userinfo(tokenSet);
