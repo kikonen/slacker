@@ -47,7 +47,7 @@ class App extends React.Component<{}, AppState>
   }
 
   async eventUserRefresh(e: any) {
-    const response = await fetch('/api/session/me');
+    const response = await fetch('../api/session/me');
     let rs = await response.json();
     console.log(rs);
     let userInfo = rs.data;
@@ -107,7 +107,7 @@ class App extends React.Component<{}, AppState>
     let parts: string[] = [];
     params.forEach((v, k) => { parts.push(`${k}=${encodeURIComponent(v)}`) });
 
-    const url = `/api/events/latest?${parts.join('&')}`;
+    const url = `../api/events/latest?${parts.join('&')}`;
 
     console.log("START_EVENTS: " + url);
 
@@ -142,7 +142,7 @@ class App extends React.Component<{}, AppState>
   }
 
   async fetchUserInfo() {
-    const response = await fetch('/api/session/me');
+    const response = await fetch('../api/session/me');
     let rs = await response.json();
     console.log(rs);
     let userInfo = rs.data;
@@ -163,7 +163,7 @@ class App extends React.Component<{}, AppState>
   }
 
   async fetchUsers() {
-    const response = await fetch('/api/users');
+    const response = await fetch('../api/users');
     let rs = await response.json();
     console.log(rs);
 

@@ -47,7 +47,7 @@ export class ChannelCreateComponent extends React.Component<Props, State> {
 
     console.log("CREATE", data);
 
-    const response = await fetch('/api/channels', {
+    const response = await fetch('../api/channels', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

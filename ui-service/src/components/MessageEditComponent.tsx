@@ -57,7 +57,7 @@ export class MessageEditComponent extends React.Component<Props, State> {
       text: text,
     };
 
-    const response = await fetch('/api/commands/send', {
+    const response = await fetch('../api/commands/send', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

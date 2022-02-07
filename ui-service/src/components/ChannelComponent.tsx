@@ -25,7 +25,7 @@ export class ChannelComponent extends React.Component<Props> {
   async onLeaveChannel(e: any, channelId: string) {
     e.preventDefault();
 
-    const url = `/api/channels/${channelId}/actions/leave`;
+    const url = `../api/channels/${channelId}/actions/leave`;
     const response = await fetch(url, { method: 'post' });
     let rs = await response.json();
     console.log("LEAVED", rs);

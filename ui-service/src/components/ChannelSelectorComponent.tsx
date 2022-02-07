@@ -37,7 +37,7 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
   }
 
   async fetchChannels() {
-    const response = await fetch('/api/channels');
+    const response = await fetch('../api/channels');
     let rs = await response.json();
     console.log("CHANNELS", rs);
 
@@ -49,7 +49,7 @@ export class ChannelSelectorComponent extends React.Component<Props, State> {
   async onSelectChannel(e: any, channelId: string) {
     e.preventDefault();
 
-    const url = `/api/channels/${channelId}/actions/join`;
+    const url = `../api/channels/${channelId}/actions/join`;
     const response = await fetch(url, { method: 'post' });
     let rs = await response.json();
     console.log("JOINED", rs);
