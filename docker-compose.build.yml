@@ -33,6 +33,10 @@ services:
     build:
       context: ./ui-service
       dockerfile: Dockerfile.build
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
 
   db:
     container_name: slacker_build_db
@@ -45,15 +49,31 @@ services:
 
   zookeeper:
     container_name: slacker_build_zookeeper
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
 
   kafka:
     container_name: slacker_build_kafka
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
 
   ksqldb-server:
     container_name: slacker_build_ksqldb-server
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
 
   ksqldb-cli:
     container_name: slacker_build_ksqldb-cli
+    env_file:
+      - .env
+      - .build_env
+      - .build_secrets
 
   schema:
     container_name: slacker_build_schema
