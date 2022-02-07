@@ -27,6 +27,8 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
 
 RUN npm install --global yarn
 
+RUN ln -sf /node_modules node_modules
+
 ####################
 RUN echo "useradd -m ${DOCKER_USER} --uid=${DOCKER_UID} --gid=${DOCKER_GID}"
 RUN useradd -m ${DOCKER_USER} --uid=${DOCKER_UID} --gid=${DOCKER_GID} && \

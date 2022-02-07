@@ -17,6 +17,10 @@ export class GoogleAuth {
     let url = port ? `${proto}://${host}:${port}` : `${proto}://${host}`;
     return url;
   }
+
+  static getBaseUrl(req: express.Request): string {
+    return process.env.BASE_URL;
+  }
 }
 
 async function initialize(
@@ -37,7 +41,7 @@ async function initialize(
   const client = new googleIssuer.Client({
     client_id: process.env.OAUTH_CLIENT_ID!,
     client_secret: process.env.OAUTH_CLIENT_SECRET!,
-    redirect_uris: [`${GoogleAuth.getDomain(req)}/auth/callback`],
+    redirect_uris: [`${GoogleAuth.getBaseUrl(req)}/auth/callback`],
     response_types: ["code"],
   });
 

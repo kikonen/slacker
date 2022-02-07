@@ -1,5 +1,8 @@
 NGINX_PORT=8082
 
+BASE_URL=https://demo.ikari.fi/slacker
+PUBLIC_URL=/slacker/ui
+
 DB_HOST=db
 DB_NAME=slacker_production
 DB_SUFFIX=

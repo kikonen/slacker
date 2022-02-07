@@ -1,5 +1,10 @@
 NGINX_PORT=8081
 
+BASE_URL=http://localhost:8081'
+PUBLIC_URL=/ui
+
+CHOKIDAR_USEPOLLING=true
+
 DB_HOST=db
 DB_NAME=slacker_development
 DB_SUFFIX=

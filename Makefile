@@ -1,6 +1,6 @@
 build: build_api build_auth build_ui build_schema
-tag: tag_api tag_auth tag_ui tag_schema
-push: push_api push_auth push_ui push_schema
+build_tag: tag_api tag_auth tag_ui tag_schema
+build_push: push_api push_auth push_ui push_schema
 
 build_api:
 	docker-compose --project-name slacker_build -f docker-compose.yml -f docker-compose.build.yml build --no-cache api

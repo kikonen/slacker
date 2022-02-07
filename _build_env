@@ -1,4 +1,7 @@
-NGINX_PORT=8081
+NGINX_PORT=8083
+
+BASE_URL=http://localhost:8083
+PUBLIC_URL=/slacker/ui
 
 DB_HOST=db
 DB_NAME=slacker_build
