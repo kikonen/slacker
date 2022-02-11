@@ -17,6 +17,8 @@ services:
       - .env
       - .development_env
       - .development_secrets
+    ports:
+      - "9201"
     volumes:
     - ./api-service:/app
     - api_node_modules:/node_modules
@@ -30,6 +32,8 @@ services:
       - .env
       - .development_env
       - .development_secrets
+    ports:
+      - "9202"
     volumes:
     - ./auth-service:/app
     - auth_node_modules:/node_modules
@@ -43,6 +47,8 @@ services:
       - .env
       - .development_env
       - .development_secrets
+    ports:
+      - "9203"
     volumes:
     - ./ui-service:/app
     - ui_node_modules:/node_modules

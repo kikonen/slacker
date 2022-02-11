@@ -26,8 +26,6 @@ services:
     working_dir: /app
     labels:
       ports: "3100"
-    ports:
-      - "9201"
     networks:
       - backend
     depends_on:
@@ -47,8 +45,6 @@ services:
     working_dir: /app
     labels:
       ports: "3200"
-    ports:
-      - "9202"
     networks:
       - backend
     depends_on:
@@ -67,8 +63,6 @@ services:
     working_dir: /app
     labels:
       ports: "80"
-    ports:
-      - "9203"
     networks:
       - backend
     depends_on:
