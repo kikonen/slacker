@@ -5,6 +5,7 @@ services:
       - .env
       - .production_env
       - .production_secrets
+    restart: always
 
   api:
     container_name: slacker_production_api
@@ -13,6 +14,7 @@ services:
       - .env
       - .production_env
       - .production_secrets
+    restart: always
 
   auth:
     container_name: slacker_production_auth
@@ -21,10 +23,12 @@ services:
       - .env
       - .production_env
       - .production_secrets
+    restart: always
 
   ui:
     container_name: slacker_production_ui
     image: docker.ikari.fi/slacker_build_ui:${BUILD_TAG}
+    restart: always
 
   db:
     container_name: slacker_production_db
@@ -34,12 +38,15 @@ services:
       - .production_secrets
     environment:
       PGDATABASE: slacker_production
+    restart: always
 
   zookeeper:
     container_name: slacker_production_zookeeper
+    restart: always
 
   kafka:
     container_name: slacker_production_kafka
+    restart: always
 
   ksqldb-server:
     container_name: slacker_production_ksqldb-server
