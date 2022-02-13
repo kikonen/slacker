@@ -1,3 +1,5 @@
+exit
+
 DIR=`dirname $0`
 DIR=`realpath $DIR`
 ROOT_DIR=`dirname $DIR`
