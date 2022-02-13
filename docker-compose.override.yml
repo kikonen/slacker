@@ -2,14 +2,12 @@ version: '3.3'
 
 services:
   nginx:
-    container_name: slacker_development_nginx
     env_file:
       - .env
       - .development_env
       - .development_secrets
 
   api:
-    container_name: slacker_development_api
     build:
       context: ./api-service
       dockerfile: Dockerfile
@@ -24,7 +22,6 @@ services:
     - api_node_modules:/node_modules
 
   auth:
-    container_name: slacker_development_auth
     build:
       context: ./auth-service
       dockerfile: Dockerfile
@@ -39,7 +36,6 @@ services:
     - auth_node_modules:/node_modules
 
   ui:
-    container_name: slacker_development_ui
     build:
       context: ./ui-service
       dockerfile: Dockerfile
@@ -54,7 +50,6 @@ services:
     - ui_node_modules:/node_modules
 
   db:
-    container_name: slacker_development_db
     env_file:
       - .env
       - .development_env
@@ -63,35 +58,30 @@ services:
       PGDATABASE: slacker_development
 
   zookeeper:
-    container_name: slacker_development_zookeeper
     env_file:
       - .env
       - .development_env
       - .development_secrets
 
   kafka:
-    container_name: slacker_development_kafka
     env_file:
       - .env
       - .development_env
       - .development_secrets
 
   ksqldb-server:
-    container_name: slacker_development_ksqldb-server
     env_file:
       - .env
       - .development_env
       - .development_secrets
 
   ksqldb-cli:
-    container_name: slacker_development_ksqldb-cli
     env_file:
       - .env
       - .development_env
       - .development_secrets
 
   schema:
-    container_name: slacker_development_schema
     build:
       context: ./schema
       dockerfile: Dockerfile
@@ -106,7 +96,6 @@ services:
     - schema_node_modules:/node_modules
 
   adminer:
-    container_name: slacker_development_adminer
     env_file:
       - .env
       - .development_env

@@ -1,6 +1,5 @@
 services:
   nginx:
-    container_name: slacker_production_nginx
     env_file:
       - .env
       - .production_env
@@ -8,7 +7,6 @@ services:
     restart: always
 
   api:
-    container_name: slacker_production_api
     image: docker.ikari.fi/slacker_build_api:${BUILD_TAG}
     env_file:
       - .env
@@ -17,7 +15,6 @@ services:
     restart: always
 
   auth:
-    container_name: slacker_production_auth
     image: docker.ikari.fi/slacker_build_auth:${BUILD_TAG}
     env_file:
       - .env
@@ -26,12 +23,10 @@ services:
     restart: always
 
   ui:
-    container_name: slacker_production_ui
     image: docker.ikari.fi/slacker_build_ui:${BUILD_TAG}
     restart: always
 
   db:
-    container_name: slacker_production_db
     env_file:
       - .env
       - .production_env
@@ -41,21 +36,32 @@ services:
     restart: always
 
   zookeeper:
-    container_name: slacker_production_zookeeper
     restart: always
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
 
   kafka:
-    container_name: slacker_production_kafka
     restart: always
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
 
   ksqldb-server:
-    container_name: slacker_production_ksqldb-server
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
 
   ksqldb-cli:
-    container_name: slacker_production_ksqldb-cli
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
 
   schema:
-    container_name: slacker_production_schema
     image: docker.ikari.fi/slacker_build_schema:${BUILD_TAG}
     env_file:
       - .env
@@ -63,7 +69,10 @@ services:
       - .production_secrets
 
   adminer:
-    container_name: slacker_production_adminer
+    env_file:
+      - .env
+      - .production_env
+      - .production_secrets
 
 secrets:
   production_secrets:

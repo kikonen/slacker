@@ -2,14 +2,12 @@ version: '3.3'
 
 services:
   nginx:
-    container_name: slacker_build_nginx
     env_file:
       - .env
       - .build_env
       - .build_secrets
 
   api:
-    container_name: slacker_build_api
     build:
       context: ./api-service
       dockerfile: Dockerfile.build
@@ -19,7 +17,6 @@ services:
       - .build_secrets
 
   auth:
-    container_name: slacker_build_auth
     build:
       context: ./auth-service
       dockerfile: Dockerfile.build
@@ -29,7 +26,6 @@ services:
       - .build_secrets
 
   ui:
-    container_name: slacker_build_ui
     build:
       context: ./ui-service
       dockerfile: Dockerfile.build
@@ -39,7 +35,6 @@ services:
       - .build_secrets
 
   db:
-    container_name: slacker_build_db
     env_file:
       - .env
       - .build_env
@@ -48,35 +43,30 @@ services:
       PGDATABASE: slacker_build
 
   zookeeper:
-    container_name: slacker_build_zookeeper
     env_file:
       - .env
       - .build_env
       - .build_secrets
 
   kafka:
-    container_name: slacker_build_kafka
     env_file:
       - .env
       - .build_env
       - .build_secrets
 
   ksqldb-server:
-    container_name: slacker_build_ksqldb-server
     env_file:
       - .env
       - .build_env
       - .build_secrets
 
   ksqldb-cli:
-    container_name: slacker_build_ksqldb-cli
     env_file:
       - .env
       - .build_env
       - .build_secrets
 
   schema:
-    container_name: slacker_build_schema
     build:
       context: ./schema
       dockerfile: Dockerfile.build
